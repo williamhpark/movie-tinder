@@ -4,7 +4,7 @@ const GenreSelect = (props) => {
   return (
     <ol>
       {props.genres.map((genre) => {
-        <li key={genre}>{genre}</li>;
+        return <li key={genre}>{genre}</li>;
       })}
     </ol>
   );
