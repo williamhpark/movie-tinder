@@ -40,8 +40,8 @@ const OptionSelectPage = (props) => {
 
   return (
     <div>
-      <TypeSelect setIsMovie={setIsMovie} />
-      <GenreSelect genres={genres} />
+      <TypeSelect isMovie={isMovie} setIsMovie={setIsMovie} />
+      <GenreSelect genres={genres} genre={genre} setGenre={setGenre} />
     </div>
   );
 };
