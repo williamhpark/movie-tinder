@@ -1,5 +1,5 @@
 import React from "react";
-import "./typestyle.css";
+import "./TypeSelect.css";
 
 function TypeSelect(props) {
   return (
