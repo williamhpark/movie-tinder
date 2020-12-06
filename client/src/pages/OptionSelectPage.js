@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import TypeSelect from "../components/TypeSelect/TypeSelect";
 import GenreSelect from "../components/GenreSelect/GenreSelect";
 
 const OptionSelectPage = (props) => {
-  const [isMovie, setIsMovie] = useState(null);
+  const [isMovie, setIsMovie] = useState(false);
+  const [isShow, setIsShow] = useState(false);
   const [genre, setGenre] = useState("");
   let genres = [];
 
   useEffect(() => {
     getGenres();
-    console.log(isMovie);
+    console.log(TypeSelect.isMovie);
   });
 
   const getGenres = async () => {
@@ -40,8 +40,13 @@ const OptionSelectPage = (props) => {
 
   return (
     <div>
-      <TypeSelect setIsMovie={setIsMovie} />
-      <GenreSelect genres={genres} />
+      <TypeSelect
+        isMovie={isMovie}
+        setIsMovie={setIsMovie}
+        isShow={isShow}
+        setIsShow={setIsShow}
+      />
+      <GenreSelect genres={genres} genre={genre} setGenre={setGenre} />
     </div>
   );
 };
