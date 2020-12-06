@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TypeSelect from "../components/TypeSelect/TypeSelect";
-import GenreSelect from "../components/GenreSelect/GenreSelect";
+import TypeSelect from "../../components/TypeSelect/TypeSelect";
+import GenreSelect from "../../components/GenreSelect/GenreSelect";
 
 const OptionSelectPage = (props) => {
   const [isMovie, setIsMovie] = useState(false);
