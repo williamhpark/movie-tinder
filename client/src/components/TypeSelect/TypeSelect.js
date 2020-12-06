@@ -1,12 +1,23 @@
 import React from "react";
+import "./typestyle.css";
 
-const TypeSelect = (props) => {
+function TypeSelect(props) {
   return (
-    <div>
-      <button onClick={() => props.setIsMovie(true)}>Movie</button>
-      <button onClick={() => props.setIsMovie(false)}>Series</button>
+    <div class="center">
+      <h1>Movies</h1>
+      <input
+        onClick={() => props.setIsMovie(!props.isMovie)}
+        type="checkbox"
+        name=""
+      />
+      <h1>Shows</h1>
+      <input
+        onClick={() => props.setIsShow(!props.isShow)}
+        type="checkbox"
+        name=""
+      />
     </div>
   );
-};
+}
 
 export default TypeSelect;
