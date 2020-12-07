@@ -1,5 +1,5 @@
 import "./App.css";
-import OptionSelectPage from "./pages/OptionSelectPage";
+import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
 
 function App() {
   return (

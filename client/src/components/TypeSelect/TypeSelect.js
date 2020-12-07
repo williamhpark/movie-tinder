@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./TypeSelect.css";
 
 function TypeSelect(props) {
@@ -10,9 +11,9 @@ function TypeSelect(props) {
         type="checkbox"
         name=""
       />
-      <h1>Shows</h1>
+      <h1>Series</h1>
       <input
-        onClick={() => props.setIsShow(!props.isShow)}
+        onClick={() => props.setIsSeries(!props.isSeries)}
         type="checkbox"
         name=""
       />
