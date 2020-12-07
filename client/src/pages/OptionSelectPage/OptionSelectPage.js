@@ -5,13 +5,14 @@ import GenreSelect from "../../components/GenreSelect/GenreSelect";
 
 const OptionSelectPage = (props) => {
   const [isMovie, setIsMovie] = useState(false);
-  const [isShow, setIsShow] = useState(false);
+  const [isSeries, setIsSeries] = useState(false);
   const [genre, setGenre] = useState("");
   let genres = [];
 
   useEffect(() => {
-    getGenres();
-    console.log(TypeSelect.isMovie);
+    // getGenres();
+    console.log("Movie: ", isMovie);
+    console.log("Series: ", isSeries);
   });
 
   const getGenres = async () => {
@@ -31,7 +32,7 @@ const OptionSelectPage = (props) => {
         response.data.ITEMS.forEach((element) =>
           genres.push(Object.keys(element)[0])
         );
-        console.log(JSON.stringify(genres));
+        console.log(genres);
       })
       .catch((error) => {
         console.error(error);
@@ -43,8 +44,8 @@ const OptionSelectPage = (props) => {
       <TypeSelect
         isMovie={isMovie}
         setIsMovie={setIsMovie}
-        isShow={isShow}
-        setIsShow={setIsShow}
+        isSeries={isSeries}
+        setIsSeries={setIsSeries}
       />
       <GenreSelect genres={genres} genre={genre} setGenre={setGenre} />
     </div>
