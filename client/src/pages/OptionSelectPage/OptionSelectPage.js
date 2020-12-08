@@ -11,37 +11,39 @@ const OptionSelectPage = (props) => {
   const [genres, setGenres] = useState([]);
   const [genre, setGenre] = useState("");
 
-  const fetchGenres = useCallback(() => {
-    const options = {
-      method: "GET",
-      url: "https://unogs-unogs-v1.p.rapidapi.com/api.cgi",
-      params: { t: "genres" },
-      headers: {
-        "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
-        "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
-      },
-    };
-    let genresArr = [];
-    axios
-      .request(options)
-      .then((response) => {
-        response.data.ITEMS.forEach((element) =>
-          genresArr.push(Object.keys(element)[0])
-        );
-        console.log(JSON.stringify(genresArr));
-        setGenres(genresArr);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // const fetchGenres = useCallback(() => {
+  //   const options = {
+  //     method: "GET",
+  //     url: "https://unogs-unogs-v1.p.rapidapi.com/api.cgi",
+  //     params: { t: "genres" },
+  //     headers: {
+  //       "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
+  //       "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
+  //     },
+  //   };
+  //   let genresArr = [];
+  //   axios
+  //     .request(options)
+  //     .then((response) => {
+  //       response.data.ITEMS.forEach((element) =>
+  //         genresArr.push(Object.keys(element)[0])
+  //       );
+  //       console.log(JSON.stringify(genresArr));
+  //       setGenres(genresArr);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchGenres();
+  // }, [fetchGenres]);
 
   useEffect(() => {
-    fetchGenres();
-  }, [fetchGenres]);
-
-  // let testGenresArr = ["Genre 1", "Genre 2", "Genre 3", "Genre 4", "Genre 5"];
-  // setGenres(testGenresArr);
+    let testGenresArr = ["Genre 1", "Genre 2", "Genre 3", "Genre 4", "Genre 5"];
+    setGenres(testGenresArr);
+  }, []);
 
   return (
     <div id="option-select-page">
