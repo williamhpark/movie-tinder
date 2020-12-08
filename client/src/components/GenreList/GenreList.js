@@ -14,6 +14,7 @@ const GenreList = (props) => {
               genre={genre}
               selectedGenres={props.selectedGenres}
               updateSelectedGenres={props.updateSelectedGenres}
+              setKeyword={props.setKeyword}
             />
           );
         })}

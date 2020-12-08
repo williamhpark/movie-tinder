@@ -34,6 +34,7 @@ const GenreSelect = (props) => {
             genreList={props.genreList}
             selectedGenres={props.selectedGenres}
             updateSelectedGenres={updateSelectedGenres}
+            setKeyword={props.setKeyword}
           />
         </div>
         <SelectedGenresList

@@ -7,6 +7,7 @@ const GenreItem = (props) => {
 
   const handleClick = (genre) => {
     props.updateSelectedGenres(genre);
+    props.setKeyword("");
     setSelected(!selected);
   };
 
