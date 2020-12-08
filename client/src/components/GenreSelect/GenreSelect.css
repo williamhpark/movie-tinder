@@ -1,6 +1,17 @@
 #genre-select {
+  display: flex;
+  flex-direction: column;
 }
 
 #genre-select h1 {
   text-align: center;
+}
+
+#genre-select #container {
+  display: flex;
+  flex-direction: row;
+}
+
+#genre-select #search-list {
+  margin-right: 5rem;
 }

@@ -8,8 +8,10 @@ import GenreSelect from "../../components/GenreSelect/GenreSelect";
 const OptionSelectPage = (props) => {
   const [isMovie, setIsMovie] = useState(false);
   const [isSeries, setIsSeries] = useState(false);
-  const [genres, setGenres] = useState([]);
-  const [genre, setGenre] = useState("");
+  const [genreListDefault, setGenreListDefault] = useState([]);
+  const [genreList, setGenreList] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   // const fetchGenres = useCallback(() => {
   //   const options = {
@@ -29,7 +31,7 @@ const OptionSelectPage = (props) => {
   //         genresArr.push(Object.keys(element)[0])
   //       );
   //       console.log(JSON.stringify(genresArr));
-  //       setGenres(genresArr);
+  //       setGenreListDefault(genresArr);
   //     })
   //     .catch((error) => {
   //       console.error(error);
@@ -42,7 +44,7 @@ const OptionSelectPage = (props) => {
 
   useEffect(() => {
     let testGenresArr = ["Genre 1", "Genre 2", "Genre 3", "Genre 4", "Genre 5"];
-    setGenres(testGenresArr);
+    setGenreListDefault(testGenresArr);
   }, []);
 
   return (
@@ -54,10 +56,14 @@ const OptionSelectPage = (props) => {
         setIsSeries={setIsSeries}
       />
       <GenreSelect
-        genres={genres}
-        setGenres={setGenres}
-        genre={genre}
-        setGenre={setGenre}
+        genreListDefault={genreListDefault}
+        setGenreListDefault={setGenreListDefault}
+        genreList={genreList}
+        setGenreList={setGenreList}
+        keyword={keyword}
+        setKeyword={setKeyword}
+        selectedGenres={selectedGenres}
+        setSelectedGenres={setSelectedGenres}
       />
     </div>
   );
