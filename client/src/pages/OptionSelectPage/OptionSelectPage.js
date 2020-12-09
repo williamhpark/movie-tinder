@@ -6,12 +6,9 @@ import TypeSelect from "../../components/TypeSelect/TypeSelect";
 import GenreSelect from "../../components/GenreSelect/GenreSelect";
 
 const OptionSelectPage = (props) => {
-  const [isMovie, setIsMovie] = useState(false);
-  const [isSeries, setIsSeries] = useState(false);
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [selectedGenres, setSelectedGenres] = useState([]);
 
   // const fetchGenres = useCallback(() => {
   //   const options = {
@@ -50,10 +47,10 @@ const OptionSelectPage = (props) => {
   return (
     <div id="option-select-page">
       <TypeSelect
-        isMovie={isMovie}
-        setIsMovie={setIsMovie}
-        isSeries={isSeries}
-        setIsSeries={setIsSeries}
+        isMovie={props.isMovie}
+        setIsMovie={props.setIsMovie}
+        isSeries={props.isSeries}
+        setIsSeries={props.setIsSeries}
       />
       <GenreSelect
         genreListDefault={genreListDefault}
@@ -62,8 +59,8 @@ const OptionSelectPage = (props) => {
         setGenreList={setGenreList}
         keyword={keyword}
         setKeyword={setKeyword}
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
+        selectedGenres={props.selectedGenres}
+        setSelectedGenres={props.setSelectedGenres}
       />
     </div>
   );
