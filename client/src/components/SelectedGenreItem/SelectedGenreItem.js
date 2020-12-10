@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
