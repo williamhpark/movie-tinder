@@ -14,11 +14,11 @@ const GenreItem = (props) => {
   return (
     <button
       className="genre-item"
-      key={props.genre}
+      key={props.genre.id}
       type="submit"
       onClick={() => handleClick(props.genre)}
     >
-      <h3>{props.genre}</h3>
+      <h3>{props.genre.name}</h3>
     </button>
   );
 };

@@ -4,7 +4,7 @@ import "./TypeSelect.css";
 
 function TypeSelect(props) {
   return (
-    <div class="center">
+    <div className="center">
       <h1>Movies</h1>
       <input
         onClick={() => props.setIsMovie(!props.isMovie)}
