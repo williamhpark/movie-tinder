@@ -1,45 +1,31 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Usercontext } from "./Context";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
+import { ShowProvider } from "./ShowContext";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
 
 const App = () => {
-  const [isMovie, setIsMovie] = useState(false);
-  const [isSeries, setIsSeries] = useState(false);
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const routes = [
+    { name: "Options", path: "/", component: OptionSelectPage },
+    { name: "Results", path: "/results", component: ResultsPage },
+  ];
 
   return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/"> Optionspage</Link>
-          </li>
-          <li>
-            <Link to="/results">Moviespage</Link>
-          </li>
-        </ul>
-        <Switch>
-          <Usercontext.Provider
-            value={{
-              contextMovie: [isMovie, setIsMovie],
-              contextSeries: [isSeries, setIsSeries],
-              contextSelectedGenres: [selectedGenres, setSelectedGenres],
-            }}
-          >
-            <Route exact path="/">
-              <OptionSelectPage />
-            </Route>
-            <Route exact path="/results">
-              <ResultsPage />
-            </Route>
-          </Usercontext.Provider>
-        </Switch>
-      </div>
-    </Router>
+    <ShowProvider>
+      <Router>
+        <div>
+          <Switch>
+            {routes.map((route) => {
+              return (
+                <Route exact path={route.path} component={route.component} />
+              );
+            })}
+          </Switch>
+        </div>
+      </Router>
+    </ShowProvider>
   );
 };
 

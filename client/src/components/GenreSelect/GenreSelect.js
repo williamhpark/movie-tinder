@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./GenreSelect.css";
+import { ShowContext } from "../../ShowContext";
 import GenreSearchBar from "../GenreSearchBar/GenreSearchBar";
 import GenreList from "../GenreList/GenreList";
 import SelectedGenresList from "../SelectedGenresList/SelectedGenresList";
 
 const GenreSelect = (props) => {
+  const [state, setState] = useContext(ShowContext);
+
   const updateGenreList = (keyword) => {
     props.setKeyword(keyword);
     const filtered = props.genreListDefault.filter((genre) => {
@@ -15,8 +18,11 @@ const GenreSelect = (props) => {
   };
 
   const updateSelectedGenres = (genre) => {
-    if (!props.selectedGenres.includes(genre)) {
-      props.setSelectedGenres([...props.selectedGenres, genre]);
+    if (!state.selectedGenres.includes(genre)) {
+      setState((state) => ({
+        ...state,
+        selectedGenres: [...state.selectedGenres, genre],
+      }));
     }
   };
 
@@ -31,16 +37,12 @@ const GenreSelect = (props) => {
           />
           <GenreList
             keyword={props.keyword}
-            genreList={props.genreList}
-            selectedGenres={props.selectedGenres}
-            updateSelectedGenres={updateSelectedGenres}
             setKeyword={props.setKeyword}
+            genreList={props.genreList}
+            updateSelectedGenres={updateSelectedGenres}
           />
         </div>
-        <SelectedGenresList
-          selectedGenres={props.selectedGenres}
-          setSelectedGenres={props.setSelectedGenres}
-        />
+        <SelectedGenresList />
       </div>
     </div>
   );

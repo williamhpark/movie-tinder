@@ -3,13 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 import "./SelectedGenreItem.css";
+import { ShowContext } from "../../ShowContext";
 
 const SelectedGenreItem = (props) => {
+  const [state, setState] = useContext(ShowContext);
   const removeGenre = (genre) => {
-    const filtered = props.selectedGenres.filter((item) => {
+    const filtered = state.selectedGenres.filter((item) => {
       return item.id !== genre.id;
     });
-    props.setSelectedGenres(filtered);
+    setState((state) => ({ ...state, selectedGenres: filtered }));
   };
 
   return (
