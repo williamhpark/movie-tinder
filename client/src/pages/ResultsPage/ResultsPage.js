@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 
-import { Usercontext } from "../../Context";
+import { ShowContext } from "../../ShowContext";
 
 const ResultsPage = (props) => {
   const [movieInfo, setMovieInfo] = useState(null);
@@ -13,12 +13,12 @@ const ResultsPage = (props) => {
   const [movieReleaseDate, setMovieReleaseDate] = useState("");
   const [movieRunTime, setMovieRunTime] = useState("");
   const [movieID, setMovieID] = useState("");
-  const { contextMovie, contextSeries, contextSelectedGenres } = useContext(
-    Usercontext
-  );
-  const [isMovie, setIsMovie] = contextMovie;
-  const [isSeries, setIsSeries] = contextSeries;
-  const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
+  // const { contextMovie, contextSeries, contextSelectedGenres } = useContext(
+  //   Usercontext
+  // );
+  // const [isMovie, setIsMovie] = contextMovie;
+  // const [isSeries, setIsSeries] = contextSeries;
+  // const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
 
   console.log(movieAndShow);
 

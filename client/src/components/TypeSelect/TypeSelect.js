@@ -1,34 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./TypeSelect.css";
+import { ShowContext } from "../../ShowContext";
 
 const TypeSelect = (props) => {
-  const reversemovie = (item) => {
-    props.setIsMovie(!item);
+  const [state, setState] = useContext(ShowContext);
+
+  const toggleIsMovie = () => {
+    setState((state) => ({ ...state, isMovie: !state.isMovie }));
   };
-  const reverseshow = (item) => {
-    props.setIsSeries(!item);
+
+  const toggleIsSeries = () => {
+    setState((state) => ({ ...state, isSeries: !state.isSeries }));
   };
-  // const removeGenre = (genre) => {
-  //   const filtered = props.selectedGenres.filter((item) => {
-  //     return item !== genre;
-  //   });
-  //   setSelectedGenres(filtered);
-  // };
+
   return (
     <div className="center">
       <h1>Movies</h1>
-      <input
-        onClick={() => reversemovie(props.isMovie)}
-        type="checkbox"
-        name=""
-      />
+      <input onClick={() => toggleIsMovie()} type="checkbox" name="movie" />
       <h1>Series</h1>
-      <input
-        onClick={() => reverseshow(props.isSeries)}
-        type="checkbox"
-        name=""
-      />
+      <input onClick={() => toggleIsSeries()} type="checkbox" name="series" />
     </div>
   );
 };

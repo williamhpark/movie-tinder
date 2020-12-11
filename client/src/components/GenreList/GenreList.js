@@ -11,7 +11,6 @@ const GenreList = (props) => {
           return (
             <GenreItem
               genre={genre}
-              selectedGenres={props.selectedGenres}
               updateSelectedGenres={props.updateSelectedGenres}
               setKeyword={props.setKeyword}
             />

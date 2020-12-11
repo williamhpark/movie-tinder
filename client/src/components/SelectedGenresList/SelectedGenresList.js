@@ -1,20 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./SelectedGenresList.css";
+import { ShowContext } from "../../ShowContext";
 import SelectedGenreItem from "../SelectedGenreItem/SelectedGenreItem";
 
 const SelectedGenresList = (props) => {
+  const [state, setState] = useContext(ShowContext);
   return (
     <div id="selected-genres-container">
       <h2>Selected Genres</h2>
-      {props.selectedGenres.map((genre) => {
-        return (
-          <SelectedGenreItem
-            genre={genre}
-            selectedGenres={props.selectedGenres}
-            setSelectedGenres={props.setSelectedGenres}
-          />
-        );
+      {state.selectedGenres.map((genre) => {
+        return <SelectedGenreItem genre={genre} />;
       })}
     </div>
   );
