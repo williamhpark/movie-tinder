@@ -1,17 +1,21 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 
+import { Usercontext } from "../../Context";
 import "./OptionSelectPage.css";
 import TypeSelect from "../../components/TypeSelect/TypeSelect";
 import GenreSelect from "../../components/GenreSelect/GenreSelect";
 
 const OptionSelectPage = (props) => {
-  const [isMovie, setIsMovie] = useState(false);
-  const [isSeries, setIsSeries] = useState(false);
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const { contextMovie, contextSeries, contextSelectedGenres } = useContext(
+    Usercontext
+  );
+  const [isMovie, setIsMovie] = contextMovie;
+  const [isSeries, setIsSeries] = contextSeries;
+  const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
 
   // const fetchGenres = useCallback(() => {
   //   const options = {
@@ -23,7 +27,9 @@ const OptionSelectPage = (props) => {
   //       "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
   //     },
   //   };
+
   //   let genresArr = [];
+
   //   axios
   //     .request(options)
   //     .then((response) => {
@@ -68,5 +74,4 @@ const OptionSelectPage = (props) => {
     </div>
   );
 };
-
 export default OptionSelectPage;
