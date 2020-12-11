@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "./App.css";
+import { ShowProvider } from "./ShowContext";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
-import { ShowProvider } from "./ShowContext";
 
 const App = () => {
   const routes = [
