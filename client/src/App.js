@@ -4,8 +4,7 @@ import { Usercontext } from "./Context";
 
 import "./App.css";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
-import MovieInformationPage from "./pages/MovieInformationPage/MovieInformationPage";
-import TypeSelect from "./components/TypeSelect/TypeSelect";
+import ResultsPage from "./pages/ResultsPage/ResultsPage";
 
 const App = () => {
   const [isMovie, setIsMovie] = useState(false);
@@ -20,7 +19,7 @@ const App = () => {
             <Link to="/"> Optionspage</Link>
           </li>
           <li>
-            <Link to="/Movies">Moviespage</Link>
+            <Link to="/results">Moviespage</Link>
           </li>
         </ul>
         <Switch>
@@ -34,8 +33,8 @@ const App = () => {
             <Route exact path="/">
               <OptionSelectPage />
             </Route>
-            <Route exact path="/Movies">
-              <MovieInformationPage />
+            <Route exact path="/results">
+              <ResultsPage />
             </Route>
           </Usercontext.Provider>
         </Switch>
