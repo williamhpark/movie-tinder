@@ -3,8 +3,10 @@ import axios from "axios";
 
 import { Usercontext } from "../../Context";
 
-const MovieInformationPage = (props) => {
-  const [Info, setInfo] = useState(null);
+const ResultsPage = (props) => {
+  const [movieInfo, setMovieInfo] = useState(null);
+  const [movieAndShow, setMovieAndShow] = useState("");
+  const [movieGenres, setMovieGenres] = useState("");
   const [movieTitle, setMovieTitle] = useState("");
   const [movieImage, setMovieImage] = useState("");
   const [movieSynopsis, setMovieSynopsis] = useState("");
@@ -53,4 +55,4 @@ const MovieInformationPage = (props) => {
   );
 };
 
-export default MoviePicker;
+export default ResultsPage;
