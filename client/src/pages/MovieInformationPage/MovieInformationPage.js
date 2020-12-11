@@ -3,10 +3,8 @@ import axios from "axios";
 
 import { Usercontext } from "../../Context";
 
-const MoviePicker = (props) => {
-  const [movieInfo, setMovieInfo] = useState(null);
-  const [movieAndShow, setMovieAndShow] = useState("");
-  const [movieGenres, setMovieGenres] = useState("");
+const MovieInformationPage = (props) => {
+  const [Info, setInfo] = useState(null);
   const [movieTitle, setMovieTitle] = useState("");
   const [movieImage, setMovieImage] = useState("");
   const [movieSynopsis, setMovieSynopsis] = useState("");

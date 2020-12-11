@@ -5,7 +5,6 @@ import { Usercontext } from "./Context";
 import "./App.css";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
 import MovieInformationPage from "./pages/MovieInformationPage/MovieInformationPage";
-import TypeSelect from "./components/TypeSelect/TypeSelect";
 
 const App = () => {
   const [isMovie, setIsMovie] = useState(false);
