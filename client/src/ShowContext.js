@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 const ShowContext = createContext([{}, () => {}]);
 
-const ShowProvider = (props) => {
+const ShowProvider = ({ children }) => {
   const [state, setState] = useState({
     isMovie: false,
     isSeries: false,
@@ -11,7 +11,7 @@ const ShowProvider = (props) => {
 
   return (
     <ShowContext.Provider value={[state, setState]}>
-      {props.children}
+      {children}
     </ShowContext.Provider>
   );
 };
