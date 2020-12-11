@@ -33,9 +33,15 @@ const OptionSelectPage = (props) => {
   //   axios
   //     .request(options)
   //     .then((response) => {
-  //       response.data.ITEMS.forEach((element) =>
-  //         genresArr.push(Object.keys(element)[0])
-  //       );
+  //       for (let element of response.data.ITEMS) {
+  //         // Only include specific genres (parent genres have the keyword "All")
+  //         if (!Object.keys(element)[0].includes("All")) {
+  //           genresArr.push({
+  //             id: Object.values(element)[0][0],
+  //             name: Object.keys(element)[0],
+  //           });
+  //         }
+  //       }
   //       console.log(JSON.stringify(genresArr));
   //       setGenreListDefault(genresArr);
   //     })
@@ -49,8 +55,19 @@ const OptionSelectPage = (props) => {
   // }, [fetchGenres]);
 
   useEffect(() => {
-    let testGenresArr = ["Genre 1", "Genre 2", "Genre 3", "Genre 4", "Genre 5"];
+    let testGenresArr = [
+      { id: 0, name: "All Genres" },
+      { id: 1, name: "All Action" },
+      { id: 2, name: "All Comedy" },
+      { id: 3, name: "Genre 1" },
+      { id: 4, name: "Genre 2" },
+      { id: 5, name: "Genre 3" },
+      { id: 6, name: "Genre 4" },
+      { id: 7, name: "Genre 5" },
+    ];
     setGenreListDefault(testGenresArr);
+    console.log("Genre List: " + genreList);
+    console.log("Selected genres: " + props.selectedGenres);
   }, []);
 
   return (

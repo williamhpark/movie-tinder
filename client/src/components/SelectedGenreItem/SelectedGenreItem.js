@@ -7,7 +7,7 @@ import "./SelectedGenreItem.css";
 const SelectedGenreItem = (props) => {
   const removeGenre = (genre) => {
     const filtered = props.selectedGenres.filter((item) => {
-      return item !== genre;
+      return item.id !== genre.id;
     });
     props.setSelectedGenres(filtered);
   };
@@ -17,7 +17,7 @@ const SelectedGenreItem = (props) => {
       <div className="remove-icon" onClick={() => removeGenre(props.genre)}>
         <FontAwesomeIcon icon={faMinus} />
       </div>
-      {props.genre}
+      {props.genre.name}
     </div>
   );
 };

@@ -9,7 +9,7 @@ const GenreSelect = (props) => {
   const updateGenreList = (keyword) => {
     props.setKeyword(keyword);
     const filtered = props.genreListDefault.filter((genre) => {
-      return genre.toLowerCase().includes(keyword.toLowerCase());
+      return genre.name.toLowerCase().includes(keyword.toLowerCase());
     });
     props.setGenreList(filtered);
   };

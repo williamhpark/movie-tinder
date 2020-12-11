@@ -10,7 +10,6 @@ const GenreList = (props) => {
         {props.genreList.map((genre) => {
           return (
             <GenreItem
-              key={genre}
               genre={genre}
               selectedGenres={props.selectedGenres}
               updateSelectedGenres={props.updateSelectedGenres}

@@ -16,7 +16,7 @@ const TypeSelect = (props) => {
   //   setSelectedGenres(filtered);
   // };
   return (
-    <div class="center">
+    <div className="center">
       <h1>Movies</h1>
       <input
         onClick={() => reversemovie(props.isMovie)}
