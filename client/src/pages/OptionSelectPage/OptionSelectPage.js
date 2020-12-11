@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { IconButton } from "@material-ui/core";
 
 import "./OptionSelectPage.css";
 import TypeSelect from "../../components/TypeSelect/TypeSelect";
@@ -72,6 +74,9 @@ const OptionSelectPage = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
+      <IconButton>
+        <Link to="/results">NEXT</Link>
+      </IconButton>
     </div>
   );
 };
