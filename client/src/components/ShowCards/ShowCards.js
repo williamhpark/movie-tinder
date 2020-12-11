@@ -4,9 +4,8 @@ import TinderCard from "react-tinder-card";
 import "./ShowCards.css";
 
 const ShowCards = (props) => {
-  const swiped = (direction, nameToDelete) => {
-    console.log("Removing: " + nameToDelete);
-    // setLastDirection(direction);
+  const onSwipe = (direction) => {
+    console.log("You swiped: " + direction);
   };
 
   const outOfFrame = (name) => {
@@ -22,14 +21,20 @@ const ShowCards = (props) => {
               className="swipe"
               key={show.title}
               preventSwipe={["up", "down"]}
-              onSwipe={(dir) => swiped(dir, show.title)}
+              onSwipe={onSwipe}
               onCardLeftScreen={() => outOfFrame(show.title)}
             >
               <div
                 style={{ backgroundImage: `url(${show.image})` }}
                 className="card"
               >
-                <h3>{show.title}</h3>
+                <h2>{show.title}</h2>
+                <h3>{show.synopsis}</h3>
+                <div>
+                  <h3>{show.released}</h3>
+                  <h3>{show.type}</h3>
+                  <h3>{show.runtime}</h3>
+                </div>
               </div>
             </TinderCard>
           );
