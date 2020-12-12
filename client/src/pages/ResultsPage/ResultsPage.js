@@ -60,7 +60,12 @@ const ResultsPage = (props) => {
           for (var k in response.data.ITEMS) {
             results.push(response.data.ITEMS[k]);
           }
-          console.log(results);
+          console.log("hi");
+          let arr = [
+            ...new Map(
+              results.map((item) => [item["netflixid"], item])
+            ).values(),
+          ];
         })
         .catch((error) => {
           console.error(error);
