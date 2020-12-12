@@ -11,12 +11,12 @@ const ResultsPage = (props) => {
   const [isSeries, setIsSeries] = contextSeries;
   const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
 
-  let mediatype = "";
+  let mediaType = "";
   let results = [];
   let genreids = [];
   let id = null;
 
-  console.log(mediatype);
+  console.log(mediaType);
 
   for (var i in selectedGenres) {
     genreids.push(selectedGenres[i].id);
@@ -25,22 +25,20 @@ const ResultsPage = (props) => {
   // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
 
   if (isMovie && isSeries) {
-    mediatype = "Any";
+    mediaType = "Any";
   } else if (isMovie) {
-    mediatype = "Movie";
+    mediaType = "Movie";
   } else if (isSeries) {
-    mediatype = "Show";
+    mediaType = "Show";
   }
 
   const fetchinformation = useCallback(() => {
-    genreids.forEach((element) => {
-      let id = element;
-
+    genreids.forEach((id) => {
       const options = {
         method: "GET",
         url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
         params: {
-          q: `get:new7-!1900,2018-!0,5-!0,10-!${id}-!${mediatype}-!Any-!Any-!gt100-!{downloadable}`,
+          q: `get:new7-!1900,2018-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!gt100-!{downloadable}`,
           t: "ns",
           cl: "all",
           st: "adv",
@@ -65,7 +63,9 @@ const ResultsPage = (props) => {
               results.map((item) => [item["netflixid"], item])
             ).values(),
           ];
+          console.log(results + "yes u can");
         })
+
         .catch((error) => {
           console.error(error);
         });
@@ -78,7 +78,7 @@ const ResultsPage = (props) => {
 
   return (
     <div>
-      <h1>{mediatype}</h1>
+      <h1>{mediaType}</h1>
       <h1>hello</h1>
     </div>
   );
