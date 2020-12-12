@@ -60,8 +60,7 @@ const ResultsPage = (props) => {
           for (var k in response.data.ITEMS) {
             results.push(response.data.ITEMS[k]);
           }
-          console.log("hi");
-          let arr = [
+          results = [
             ...new Map(
               results.map((item) => [item["netflixid"], item])
             ).values(),
