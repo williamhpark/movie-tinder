@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
-import { ShowProvider } from "./ShowContext";
+import { ShowProvider } from "./context/ShowContext";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
 
