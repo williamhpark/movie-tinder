@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TinderCard from "react-tinder-card";
 
 import "./ShowCards.css";
+import { ShowContext } from "../../context/ShowContext";
 
 const ShowCards = (props) => {
   const onSwipe = (direction) => {

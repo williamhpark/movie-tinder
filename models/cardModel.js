@@ -6,7 +6,7 @@ const cardSchema = new mongoose.Schema({
   image: { type: String, required: true },
   synopsis: { type: String, required: true },
   type: { type: String, required: true },
-  released: { type: Number, required: true },
+  released: { type: String, required: true },
   runtime: { type: String, required: true },
 });
 
