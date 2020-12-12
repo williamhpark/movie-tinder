@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Card = require("../models/cardModel");
 
 // @route   POST
-// #desc    Add a post to the database
+// #desc    Add a card to the database
 router.post("/", async (req, res) => {
   // Retreive the data from the request
   const {
@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     runtime,
   } = req.body;
 
-  // Construct the Post model
+  // Construct the Card model
   const newCard = new Card({
     netflixid,
     title,
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     runtime,
   });
 
-  // Save Post model
+  // Save Card model
   try {
     const savedCard = await newCard.save();
     res.json(savedCard);
@@ -36,14 +36,14 @@ router.post("/", async (req, res) => {
 });
 
 // @route   GET
-// @desc    Retreive all posts in the database
+// @desc    Retreive all cards in the database
 router.get("/", async (req, res) => {
   const cards = await Card.find();
   res.json(cards);
 });
 
 // @route   GET
-// @desc    Retreive a specific post in the database
+// @desc    Retreive a specific card in the database
 router.get("/:id", async (req, res) => {
   const card = await Card.findById(req.params.id);
   res.json(card);
