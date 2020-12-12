@@ -4,7 +4,6 @@ import { Usercontext } from "./Context";
 
 import "./App.css";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
-import MovieInformationPage from "./pages/MovieInformationPage/MovieInformationPage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
 
 const App = () => {
