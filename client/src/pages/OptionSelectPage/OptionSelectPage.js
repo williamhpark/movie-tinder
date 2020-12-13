@@ -19,7 +19,7 @@ const OptionSelectPage = (props) => {
       params: { t: "genres" },
       headers: {
         "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
-        "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
+        "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
       },
     };
 
@@ -28,16 +28,15 @@ const OptionSelectPage = (props) => {
     axios
       .request(options)
       .then((response) => {
-        for (let element of response.data.ITEMS) {
+        for (let item of response.data.ITEMS) {
           // Only include specific genres (parent genres have the keyword "All")
-          if (!Object.keys(element)[0].includes("All")) {
+          if (!Object.keys(item)[0].includes("All")) {
             genresArr.push({
-              id: Object.values(element)[0][0],
-              name: Object.keys(element)[0],
+              id: Object.values(item)[0][0],
+              name: Object.keys(item)[0],
             });
           }
         }
-        console.log(JSON.stringify(genresArr));
         setGenreListDefault(genresArr);
       })
       .catch((error) => {

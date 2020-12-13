@@ -7,11 +7,11 @@ const TypeSelect = (props) => {
   const [state, setState] = useContext(ShowContext);
 
   const toggleIsMovie = () => {
-    setState((state) => ({ ...state, isMovie: !state.isMovie }));
+    setState((prevState) => ({ ...prevState, isMovie: !prevState.isMovie }));
   };
 
   const toggleIsSeries = () => {
-    setState((state) => ({ ...state, isSeries: !state.isSeries }));
+    setState((prevState) => ({ ...prevState, isSeries: !prevState.isSeries }));
   };
 
   return (

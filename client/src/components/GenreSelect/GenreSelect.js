@@ -18,10 +18,14 @@ const GenreSelect = (props) => {
   };
 
   const updateSelectedGenres = (genre) => {
-    if (!state.selectedGenres.includes(genre)) {
-      setState((state) => ({
-        ...state,
-        selectedGenres: [...state.selectedGenres, genre],
+    if (
+      !state.selectedGenres.some(
+        (selectedGenre) => selectedGenre.id === genre.id
+      )
+    ) {
+      setState((prevState) => ({
+        ...prevState,
+        selectedGenres: [...prevState.selectedGenres, genre],
       }));
     }
   };

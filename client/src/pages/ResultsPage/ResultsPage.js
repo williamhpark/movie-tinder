@@ -11,36 +11,33 @@ const ResultsPage = (props) => {
   const [state, setState] = useContext(ShowContext);
   const [results, setResults] = useState([]);
 
-  let mediaType = "";
-  let resultsarr = [];
-  let genreids = [];
-  let id = null;
-
-  console.log(mediaType);
-
+  let genreIds = [];
   for (var i in state.selectedGenres) {
-    genreids.push(state.selectedGenres[i].id);
+    genreIds.push(state.selectedGenres[i].id);
   }
 
   // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
 
+  let mediaType = "";
   if (state.isMovie && state.isSeries) {
     mediaType = "Any";
   } else if (state.isMovie) {
     mediaType = "Movie";
   } else if (state.isSeries) {
-    mediaType = "Show";
+    mediaType = "Series";
   }
 
-  const fetchinformation = useCallback(() => {
-    genreids.forEach((id) => {
+  const fetchInformation = useCallback(() => {
+    const countryId = "33";
+
+    genreIds.forEach((id) => {
       const options = {
         method: "GET",
         url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
         params: {
-          q: `get:new7-!1900,2018-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!gt100-!{downloadable}`,
+          q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
           t: "ns",
-          cl: "all",
+          cl: `${countryId}`,
           st: "adv",
           ob: "Relevance",
           p: "1",
@@ -48,24 +45,28 @@ const ResultsPage = (props) => {
         },
         headers: {
           "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
-          "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
+          "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
         },
       };
+
+      let resultsArr = [];
 
       axios
         .request(options)
         .then((response) => {
-          for (var k in response.data.ITEMS) {
-            resultsarr.push(response.data.ITEMS[k]);
+          for (let item of response.data.ITEMS) {
+            resultsArr.push(item);
           }
-          resultsarr = [
+          console.log(resultsArr);
+          setResults((prevResults) => [
             ...new Map(
-              resultsarr.map((item) => [item["netflixid"], item])
+              [...prevResults, ...resultsArr].map((item) => [
+                item["netflixid"],
+                item,
+              ])
             ).values(),
-          ];
-          setResults(resultsarr);
+          ]);
         })
-
         .catch((error) => {
           console.error(error);
         });
@@ -73,13 +74,17 @@ const ResultsPage = (props) => {
   }, []);
 
   useEffect(() => {
-    fetchinformation();
-  }, [fetchinformation]);
+    fetchInformation();
+  }, [fetchInformation]);
 
   return (
     <div>
       <h1>{mediaType}</h1>
-      <h1>hello</h1>
+      <ol>
+        {results.map((show) => {
+          return <li>{show.title}</li>;
+        })}
+      </ol>
     </div>
   );
 };
