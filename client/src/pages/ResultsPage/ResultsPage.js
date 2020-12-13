@@ -41,7 +41,7 @@ const ResultsPage = (props) => {
           cl: `${countryId}`,
           st: "adv",
           ob: "Relevance",
-          p: "1",
+          p: `1`,
           sa: "and",
         },
         headers: {
@@ -55,18 +55,48 @@ const ResultsPage = (props) => {
       axios
         .request(options)
         .then((response) => {
-          for (let item of response.data.ITEMS) {
-            resultsArr.push(item);
+          let count = response.data.COUNT;
+          let page = 1;
+          while (count > -100) {
+            const resultspages = {
+              method: "GET",
+              url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
+              params: {
+                q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
+                t: "ns",
+                cl: `${countryId}`,
+                st: "adv",
+                ob: "Relevance",
+                p: `${page}`,
+                sa: "and",
+              },
+              headers: {
+                "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
+                "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
+              },
+            };
+
+            axios
+              .request(resultspages)
+              .then((pagesinfo) => {
+                for (let item of pagesinfo.data.ITEMS) {
+                  resultsArr.push(item);
+                }
+                setResults((prevResults) => [
+                  ...new Map(
+                    [...prevResults, ...resultsArr].map((item) => [
+                      item["netflixid"],
+                      item,
+                    ])
+                  ).values(),
+                ]);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            page += 1;
+            count -= 100;
           }
-          console.log(resultsArr);
-          setResults((prevResults) => [
-            ...new Map(
-              [...prevResults, ...resultsArr].map((item) => [
-                item["netflixid"],
-                item,
-              ])
-            ).values(),
-          ]);
         })
         .catch((error) => {
           console.error(error);
@@ -77,7 +107,6 @@ const ResultsPage = (props) => {
   useEffect(() => {
     fetchInformation();
   }, [fetchInformation]);
-
   return (
     <div>
       <h1>{mediaType}</h1>
