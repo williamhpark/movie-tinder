@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 import "./SelectedGenreItem.css";
-import { ShowContext } from "../../ShowContext";
+import { ShowContext } from "../../context/ShowContext";
 
 const SelectedGenreItem = (props) => {
   const [state, setState] = useContext(ShowContext);

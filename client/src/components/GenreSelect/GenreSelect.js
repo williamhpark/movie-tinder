@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import "./GenreSelect.css";
-import { ShowContext } from "../../ShowContext";
+import { ShowContext } from "../../context/ShowContext";
 import GenreSearchBar from "../GenreSearchBar/GenreSearchBar";
 import GenreList from "../GenreList/GenreList";
 import SelectedGenresList from "../SelectedGenresList/SelectedGenresList";

@@ -1,7 +1,11 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 
-import { ShowContext } from "../../ShowContext";
+import "./ResultsPage.css";
+import { ShowContext } from "../../context/ShowContext";
+import Header from "../../components/Header/Header";
+import ShowCards from "../../components/ShowCards/ShowCards";
+import SwipeButtons from "../../components/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
   const [state, setState] = useContext(ShowContext);
