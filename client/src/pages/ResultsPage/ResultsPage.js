@@ -71,7 +71,6 @@ const ResultsPage = (props) => {
   useEffect(() => {
     fetchinformation();
   }, [fetchinformation]);
-  console.log(results);
 
   return (
     <div>

@@ -17,9 +17,19 @@ const TypeSelect = (props) => {
   return (
     <div className="center">
       <h1>Movies</h1>
-      <input onClick={() => toggleIsMovie()} type="checkbox" name="movie" />
+      <input
+        onClick={() => toggleIsMovie()}
+        type="checkbox"
+        name="movie"
+        checked={state.isMovie}
+      />
       <h1>Series</h1>
-      <input onClick={() => toggleIsSeries()} type="checkbox" name="series" />
+      <input
+        onClick={() => toggleIsSeries()}
+        type="checkbox"
+        name="series"
+        checked={state.isSeries}
+      />
     </div>
   );
 };
