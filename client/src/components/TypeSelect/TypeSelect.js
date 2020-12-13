@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
 
+import "../../ShowContext";
 import "./TypeSelect.css";
 
 const TypeSelect = (props) => {
+  const [state, setState] = useContext(ShowContext);
+
   return (
     <div className="center">
       <h1>Movies</h1>
       <input
         id="movieCheck"
-        onClick={() => props.setIsMovie(!props.isMovie)}
+        onClick={() =>
+          setState((state) => ({
+            ...state,
+            isMovie: [...state.isMovie, !state.isMovie],
+          }))
+        }
         type="checkbox"
         name=""
         checked={props.isMovie}

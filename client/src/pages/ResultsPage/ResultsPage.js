@@ -1,15 +1,10 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 
-import { Usercontext } from "../../Context";
+import { ShowContext } from "../../ShowContext";
 
 const ResultsPage = (props) => {
-  const { contextMovie, contextSeries, contextSelectedGenres } = useContext(
-    Usercontext
-  );
-  const [isMovie, setIsMovie] = contextMovie;
-  const [isSeries, setIsSeries] = contextSeries;
-  const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
+  const [state, setState] = useContext(ShowContext);
 
   let mediaType = "";
   let results = [];
@@ -18,17 +13,17 @@ const ResultsPage = (props) => {
 
   console.log(mediaType);
 
-  for (var i in selectedGenres) {
-    genreids.push(selectedGenres[i].id);
+  for (var i in state.selectedGenres) {
+    genreids.push(state.selectedGenres[i].id);
   }
 
   // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
 
-  if (isMovie && isSeries) {
+  if (state.isMovie && state.isSeries) {
     mediaType = "Any";
-  } else if (isMovie) {
+  } else if (state.isMovie) {
     mediaType = "Movie";
-  } else if (isSeries) {
+  } else if (state.isSeries) {
     mediaType = "Show";
   }
 

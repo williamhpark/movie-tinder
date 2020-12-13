@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { IconButton } from "@material-ui/core";
 
-import { Usercontext } from "../../Context";
 import "./OptionSelectPage.css";
 import TypeSelect from "../../components/TypeSelect/TypeSelect";
 import GenreSelect from "../../components/GenreSelect/GenreSelect";
@@ -10,12 +11,6 @@ const OptionSelectPage = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const { contextMovie, contextSeries, contextSelectedGenres } = useContext(
-    Usercontext
-  );
-  const [isMovie, setIsMovie] = contextMovie;
-  const [isSeries, setIsSeries] = contextSeries;
-  const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
 
   const fetchGenres = useCallback(() => {
     const options = {
@@ -66,18 +61,11 @@ const OptionSelectPage = (props) => {
   //     { id: 7, name: "Genre 5" },
   //   ];
   //   setGenreListDefault(testGenresArr);
-  //   console.log("Genre List: " + genreList);
-  //   console.log("Selected genres: " + props.selectedGenres);
   // }, []);
 
   return (
     <div id="option-select-page">
-      <TypeSelect
-        isMovie={isMovie}
-        setIsMovie={setIsMovie}
-        isSeries={isSeries}
-        setIsSeries={setIsSeries}
-      />
+      <TypeSelect />
       <GenreSelect
         genreListDefault={genreListDefault}
         setGenreListDefault={setGenreListDefault}
@@ -85,9 +73,10 @@ const OptionSelectPage = (props) => {
         setGenreList={setGenreList}
         keyword={keyword}
         setKeyword={setKeyword}
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
       />
+      <IconButton>
+        <Link to="/results">NEXT</Link>
+      </IconButton>
     </div>
   );
 };
