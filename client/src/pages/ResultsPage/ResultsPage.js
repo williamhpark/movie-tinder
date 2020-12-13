@@ -1,108 +1,82 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 
-import "./ResultsPage.css";
 import { ShowContext } from "../../ShowContext";
-import Header from "../../components/Header/Header";
-import ShowCards from "../../components/ShowCards/ShowCards";
-import SwipeButtons from "../../components/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
-  const [movieInfo, setMovieInfo] = useState(null);
-  const [movieAndShow, setMovieAndShow] = useState("");
-  const [movieGenres, setMovieGenres] = useState("");
-  const [movieTitle, setMovieTitle] = useState("");
-  const [movieImage, setMovieImage] = useState("");
-  const [movieSynopsis, setMovieSynopsis] = useState("");
-  const [movieReleaseDate, setMovieReleaseDate] = useState("");
-  const [movieRunTime, setMovieRunTime] = useState("");
-  const [movieID, setMovieID] = useState("");
-  // const { contextMovie, contextSeries, contextSelectedGenres } = useContext(
-  //   Usercontext
-  // );
-  // const [isMovie, setIsMovie] = contextMovie;
-  // const [isSeries, setIsSeries] = contextSeries;
-  // const [selectedGenres, setSelectedGenres] = contextSelectedGenres;
+  const [state, setState] = useContext(ShowContext);
+  const [results, setResults] = useState([]);
 
-  console.log(movieAndShow);
+  let mediaType = "";
+  let resultsarr = [];
+  let genreids = [];
+  let id = null;
 
-  //   const information = useCallback(() => {
-  //     const options = {
-  //       method: "GET",
-  //       url: `https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi`,
-  //       params: {
-  //         q:
-  //           "get:new7-!1900,2020-!0,5-!0,10-!${}-!${movieAndShow}-!Any-!Any-!gt100-!{downloadable}",
-  //         t: "ns",
-  //         cl: "all",
-  //         st: "adv",
-  //         ob: "Relevance",
-  //         p: "1",
-  //         sa: "and",
-  //       },
-  //       headers: {
-  //         "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
-  //         "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
-  //       },
-  //     };
-  //   }, []);
+  console.log(mediaType);
 
-  //   useEffect(() => {
-  //     information();
-  //   }, [information]);
+  for (var i in state.selectedGenres) {
+    genreids.push(state.selectedGenres[i].id);
+  }
 
-  const shows = [
-    {
-      netflixid: 1,
-      title: "men",
-      image:
-        "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
-      synopsis:
-        "men men men men men men men men men men men men men men men men men men men men men men men men men men men men",
-      type: "movie",
-      released: 2017,
-      runtime: "1h32m",
-    },
-    {
-      netflixid: 2,
-      title: "will is hot",
-      image:
-        "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
-      synopsis:
-        "will is hot will is hot will is hot will is hot will is hot will is hot will is hot will is hot",
-      type: "series",
-      released: 2018,
-      runtime: "1h34m",
-    },
-    {
-      netflixid: 3,
-      title: "LMFAO",
-      image:
-        "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
-      synopsis:
-        "synopsis nyee ai synopsis nyee ai synopsis nyee ai synopsis nyee ai synopsis nyee ai synopsis nyee ai",
-      type: "movie",
-      released: 2019,
-      runtime: "1h36m",
-    },
-    {
-      netflixid: 4,
-      title: "Bitch",
-      image:
-        "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
-      synopsis:
-        "bitch butch butch bitch tbtich bitch butch butch bitch tbtichbitch butch butch bitch tbtichbitch butch butch bitch tbtichbitch butch butch bitch tbtich",
-      type: "series",
-      released: 2020,
-      runtime: "1h00m",
-    },
-  ];
+  // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
+
+  if (state.isMovie && state.isSeries) {
+    mediaType = "Any";
+  } else if (state.isMovie) {
+    mediaType = "Movie";
+  } else if (state.isSeries) {
+    mediaType = "Show";
+  }
+
+  const fetchinformation = useCallback(() => {
+    genreids.forEach((id) => {
+      const options = {
+        method: "GET",
+        url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
+        params: {
+          q: `get:new7-!1900,2018-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!gt100-!{downloadable}`,
+          t: "ns",
+          cl: "all",
+          st: "adv",
+          ob: "Relevance",
+          p: "1",
+          sa: "and",
+        },
+        headers: {
+          "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
+          "x-rapidapi-host": process.env.REACT_APP_UNOGS_HOST,
+        },
+      };
+
+      axios
+        .request(options)
+        .then((response) => {
+          for (var k in response.data.ITEMS) {
+            resultsarr.push(response.data.ITEMS[k]);
+          }
+          resultsarr = [
+            ...new Map(
+              resultsarr.map((item) => [item["netflixid"], item])
+            ).values(),
+          ];
+          setResults(resultsarr);
+        })
+
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchinformation();
+  }, [fetchinformation]);
+  console.log(results);
 
   return (
     <div>
-      <Header />
-      <ShowCards shows={shows} />
-      <SwipeButtons />
+      <h1>{mediaType}</h1>
+      <h1>hello</h1>
     </div>
   );
 };
