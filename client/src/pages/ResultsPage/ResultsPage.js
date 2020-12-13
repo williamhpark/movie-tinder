@@ -28,6 +28,7 @@ const ResultsPage = (props) => {
   }
 
   const fetchInformation = useCallback(() => {
+    // Country ID for Canada
     const countryId = "33";
 
     genreIds.forEach((id) => {
