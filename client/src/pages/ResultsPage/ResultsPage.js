@@ -12,7 +12,7 @@ const ResultsPage = (props) => {
   const [results, setResults] = useState([]);
 
   let genreIds = [];
-  for (var i in state.selectedGenres) {
+  for (let i in state.selectedGenres) {
     genreIds.push(state.selectedGenres[i].id);
   }
 
