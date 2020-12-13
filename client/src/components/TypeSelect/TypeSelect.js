@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import "./TypeSelect.css";
-import { ShowContext } from "../../ShowContext";
+import { ShowContext } from "../../context/ShowContext";
 
 const TypeSelect = (props) => {
   const [state, setState] = useContext(ShowContext);

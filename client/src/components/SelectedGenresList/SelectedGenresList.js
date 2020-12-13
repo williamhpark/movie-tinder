@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import "./SelectedGenresList.css";
-import { ShowContext } from "../../ShowContext";
+import { ShowContext } from "../../context/ShowContext";
 import SelectedGenreItem from "../SelectedGenreItem/SelectedGenreItem";
 
 const SelectedGenresList = (props) => {
