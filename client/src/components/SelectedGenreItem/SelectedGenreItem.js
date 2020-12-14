@@ -11,7 +11,7 @@ const SelectedGenreItem = (props) => {
     const filtered = state.selectedGenres.filter((item) => {
       return item.id !== genre.id;
     });
-    setState((state) => ({ ...state, selectedGenres: filtered }));
+    setState((prevState) => ({ ...prevState, selectedGenres: filtered }));
   };
 
   return (
