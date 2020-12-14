@@ -6,10 +6,10 @@ const showSchema = new mongoose.Schema({
   image: { type: String, required: true },
   synopsis: { type: String, required: true },
   type: { type: String, required: true },
-  released: { type: String, required: true },
-  runtime: { type: String, required: true },
+  released: { type: String, required: false },
+  runtime: { type: String, required: false },
 });
 
-const Show = mongoose.model("Show", showSchema);
+const Show = mongoose.model("show", showSchema);
 
 module.exports = Show;

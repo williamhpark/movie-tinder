@@ -1,4 +1,5 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
 
 const Show = require("../models/showModel");
 
@@ -6,7 +7,6 @@ const Show = require("../models/showModel");
 // @desc    Add a show to the database
 // @access  Public
 router.post("/", async (req, res) => {
-  // Retreive the data from the request
   const {
     netflixid,
     title,
@@ -17,7 +17,6 @@ router.post("/", async (req, res) => {
     runtime,
   } = req.body;
 
-  // Construct the Show model
   const newShow = new Show({
     netflixid,
     title,
@@ -28,7 +27,6 @@ router.post("/", async (req, res) => {
     runtime,
   });
 
-  // Save Show model
   try {
     const savedShow = await newShow.save();
     res.json(savedShow);
