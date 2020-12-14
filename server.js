@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(cors());
 
 // Routes Config
-app.use("/results", require("./routes/cardRoutes"));
+app.use("/shows", require("./routes/showRoutes"));
+app.use("/users", require("./routes/userRoutes"));
 
 // DB Config
 console.log("Connecting to MongoDB.");
@@ -22,6 +23,7 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   },
   (err) => {
     if (err) {
