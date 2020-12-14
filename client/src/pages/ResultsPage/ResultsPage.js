@@ -56,7 +56,7 @@ const ResultsPage = (props) => {
         .request(options)
         .then((response) => {
           // Number of total pages for the API call, since API results come in pages of 100 results each
-          let numberPages = Math.floor(response.data.COUNT / 100) + 1;
+          let numberPages = Math.ceil(response.data.COUNT / 100);
           console.log(response.data.COUNT);
           console.log(numberPages);
           let page = 1;
