@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { IconButton } from "@material-ui/core";
+// import { IconButton } from "@material-ui/core";
 
 import "./OptionSelectPage.css";
-import TypeSelect from "../../components/TypeSelect/TypeSelect";
-import GenreSelect from "../../components/GenreSelect/GenreSelect";
+import TypeSelect from "../../components/options/TypeSelect/TypeSelect";
+import GenreSelect from "../../components/options/GenreSelect/GenreSelect";
 
 const OptionSelectPage = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
@@ -73,9 +73,9 @@ const OptionSelectPage = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <IconButton>
+      <button>
         <Link to="/results">NEXT</Link>
-      </IconButton>
+      </button>
     </div>
   );
 };

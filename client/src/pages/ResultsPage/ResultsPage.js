@@ -3,27 +3,26 @@ import axios from "axios";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
-import Header from "../../components/Header/Header";
-import ShowCards from "../../components/ShowCards/ShowCards";
-import SwipeButtons from "../../components/SwipeButtons/SwipeButtons";
+import ShowCards from "../../components/results/ShowCards/ShowCards";
+import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
-  const [state, setState] = useContext(ShowContext);
+  const [showData, setShowData] = useContext(ShowContext);
   const [results, setResults] = useState([]);
 
   let genreIds = [];
-  for (let i in state.selectedGenres) {
-    genreIds.push(state.selectedGenres[i].id);
+  for (let i in showData.selectedGenres) {
+    genreIds.push(showData.selectedGenres[i].id);
   }
 
   // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
 
   let mediaType = "";
-  if (state.isMovie && state.isSeries) {
+  if (showData.isMovie && showData.isSeries) {
     mediaType = "Any";
-  } else if (state.isMovie) {
+  } else if (showData.isMovie) {
     mediaType = "Movie";
-  } else if (state.isSeries) {
+  } else if (showData.isSeries) {
     mediaType = "Series";
   }
 
