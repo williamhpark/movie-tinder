@@ -32,7 +32,7 @@ const ResultsPage = (props) => {
     const countryId = "33";
 
     genreIds.forEach((id) => {
-      const options = {
+      let options = {
         method: "GET",
         url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
         params: {
@@ -41,7 +41,7 @@ const ResultsPage = (props) => {
           cl: `${countryId}`,
           st: "adv",
           ob: "Relevance",
-          p: `1`,
+          p: "1",
           sa: "and",
         },
         headers: {
@@ -55,33 +55,25 @@ const ResultsPage = (props) => {
       axios
         .request(options)
         .then((response) => {
-          let count = response.data.COUNT;
+          // Number of total pages for the API call, since API results come in pages of 100 results each
+          let numberPages = Math.ceil(response.data.COUNT / 100);
+          console.log(response.data.COUNT);
+          console.log(numberPages);
           let page = 1;
-          while (count > -100) {
-            const resultspages = {
-              method: "GET",
-              url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
-              params: {
-                q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
-                t: "ns",
-                cl: `${countryId}`,
-                st: "adv",
-                ob: "Relevance",
-                p: `${page}`,
-                sa: "and",
-              },
-              headers: {
-                "x-rapidapi-key": process.env.REACT_APP_UNOGS_KEY,
-                "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-              },
+          while (page <= numberPages) {
+            // The page number is incremented until all results are extracted
+            let resultsOptions = {
+              ...options,
+              params: { ...options.params, p: `${page}` },
             };
 
             axios
-              .request(resultspages)
-              .then((pagesinfo) => {
-                for (let item of pagesinfo.data.ITEMS) {
+              .request(resultsOptions)
+              .then((response) => {
+                for (let item of response.data.ITEMS) {
                   resultsArr.push(item);
                 }
+                // Removes any duplicate items in the results state variable
                 setResults((prevResults) => [
                   ...new Map(
                     [...prevResults, ...resultsArr].map((item) => [
@@ -94,8 +86,8 @@ const ResultsPage = (props) => {
               .catch((error) => {
                 console.error(error);
               });
+
             page += 1;
-            count -= 100;
           }
         })
         .catch((error) => {
