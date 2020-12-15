@@ -7,7 +7,7 @@ import GenreList from "../GenreList/GenreList";
 import SelectedGenresList from "../SelectedGenresList/SelectedGenresList";
 
 const GenreSelect = (props) => {
-  const [showData, setShowData] = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
 
   const updateGenreList = (keyword) => {
     props.setKeyword(keyword);

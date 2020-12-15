@@ -5,7 +5,8 @@ import { ShowContext } from "../../../context/ShowContext";
 import SelectedGenreItem from "../SelectedGenreItem/SelectedGenreItem";
 
 const SelectedGenresList = (props) => {
-  const [showData, setShowData] = useContext(ShowContext);
+  const { showData } = useContext(ShowContext);
+
   return (
     <div id="selected-genres-container">
       <h2>Selected Genres</h2>

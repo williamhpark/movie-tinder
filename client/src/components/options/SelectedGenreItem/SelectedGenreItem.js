@@ -6,7 +6,8 @@ import "./SelectedGenreItem.css";
 import { ShowContext } from "../../../context/ShowContext";
 
 const SelectedGenreItem = (props) => {
-  const [showData, setShowData] = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
+
   const removeGenre = (genre) => {
     const filtered = showData.selectedGenres.filter((item) => {
       return item.id !== genre.id;

@@ -4,7 +4,7 @@ import "./TypeSelect.css";
 import { ShowContext } from "../../../context/ShowContext";
 
 const TypeSelect = (props) => {
-  const [showData, setShowData] = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
 
   const toggleIsMovie = () => {
     setShowData((prevData) => ({

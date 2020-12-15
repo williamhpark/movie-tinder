@@ -10,7 +10,7 @@ const ShowProvider = ({ children }) => {
   });
 
   return (
-    <ShowContext.Provider value={[showData, setShowData]}>
+    <ShowContext.Provider value={{ showData, setShowData }}>
       {children}
     </ShowContext.Provider>
   );

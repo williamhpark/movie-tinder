@@ -18,7 +18,14 @@ const Routes = () => {
 
   const renderRoutes = () => {
     return routes.map((route) => {
-      return <Route exact path={route.path} component={route.component} />;
+      return (
+        <Route
+          key={route.name}
+          exact
+          path={route.path}
+          component={route.component}
+        />
+      );
     });
   };
 

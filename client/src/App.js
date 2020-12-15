@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
 import { ShowProvider } from "./context/ShowContext";
-import Routes from "./Routes";
+import Routes from "./App.routes";
 import Header from "./components/layout/Header/Header";
 
 const App = () => {
@@ -13,8 +13,8 @@ const App = () => {
       <UserProvider>
         <ShowProvider>
           <Router>
-            <div>
-              <Header />
+            <Header />
+            <div className="container">
               <Routes />
             </div>
           </Router>

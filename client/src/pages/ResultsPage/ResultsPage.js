@@ -7,8 +7,9 @@ import ShowCards from "../../components/results/ShowCards/ShowCards";
 import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
-  const [showData, setShowData] = useContext(ShowContext);
   const [results, setResults] = useState([]);
+
+  const { showData } = useContext(ShowContext);
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -97,7 +98,8 @@ const ResultsPage = (props) => {
 
   useEffect(() => {
     fetchInformation();
-  }, [fetchInformation]);
+  }, []);
+
   return (
     <div>
       <h1>{mediaType}</h1>

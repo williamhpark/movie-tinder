@@ -46,7 +46,7 @@ const OptionSelectPage = (props) => {
 
   useEffect(() => {
     fetchGenres();
-  }, [fetchGenres]);
+  }, []);
 
   // useEffect(() => {
   //   let testGenresArr = [

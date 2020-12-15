@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.json({
       token,
-      user: { id: user._id, name: user.name, email: user.email },
+      user: { id: user._id, name: user.name },
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -117,6 +117,15 @@ router.post("/isTokenValid", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// @route   GET /loggedInUser
+// @desc    Get the data of the logged in user
+// @access  Public
+router.get("/loggedInUser", auth, async (req, res) => {
+  const user = await User.findById(req.user);
+  // Only return the user's ID and name
+  res.json({ id: user._id, name: user.name });
 });
 
 module.exports = router;
