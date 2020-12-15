@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
 const showSchema = new mongoose.Schema({
-  netflixid: { type: Number, required: true, unique: true },
+  ownerId: { type: String },
+  userId: { type: String },
+  accepted: { type: Boolean },
+  netflixId: { type: String, required: true, unique: true },
   title: { type: String, required: true },
-  image: { type: String, required: true },
-  synopsis: { type: String, required: true },
+  image: { type: String },
+  synopsis: { type: String },
   type: { type: String, required: true },
-  released: { type: String, required: false },
-  runtime: { type: String, required: false },
+  released: { type: String },
+  runtime: { type: String },
 });
 
 const Show = mongoose.model("show", showSchema);

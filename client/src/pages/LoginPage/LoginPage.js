@@ -3,10 +3,12 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import { UserContext } from "../../context/UserContext";
+import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [error, setError] = useState(undefined);
 
   const { setUserData } = useContext(UserContext);
 
@@ -15,18 +17,24 @@ const LoginPage = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    const loginUser = { email, password };
-    const loginRes = await axios.post(
-      "http://localhost:5000/api/users/login",
-      loginUser
-    );
-    // Update the UserContext state
-    setUserData({ token: loginRes.data.token, user: loginRes.data.user });
-    // Set the auth-token in the browser
-    localStorage.setItem("auth-token", loginRes.data.token);
+    try {
+      const loginUser = { email, password };
+      const loginRes = await axios.post(
+        "http://localhost:5000/api/users/login",
+        loginUser
+      );
+      // Update the UserContext state
+      setUserData({ token: loginRes.data.token, user: loginRes.data.user });
+      // Set the auth-token in the browser
+      localStorage.setItem("auth-token", loginRes.data.token);
 
-    // Redirect user to the Option Select page
-    history.push("/options");
+      // Redirect user to the Home page
+      history.push("/");
+    } catch (err) {
+      if (err.response.data.msg) {
+        setError(err.response.data.msg);
+      }
+    }
   };
 
   return (
@@ -49,6 +57,10 @@ const LoginPage = () => {
 
         <input type="submit" value="Login" />
       </form>
+
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+      )}
     </div>
   );
 };

@@ -57,8 +57,6 @@ const ResultsPage = (props) => {
         .then((response) => {
           // Number of total pages for the API call, since API results come in pages of 100 results each
           let numberPages = Math.ceil(response.data.COUNT / 100);
-          console.log(response.data.COUNT);
-          console.log(numberPages);
           let page = 1;
           while (page <= numberPages) {
             // The page number is incremented until all results are extracted
@@ -71,7 +69,15 @@ const ResultsPage = (props) => {
               .request(resultsOptions)
               .then((response) => {
                 for (let item of response.data.ITEMS) {
-                  resultsArr.push(item);
+                  resultsArr.push({
+                    netflixid: item.netflixid,
+                    title: item.title,
+                    image: item.image,
+                    synopsis: item.synopsis,
+                    type: item.type,
+                    released: item.released,
+                    runtime: item.runtime,
+                  });
                 }
                 // Removes any duplicate items in the results state variable
                 setResults((prevResults) => [
@@ -103,11 +109,13 @@ const ResultsPage = (props) => {
   return (
     <div>
       <h1>{mediaType}</h1>
-      <ol>
-        {results.map((show) => {
-          return <li>{show.title}</li>;
+      <ShowCards results={results} />
+      {/* <ul>
+        {results.map((item) => {
+          return <li>{JSON.stringify(item)}</li>;
         })}
-      </ol>
+      </ul> */}
+      <SwipeButtons />
     </div>
   );
 };
