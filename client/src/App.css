@@ -1,38 +1,104 @@
-.App {
-  text-align: center;
+/* RESET */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+  color: #000000;
+  text-decoration: unset;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button,
+input[type="submit"] {
+  border: none;
+  background: none;
+  color: unset;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* GENERAL */
+
+body {
+  font-family: sans-serif;
+}
+
+.page {
+  padding: 1rem;
+}
+
+.container {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+/* FORM */
+
+.form label,
+.form input {
+  display: block;
+}
+.form label {
+  margin-bottom: 0.2rem;
+}
+.form input {
+  margin-bottom: 1rem;
+}
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"] {
+  width: 100%;
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  border: 1px solid #c2c2c2;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+.form input:focus {
+  outline: none;
+  border: 1px solid #50a4e9;
+  box-shadow: inset 0px 0px 5px rgb(80, 164, 233, 0.5);
+}
+.form input[type="submit"] {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #6aa051;
+  background-color: #c8ecb7;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+/* ERROR NOTICE */
+
+.error-notice {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 1px solid #e07c7c;
+  background-color: #f8d6d6;
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.error-notice button {
+  background-color: #df4343;
+  color: #ffffff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import TinderCard from "react-tinder-card";
 
 import "./ShowCards.css";
-import { ShowContext } from "../../context/ShowContext";
 
 const ShowCards = (props) => {
   const onSwipe = (direction) => {
@@ -14,9 +13,9 @@ const ShowCards = (props) => {
   };
 
   return (
-    <div className="showCards">
-      <div className="showCards__cardContainer">
-        {props.shows.map((show) => {
+    <div className="show-card">
+      <div className="container">
+        {props.results.map((show) => {
           return (
             <TinderCard
               className="swipe"
@@ -29,12 +28,14 @@ const ShowCards = (props) => {
                 style={{ backgroundImage: `url(${show.image})` }}
                 className="card"
               >
-                <h2>{show.title}</h2>
-                <h3>{show.synopsis}</h3>
-                <div>
-                  <h3>{show.released}</h3>
-                  <h3>{show.type}</h3>
-                  <h3>{show.runtime}</h3>
+                <div className="show-info">
+                  <h2>{show.title}</h2>
+                  <h3>{show.synopsis}</h3>
+                  <div className="extra-info">
+                    <h3>{show.type}</h3>
+                    <h3>{show.released}</h3>
+                    <h3>{show.runtime}</h3>
+                  </div>
                 </div>
               </div>
             </TinderCard>

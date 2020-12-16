@@ -1,17 +1,23 @@
 import React, { useContext } from "react";
 
 import "./TypeSelect.css";
-import { ShowContext } from "../../context/ShowContext";
+import { ShowContext } from "../../../context/ShowContext";
 
 const TypeSelect = (props) => {
-  const [state, setState] = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
 
   const toggleIsMovie = () => {
-    setState((prevState) => ({ ...prevState, isMovie: !prevState.isMovie }));
+    setShowData((prevData) => ({
+      ...prevData,
+      isMovie: !prevData.isMovie,
+    }));
   };
 
   const toggleIsSeries = () => {
-    setState((prevState) => ({ ...prevState, isSeries: !prevState.isSeries }));
+    setShowData((prevData) => ({
+      ...prevData,
+      isSeries: !prevData.isSeries,
+    }));
   };
 
   return (
@@ -21,14 +27,14 @@ const TypeSelect = (props) => {
         onClick={() => toggleIsMovie()}
         type="checkbox"
         name="movie"
-        checked={state.isMovie}
+        checked={showData.isMovie}
       />
       <h1>Series</h1>
       <input
         onClick={() => toggleIsSeries()}
         type="checkbox"
         name="series"
-        checked={state.isSeries}
+        checked={showData.isSeries}
       />
     </div>
   );

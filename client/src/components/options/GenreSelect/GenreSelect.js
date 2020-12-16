@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 
 import "./GenreSelect.css";
-import { ShowContext } from "../../context/ShowContext";
+import { ShowContext } from "../../../context/ShowContext";
 import GenreSearchBar from "../GenreSearchBar/GenreSearchBar";
 import GenreList from "../GenreList/GenreList";
 import SelectedGenresList from "../SelectedGenresList/SelectedGenresList";
 
 const GenreSelect = (props) => {
-  const [state, setState] = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
 
   const updateGenreList = (keyword) => {
     props.setKeyword(keyword);
@@ -19,13 +19,13 @@ const GenreSelect = (props) => {
 
   const updateSelectedGenres = (genre) => {
     if (
-      !state.selectedGenres.some(
+      !showData.selectedGenres.some(
         (selectedGenre) => selectedGenre.id === genre.id
       )
     ) {
-      setState((prevState) => ({
-        ...prevState,
-        selectedGenres: [...prevState.selectedGenres, genre],
+      setShowData((prevData) => ({
+        ...prevData,
+        selectedGenres: [...prevData.selectedGenres, genre],
       }));
     }
   };

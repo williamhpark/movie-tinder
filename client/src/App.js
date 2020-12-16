@@ -1,31 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
+import { UserProvider } from "./context/UserContext";
 import { ShowProvider } from "./context/ShowContext";
-import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
-import ResultsPage from "./pages/ResultsPage/ResultsPage";
+import Routes from "./App.routes";
+import Header from "./components/layout/Header/Header";
 
 const App = () => {
-  const routes = [
-    { name: "Options", path: "/", component: OptionSelectPage },
-    { name: "Results", path: "/results", component: ResultsPage },
-  ];
-
   return (
-    <ShowProvider>
-      <Router>
-        <div>
-          <Switch>
-            {routes.map((route) => {
-              return (
-                <Route exact path={route.path} component={route.component} />
-              );
-            })}
-          </Switch>
-        </div>
-      </Router>
-    </ShowProvider>
+    <>
+      <UserProvider>
+        <ShowProvider>
+          <Router>
+            <Header />
+            <div className="container">
+              <Routes />
+            </div>
+          </Router>
+        </ShowProvider>
+      </UserProvider>
+    </>
   );
 };
 
