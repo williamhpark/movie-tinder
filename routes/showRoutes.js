@@ -11,6 +11,7 @@ router.post("/accepted", auth, async (req, res) => {
   try {
     const { netflixId, title, type, released, runtime } = req.body;
     const newShow = new Show({
+      sessionId: "",
       userId: req.user,
       accepted: true,
       netflixId,
@@ -33,6 +34,7 @@ router.post("/rejected", auth, async (req, res) => {
   try {
     const { netflixId, title, type, released, runtime } = req.body;
     const newShow = new Show({
+      sessionId: "",
       userId: req.user,
       accepted: false,
       netflixId,
