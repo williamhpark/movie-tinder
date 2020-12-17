@@ -50,7 +50,7 @@ router.post("/rejected", async (req, res) => {
 router.get("/accepted", auth, async (req, res) => {
   try {
     const acceptedShows = await Show.find({
-      sessionid: "1",
+      sessionid: "test",
       userid: req.user,
       accepted: true,
     });
@@ -66,7 +66,7 @@ router.get("/accepted", auth, async (req, res) => {
 router.get("/rejected", auth, async (req, res) => {
   try {
     const rejectedShows = await Show.find({
-      sessionid: "1",
+      sessionid: "test",
       userid: req.user,
       accepted: false,
     });
