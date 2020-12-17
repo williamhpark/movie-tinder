@@ -7,18 +7,15 @@ const auth = require("../middleware/auth");
 // @route   POST /accepted
 // @desc    Add a show to the accepted collection
 // @access  Public
-router.post("/accepted", auth, async (req, res) => {
+router.post("/accepted", async (req, res) => {
   try {
-    const { netflixId, title, type, released, runtime } = req.body;
+    const { userid, netflixid, title } = req.body;
     const newShow = new Show({
-      sessionId: "",
-      userId: req.user,
+      sessionid: "test",
+      userid,
       accepted: true,
-      netflixId,
+      netflixid,
       title,
-      type,
-      released,
-      runtime,
     });
     const acceptedShow = await newShow.save();
     res.json(acceptedShow);
@@ -30,18 +27,15 @@ router.post("/accepted", auth, async (req, res) => {
 // @route   POST /rejected
 // @desc    Add a show to the rejected collection
 // @access  Public
-router.post("/rejected", auth, async (req, res) => {
+router.post("/rejected", async (req, res) => {
   try {
-    const { netflixId, title, type, released, runtime } = req.body;
+    const { userid, netflixid, title } = req.body;
     const newShow = new Show({
-      sessionId: "",
-      userId: req.user,
+      sessionid: "test",
+      userid,
       accepted: false,
-      netflixId,
+      netflixid,
       title,
-      type,
-      released,
-      runtime,
     });
     const rejectedShow = await newShow.save();
     res.json(rejectedShow);
@@ -55,7 +49,11 @@ router.post("/rejected", auth, async (req, res) => {
 // @access  Public
 router.get("/accepted", auth, async (req, res) => {
   try {
-    const acceptedShows = await Show.find({ userId: req.user, accepted: true });
+    const acceptedShows = await Show.find({
+      sessionid: "1",
+      userid: req.user,
+      accepted: true,
+    });
     res.json(acceptedShows);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -68,7 +66,8 @@ router.get("/accepted", auth, async (req, res) => {
 router.get("/rejected", auth, async (req, res) => {
   try {
     const rejectedShows = await Show.find({
-      userId: req.user,
+      sessionid: "1",
+      userid: req.user,
       accepted: false,
     });
     res.json(rejectedShows);
