@@ -7,7 +7,7 @@ import { UserContext } from "../../context/UserContext";
 import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
 
 const RegisterPage = () => {
-  const [name, setName] = useState(undefined);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [passwordCheck, setPasswordCheck] = useState(undefined);

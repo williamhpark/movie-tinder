@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
@@ -7,6 +8,7 @@ import ShowCards from "../../components/results/ShowCards/ShowCards";
 import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
+  const history = useHistory();
   const [results, setResults] = useState([]);
 
   const { showData } = useContext(ShowContext);
@@ -116,6 +118,7 @@ const ResultsPage = (props) => {
         })}
       </ul> */}
       <SwipeButtons />
+      <button onClick={() => history.push("/final")}>done </button>
     </div>
   );
 };

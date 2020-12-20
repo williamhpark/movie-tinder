@@ -6,6 +6,9 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import OptionSelectPage from "./pages/OptionSelectPage/OptionSelectPage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
+import FinalResultsPage from "./pages/FinalResultsPage/FinalResultsPage";
+import JoinSessionPage from "./pages/JoinSessionPage/JoinSessionPage";
+import SessionPage from "./pages/SessionPage/SessionPage";
 
 const Routes = () => {
   const routes = [
@@ -14,6 +17,9 @@ const Routes = () => {
     { name: "Login", path: "/login", component: LoginPage },
     { name: "Options", path: "/options", component: OptionSelectPage },
     { name: "Results", path: "/results", component: ResultsPage },
+    { name: "FinalResults", path: "/final", component: FinalResultsPage },
+    { name: "JoinSession", path: "/join", component: JoinSessionPage },
+    { name: "Session", path: "/session", component: SessionPage },
   ];
 
   const renderRoutes = () => {
