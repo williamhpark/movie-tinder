@@ -128,4 +128,9 @@ router.get("/loggedInUser", auth, async (req, res) => {
   res.json({ id: user._id, name: user.name });
 });
 
+router.get("/username", auth, async (req, res) => {
+  const user = await User.findById(req);
+  res.json(user.name);
+});
+
 module.exports = router;

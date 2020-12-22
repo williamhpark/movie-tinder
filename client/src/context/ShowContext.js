@@ -7,6 +7,7 @@ const ShowProvider = ({ children }) => {
     isMovie: false,
     isSeries: false,
     selectedGenres: [],
+    results: [],
   });
 
   return (

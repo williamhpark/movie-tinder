@@ -1,35 +1,55 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import queryString from "query-string";
+import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
 
 import io from "socket.io-client";
 
 let socket;
 
-const SessionPage = () => {
+const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
   const ENDPOINT = "localhost:5000";
-  const userID = userData.user.id;
+  const history = useHistory();
+
+  const outputUsers = (roomUsers) => {
+    document.getElementById("users").innerHTML = `
+      ${roomUsers.map((user) => `<li>${user.name}</li>`).join("")}
+  `;
+  };
+
+  let room;
+
+  const { creator, roomCode } = queryString.parse(location.search);
+  console.log(creator);
+  if (creator == "true") {
+    room =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+
+    room = room.slice(0, 6);
+  } else {
+    room = roomCode;
+  }
 
   useEffect(() => {
     socket = io(ENDPOINT);
+    console.log(creator);
     console.log(room);
-    console.log(userID);
-    socket.emit("sessioncreate", { room, userID });
+    socket.emit("sessioncreate", room, creator, { user: userData.user });
+
+    socket.on("roomUsers", (users) => {
+      outputUsers(users);
+    });
   }, [ENDPOINT]);
-
-  const history = useHistory();
-
-  let room =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
-
-  room = room.slice(0, 6);
 
   return (
     <div>
       <h1>{room}</h1>
       <h1>Session</h1>
+      <ul id="users"></ul>
       <button onClick={() => history.push("/options")}>Start</button>
     </div>
   );

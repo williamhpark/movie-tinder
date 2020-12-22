@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState(undefined);
   const [error, setError] = useState(undefined);
 
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
   const history = useHistory();
 
@@ -25,6 +25,7 @@ const LoginPage = () => {
       );
       // Update the UserContext state
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
+      console.log(userData);
       // Set the auth-token in the browser
       localStorage.setItem("auth-token", loginRes.data.token);
 

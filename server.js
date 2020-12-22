@@ -4,7 +4,11 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const http = require("http");
 const socketio = require("socket.io");
-const { sessionCreate, getSession } = require("./client/socketUtil/sessions");
+const {
+  sessionCreate,
+  getSession,
+  getRoomUsers,
+} = require("./client/socketUtil/sessions");
 dotenv.config();
 
 // App Config
@@ -48,20 +52,29 @@ server.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 io.on("connection", (socket) => {
   console.log("ws connection");
 
-  socket.on("sessioncreate", ({ room, userID }) => {
-    const session = sessionCreate(room, userID);
-    socket.join(session.room);
+  socket.on("sessioncreate", (room, creator, currentUser) => {
+    if (creator == "true") {
+      const session = sessionCreate(room, currentUser.user);
+      session.users.push(currentUser.user);
+      console.log(session);
+    }
+    const session = getSession(room);
+    socket.join(session.roomcode);
+
+    io.to(session.roomcode).emit("roomUsers", getRoomUsers(session.roomcode));
   });
 
-  socket.on("userJoin", (roomCode, userID, callback) => {
+  socket.on("userJoin", (roomCode, currentUser, callback) => {
     const session = getSession(roomCode);
-    if (session) {
-      session.users.push(userID);
-    } else {
-      socket.emit("roomNotFound", "Room does not exist");
-    }
 
-    console.log(session);
+    if (session) {
+      session.users.push(currentUser.user);
+      socket.join(session.roomcode);
+
+      socket.emit("roomNotFound", "Room Found", roomCode);
+    } else {
+      socket.emit("roomNotFound", "Room does not exist", roomCode);
+    }
     callback();
   });
 

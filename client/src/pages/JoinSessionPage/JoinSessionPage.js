@@ -10,10 +10,10 @@ let socket;
 const JoinSessionPage = (props) => {
   const { userData } = useContext(UserContext);
   const [roomCode, setRoomcode] = useState("");
-  const [error, setError] = useState("");
+  const [found, setFound] = useState("");
   const ENDPOINT = "localhost:5000";
-  const userID = userData.user.id;
   const history = useHistory();
+  console.log(userData.user);
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -21,17 +21,20 @@ const JoinSessionPage = (props) => {
 
   const enterRoom = (event) => {
     event.preventDefault();
-    console.log("hello");
 
     if (roomCode) {
-      socket.emit("userJoin", roomCode, userID, () => setRoomcode(""));
-      socket.on("roomNotFound", (error) => {
-        setError(error);
+      socket.emit("userJoin", roomCode, { user: userData.user }, () =>
+        setRoomcode("")
+      );
+
+      socket.on("roomNotFound", (roomFound, roomID) => {
+        setFound(roomFound);
+        if (roomFound == "Room Found") {
+          history.push(`/session?creator=false&&roomCode=${roomID}`);
+        }
       });
     }
   };
-
-  console.log(roomCode);
   return (
     <div>
       <input
@@ -41,8 +44,8 @@ const JoinSessionPage = (props) => {
           event.key === "Enter" ? enterRoom(event) : null
         }
       />
-      {error && (
-        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+      {found && (
+        <ErrorNotice message={found} clearError={() => setFound(undefined)} />
       )}
     </div>
   );

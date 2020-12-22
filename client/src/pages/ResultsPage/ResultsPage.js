@@ -8,10 +8,8 @@ import ShowCards from "../../components/results/ShowCards/ShowCards";
 import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
+  const { showData, setShowData } = useContext(ShowContext);
   const history = useHistory();
-  const [results, setResults] = useState([]);
-
-  const { showData } = useContext(ShowContext);
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -82,14 +80,17 @@ const ResultsPage = (props) => {
                   });
                 }
                 // Removes any duplicate items in the results state variable
-                setResults((prevResults) => [
-                  ...new Map(
-                    [...prevResults, ...resultsArr].map((item) => [
-                      item["netflixid"],
-                      item,
-                    ])
-                  ).values(),
-                ]);
+                setShowData((prevData) => ({
+                  ...prevData,
+                  results: [
+                    ...new Map(
+                      [...prevData.results, ...resultsArr].map((item) => [
+                        item["netflixid"],
+                        item,
+                      ])
+                    ).values(),
+                  ],
+                }));
               })
               .catch((error) => {
                 console.error(error);
@@ -110,13 +111,7 @@ const ResultsPage = (props) => {
 
   return (
     <div>
-      <h1>{mediaType}</h1>
-      <ShowCards results={results} />
-      {/* <ul>
-        {results.map((item) => {
-          return <li>{JSON.stringify(item)}</li>;
-        })}
-      </ul> */}
+      <ShowCards />
       <SwipeButtons />
       <button onClick={() => history.push("/final")}>done </button>
     </div>
