@@ -8,10 +8,10 @@ import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
-  const [passwordCheck, setPasswordCheck] = useState(undefined);
-  const [error, setError] = useState(undefined);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [error, setError] = useState("");
 
   const { setUserData } = useContext(UserContext);
 

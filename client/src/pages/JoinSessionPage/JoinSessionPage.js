@@ -29,7 +29,7 @@ const JoinSessionPage = (props) => {
 
       socket.on("roomNotFound", (roomFound, roomID) => {
         setFound(roomFound);
-        if (roomFound == "Room Found") {
+        if (roomFound === "Room Found") {
           history.push(`/session?creator=false&&roomCode=${roomID}`);
         }
       });

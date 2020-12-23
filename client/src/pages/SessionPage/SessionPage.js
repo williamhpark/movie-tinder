@@ -1,9 +1,7 @@
-import React, { useEffect, useContext, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
-import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
 
 import io from "socket.io-client";
 
@@ -23,8 +21,7 @@ const SessionPage = ({ location }) => {
   let room;
 
   const { creator, roomCode } = queryString.parse(location.search);
-  console.log(creator);
-  if (creator == "true") {
+  if (creator === "true") {
     room =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);

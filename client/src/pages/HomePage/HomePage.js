@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import { UserContext } from "../../context/UserContext";
 
@@ -17,9 +16,9 @@ const HomePage = (props) => {
   return (
     <div>
       <h2>Home</h2>
-      <Link to={`/session?creator=true`}>
-        <button>Start Session</button>
-      </Link>
+      <button onClick={() => history.push("/session?creator=true")}>
+        Start Session
+      </button>
       <button onClick={() => history.push("/join")}>Join session</button>
     </div>
   );
