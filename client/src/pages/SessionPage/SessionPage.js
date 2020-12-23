@@ -2,8 +2,9 @@ import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
-
 import io from "socket.io-client";
+
+import OptionSelect from "../../components/options/OptionSelect";
 
 let socket;
 
