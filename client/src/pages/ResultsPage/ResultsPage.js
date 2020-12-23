@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
@@ -8,6 +9,7 @@ import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
   const { showData, setShowData } = useContext(ShowContext);
+  const history = useHistory();
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -111,6 +113,7 @@ const ResultsPage = (props) => {
     <div>
       <ShowCards />
       <SwipeButtons />
+      <button onClick={() => history.push("/final")}>done </button>
     </div>
   );
 };
