@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
+import "./HomePage.css";
 import { UserContext } from "../../context/UserContext";
+import Hero from "../../components/layout/Hero/Hero";
 
 const HomePage = (props) => {
   const { userData } = useContext(UserContext);
@@ -15,12 +16,14 @@ const HomePage = (props) => {
   });
 
   return (
-    <div>
-      <h2>Home</h2>
-      <Link to={`/session?creator=true`}>
-        <button>Start Session</button>
-      </Link>
-      <button onClick={() => history.push("/join")}>Join session</button>
+    <div className="login page ">
+      <Hero text="Start your own session, or join someone else's session" />
+      <div className="button-row">
+        <button onClick={() => history.push("/session?creator=true")}>
+          Start Session
+        </button>
+        <button onClick={() => history.push("/join")}>Join session</button>
+      </div>
     </div>
   );
 };

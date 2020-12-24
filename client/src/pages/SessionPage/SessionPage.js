@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
-import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
-
 import io from "socket.io-client";
+
+import OptionSelect from "../../components/options/OptionSelect/OptionSelect";
 
 let socket;
 
@@ -23,8 +22,7 @@ const SessionPage = ({ location }) => {
   let room;
 
   const { creator, roomCode } = queryString.parse(location.search);
-  console.log(creator);
-  if (creator == "true") {
+  if (creator === "true") {
     room =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
@@ -46,11 +44,11 @@ const SessionPage = ({ location }) => {
   }, [ENDPOINT]);
 
   return (
-    <div>
+    <div className="page">
       <h1>{room}</h1>
       <h1>Session</h1>
       <ul id="users"></ul>
-      <button onClick={() => history.push("/options")}>Start</button>
+      {creator === "true" && <OptionSelect />}
     </div>
   );
 };

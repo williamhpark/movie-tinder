@@ -3,11 +3,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 // import { IconButton } from "@material-ui/core";
 
-import "./OptionSelectPage.css";
-import TypeSelect from "../../components/options/TypeSelect/TypeSelect";
-import GenreSelect from "../../components/options/GenreSelect/GenreSelect";
+import "./OptionSelect.css";
+import TypeSelect from "../TypeSelect/TypeSelect";
+import GenreSelect from "../GenreSelect/GenreSelect";
 
-const OptionSelectPage = (props) => {
+const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -63,7 +63,7 @@ const OptionSelectPage = (props) => {
   // }, []);
 
   return (
-    <div id="option-select-page">
+    <div id="option-select">
       <TypeSelect />
       <GenreSelect
         genreListDefault={genreListDefault}
@@ -79,4 +79,4 @@ const OptionSelectPage = (props) => {
     </div>
   );
 };
-export default OptionSelectPage;
+export default OptionSelect;

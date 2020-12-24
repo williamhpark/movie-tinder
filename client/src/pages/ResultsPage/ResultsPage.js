@@ -116,10 +116,10 @@ const ResultsPage = (props) => {
   }, [ENDPOINT]);
 
   return (
-    <div>
+    <div className="page">
       <ShowCards />
       <SwipeButtons />
-      <button onClick={() => history.push("/final")}>done </button>
+      <button onClick={() => history.push("/final")}>done</button>
     </div>
   );
 };
