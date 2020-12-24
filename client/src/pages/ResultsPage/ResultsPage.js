@@ -1,15 +1,19 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import io from "socket.io-client";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
 import ShowCards from "../../components/results/ShowCards/ShowCards";
 import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
+let socket;
+
 const ResultsPage = (props) => {
   const { showData, setShowData } = useContext(ShowContext);
   const history = useHistory();
+  const ENDPOINT = "localhost:5000";
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -106,8 +110,10 @@ const ResultsPage = (props) => {
   }, []);
 
   useEffect(() => {
+    socket = io(ENDPOINT);
     fetchInformation();
-  }, []);
+    console.log(showData.results);
+  }, [ENDPOINT]);
 
   return (
     <div>

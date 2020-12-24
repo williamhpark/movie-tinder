@@ -78,6 +78,12 @@ io.on("connection", (socket) => {
     callback();
   });
 
+  socket.on("addMovies", (movies, roomCode) => {
+    const session = getSession(roomCode);
+    console.log(`movies yay ${movies}`);
+    console.log(roomCode);
+  });
+
   socket.on("disconnect", () => {
     console.log("user left");
   });
