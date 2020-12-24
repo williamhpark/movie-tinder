@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import io from "socket.io-client";
+import queryString from "query-string";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
@@ -10,10 +11,12 @@ import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 let socket;
 
-const ResultsPage = (props) => {
+const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
   const history = useHistory();
   const ENDPOINT = "localhost:5000";
+  const { room } = queryString.parse(location.search);
+  console.log(room);
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -112,8 +115,7 @@ const ResultsPage = (props) => {
   useEffect(() => {
     socket = io(ENDPOINT);
     fetchInformation();
-    console.log(showData.results);
-  }, [ENDPOINT]);
+  }, []);
 
   return (
     <div className="page">

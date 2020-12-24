@@ -78,10 +78,10 @@ io.on("connection", (socket) => {
     callback();
   });
 
-  socket.on("addMovies", (movies, roomCode) => {
-    const session = getSession(roomCode);
-    console.log(`movies yay ${movies}`);
-    console.log(roomCode);
+  socket.on("addMovies", (movies, room) => {
+    console.log(`${movies} men`);
+    console.log(`${room} lo`);
+    console.log("cutie");
   });
 
   socket.on("disconnect", () => {

@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 // import { IconButton } from "@material-ui/core";
 
 import "./OptionSelect.css";
@@ -11,6 +12,7 @@ const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const history = useHistory();
 
   const fetchGenres = useCallback(() => {
     const options = {
@@ -48,20 +50,6 @@ const OptionSelect = (props) => {
     fetchGenres();
   }, []);
 
-  // useEffect(() => {
-  //   let testGenresArr = [
-  //     { id: 0, name: "All Genres" },
-  //     { id: 1, name: "All Action" },
-  //     { id: 2, name: "All Comedy" },
-  //     { id: 3, name: "Genre 1" },
-  //     { id: 4, name: "Genre 2" },
-  //     { id: 5, name: "Genre 3" },
-  //     { id: 6, name: "Genre 4" },
-  //     { id: 7, name: "Genre 5" },
-  //   ];
-  //   setGenreListDefault(testGenresArr);
-  // }, []);
-
   return (
     <div id="option-select">
       <TypeSelect />
@@ -73,8 +61,8 @@ const OptionSelect = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <button>
-        <Link to="/results">NEXT</Link>
+      <button onClick={() => history.push(`/results?room=${props.room}`)}>
+        done
       </button>
     </div>
   );

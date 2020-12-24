@@ -5,11 +5,14 @@ import queryString from "query-string";
 import io from "socket.io-client";
 
 import OptionSelect from "../../components/options/OptionSelect/OptionSelect";
+import { ShowContext } from "../../context/ShowContext";
 
 let socket;
 
 const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
+  const { showData, setShowData } = useContext(ShowContext);
+
   const ENDPOINT = "localhost:5000";
   const history = useHistory();
 
@@ -34,8 +37,8 @@ const SessionPage = ({ location }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    console.log(creator);
-    console.log(room);
+    console.log(showData);
+
     socket.emit("sessioncreate", room, creator, { user: userData.user });
 
     socket.on("roomUsers", (users) => {
@@ -48,7 +51,7 @@ const SessionPage = ({ location }) => {
       <h1>{room}</h1>
       <h1>Session</h1>
       <ul id="users"></ul>
-      {creator === "true" && <OptionSelect />}
+      {creator === "true" && <OptionSelect room={room} />}
     </div>
   );
 };

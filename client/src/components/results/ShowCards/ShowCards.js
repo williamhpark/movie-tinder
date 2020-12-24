@@ -16,6 +16,7 @@ const ShowCards = (props) => {
 
   const initializeDisplayedShowData = async () => {
     setDisplayedResults(showData.results);
+    console.log(showData.results);
   };
 
   useEffect(() => {
