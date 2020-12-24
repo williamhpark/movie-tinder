@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
 
+import "./JoinSessionPage.css";
 import { UserContext } from "../../context/UserContext";
 import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
 
@@ -19,8 +20,8 @@ const JoinSessionPage = (props) => {
     socket = io(ENDPOINT);
   }, [ENDPOINT]);
 
-  const enterRoom = (event) => {
-    event.preventDefault();
+  const submit = async (e) => {
+    e.preventDefault();
 
     if (roomCode) {
       socket.emit("userJoin", roomCode, { user: userData.user }, () =>
@@ -36,14 +37,17 @@ const JoinSessionPage = (props) => {
     }
   };
   return (
-    <div>
-      <input
-        value={roomCode}
-        onChange={(event) => setRoomcode(event.target.value)}
-        onKeyPress={(event) =>
-          event.key === "Enter" ? enterRoom(event) : null
-        }
-      />
+    <div className="join-session page">
+      <form className="form" onSubmit={submit}>
+        <label htmlFor="room-code">Room code</label>
+        <input
+          id="room-code"
+          type="text"
+          value={roomCode}
+          onChange={(e) => setRoomcode(e.target.value)}
+        />
+        <input type="submit" value="Enter" />
+      </form>
       {found && (
         <ErrorNotice message={found} clearError={() => setFound(undefined)} />
       )}

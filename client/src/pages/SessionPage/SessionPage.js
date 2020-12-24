@@ -4,7 +4,7 @@ import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
 import io from "socket.io-client";
 
-import OptionSelect from "../../components/options/OptionSelect";
+import OptionSelect from "../../components/options/OptionSelect/OptionSelect";
 
 let socket;
 
@@ -44,11 +44,11 @@ const SessionPage = ({ location }) => {
   }, [ENDPOINT]);
 
   return (
-    <div>
+    <div className="page">
       <h1>{room}</h1>
       <h1>Session</h1>
       <ul id="users"></ul>
-      <button onClick={() => history.push("/options")}>Start</button>
+      {creator === "true" && <OptionSelect />}
     </div>
   );
 };

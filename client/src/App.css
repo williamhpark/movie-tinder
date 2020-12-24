@@ -35,8 +35,10 @@ li {
 
 /* GENERAL */
 
-body {
-  font-family: sans-serif;
+body,
+button,
+input {
+  font-family: "Titillium Web", sans-serif;
 }
 
 .page {
