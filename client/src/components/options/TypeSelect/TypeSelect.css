@@ -1,4 +1,24 @@
-input[type="checkbox"] {
+.type-select {
+  margin-top: 1rem;
+}
+
+.type-select__container {
+  display: flex;
+  justify-content: center;
+}
+
+.type-select__checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.type-select input {
+  margin-left: 0.5rem;
+}
+
+/* input[type="checkbox"] {
   margin: 10px;
   position: relative;
   width: 120px;
@@ -55,4 +75,4 @@ input[type="checkbox"]:after {
 
 input:checked[type="checkbox"]:after {
   left: 110px;
-}
+} */

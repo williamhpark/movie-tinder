@@ -1,4 +1,4 @@
-#genre-list-container {
+.genre-list {
   display: flex;
   flex-direction: column;
 }

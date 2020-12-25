@@ -1,15 +1,28 @@
-.login .button-row {
+.home-page {
+  text-align: center;
+}
+
+.home-page__title {
+  margin-bottom: 2rem;
+}
+
+.home-page__description {
+  margin-bottom: 2rem;
+}
+
+.home-page__button-row {
   display: flex;
   justify-content: center;
 }
-.login button {
+
+.home-page__button-row button {
   padding: 0.5rem 1rem;
   margin: 0 2rem;
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background-color: #e50914;
-  border-radius: 8px;
+  border-radius: 0.6rem;
 }
-.login button:hover {
+.home-page__button-row button:hover {
   background-color: #b91b1b;
 }

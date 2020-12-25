@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // import { IconButton } from "@material-ui/core";
 
 import "./OptionSelect.css";
@@ -11,6 +11,8 @@ const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
+
+  const history = useHistory();
 
   const fetchGenres = useCallback(() => {
     const options = {
@@ -29,7 +31,7 @@ const OptionSelect = (props) => {
       .request(options)
       .then((response) => {
         for (let item of response.data.ITEMS) {
-          // Only include specific genres (parent genres have the keyword "All")
+          // Only include specific genres, not parent genres (parent genres contain the keyword "All")
           if (!Object.keys(item)[0].includes("All")) {
             genresArr.push({
               id: Object.values(item)[0][0],
@@ -63,7 +65,8 @@ const OptionSelect = (props) => {
   // }, []);
 
   return (
-    <div id="option-select">
+    <div className="option-select">
+      <h1>Choose your preferences</h1>
       <TypeSelect />
       <GenreSelect
         genreListDefault={genreListDefault}
@@ -73,9 +76,15 @@ const OptionSelect = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <button>
-        <Link to="/results">NEXT</Link>
-      </button>
+      <div className="option-select__start">
+        <form className="form">
+          <input
+            type="submit"
+            value="Start"
+            onClick={() => history.push("/results")}
+          />
+        </form>
+      </div>
     </div>
   );
 };

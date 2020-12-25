@@ -1,6 +1,8 @@
-#option-select {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.option-select {
+  text-align: center;
+}
+
+.option-select__start {
+  display: inline-block;
+  margin-top: 2rem;
 }

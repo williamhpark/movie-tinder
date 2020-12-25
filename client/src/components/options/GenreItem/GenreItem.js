@@ -12,14 +12,15 @@ const GenreItem = (props) => {
   };
 
   return (
-    <button
-      className="genre-item"
-      key={props.genre.id}
-      type="submit"
-      onClick={() => handleClick(props.genre)}
-    >
-      <h3>{props.genre.name}</h3>
-    </button>
+    <div className="genre-item">
+      <button
+        key={props.genre.id}
+        type="button"
+        onClick={() => handleClick(props.genre)}
+      >
+        {props.genre.name}
+      </button>
+    </div>
   );
 };
 

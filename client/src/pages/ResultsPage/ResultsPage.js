@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useCallback, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
 import ShowCards from "../../components/results/ShowCards/ShowCards";
-import SwipeButtons from "../../components/results/SwipeButtons/SwipeButtons";
 
 const ResultsPage = (props) => {
   const { showData, setShowData } = useContext(ShowContext);
@@ -110,10 +109,15 @@ const ResultsPage = (props) => {
   }, []);
 
   return (
-    <div className="page">
+    <div className="page results-page">
       <ShowCards />
-      <SwipeButtons />
-      <button onClick={() => history.push("/final")}>done</button>
+      <form className="results-page__done-button form">
+        <input
+          type="submit"
+          value="I'm done swiping!"
+          onClick={() => history.push("/final")}
+        />
+      </form>
     </div>
   );
 };

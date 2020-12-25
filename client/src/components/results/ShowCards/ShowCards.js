@@ -60,50 +60,55 @@ const ShowCards = (props) => {
   };
 
   return (
-    <div className="show-card">
-      <div className="container">
-        {displayedResults.map((show) => {
-          return (
-            <TinderCard
-              className="swipe"
-              key={show.netflixid}
-              preventSwipe={["up", "down"]}
-              onSwipe={(dir) => swiped(dir, show.netflixid)}
-              onCardLeftScreen={() => outOfFrame(show.netflixid)}
+    <div className="cards">
+      {displayedResults.map((show) => {
+        return (
+          <TinderCard
+            className="cards--swipe"
+            key={show.netflixid}
+            preventSwipe={["up", "down"]}
+            onSwipe={(dir) => swiped(dir, show.netflixid)}
+            onCardLeftScreen={() => outOfFrame(show.netflixid)}
+          >
+            <div
+              style={{ backgroundImage: `url(${show.image})` }}
+              className="cards__card"
             >
-              <div
-                style={{ backgroundImage: `url(${show.image})` }}
-                className="card"
-              >
-                <div className="show-info">
-                  {/* Use dangerouslySetInnerHTML since otherwise JSX escapes the HTML and displays the tag */}
-                  {/* Note: May want to change in the future, creates possibility for XSS attack */}
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<h2>${show.title}</h2><h3>${show.synopsis}</h3>`,
-                    }}
-                  ></div>
-                  <div className="extra-info">
-                    <h3>{show.type}</h3>
-                    <h3>{show.released}</h3>
-                    <h3>{show.runtime}</h3>
-                  </div>
+              <div className="cards__card-content">
+                {/* Use dangerouslySetInnerHTML since otherwise JSX escapes the HTML and displays the tag */}
+                {/* Note: May want to change in the future, creates possibility for XSS attack */}
+                <div
+                  className="cards__card-title"
+                  dangerouslySetInnerHTML={{
+                    __html: `<h2>${show.title}</h2>`,
+                  }}
+                />
+                <div
+                  className="cards__card-synopsis"
+                  dangerouslySetInnerHTML={{
+                    __html: `<h3>${show.synopsis}</h3>`,
+                  }}
+                />
+                <div className="cards__card-tags">
+                  <h3>{show.type}</h3>
+                  <h3>{show.released}</h3>
+                  <h3>{show.runtime}</h3>
                 </div>
               </div>
-            </TinderCard>
-          );
-        })}
-      </div>
+            </div>
+          </TinderCard>
+        );
+      })}
       {lastDirection ? (
-        <h2 key={lastDirection} className="info-text">
+        <h2 key={lastDirection} className="cards__swipe-direction">
           You swiped {lastDirection}
         </h2>
       ) : (
-        <h2 className="info-text">Swipe a card to get started!</h2>
+        <h2 className="cards__swipe-direction">Swipe a card to get started!</h2>
       )}
-      {error && (
+      {/* {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,40 +1,53 @@
-.card {
-  position: relative;
-  background-color: #ffffff;
-  width: 600px;
-  padding: 20px;
-  max-width: 85vw;
-  height: 50vh;
-  border-radius: 20px;
-  background-size: cover;
-  background-position: center;
-}
-
-.container {
+.cards {
   display: flex;
   justify-content: center;
-  margin-top: 10vh;
+  text-align: center;
 }
 
-.swipe {
+.cards--swipe {
   position: absolute;
 }
 
-.show-info {
+.cards__card {
+  position: relative;
+  width: 25rem;
+  max-width: 70vw;
+  height: 60rem;
+  max-height: 60vh;
+  border-radius: 2rem;
+  background-size: cover;
+  background-position: center;
+  background-color: #ffffff;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.cards__card-content {
   position: absolute;
   bottom: 0;
-  padding: 0.2rem;
-  background-color: rgba(255, 255, 255, 0.3);
+  left: 0;
+  right: 0;
+  padding: 0.2rem 1.5rem;
+  background-color: #ccc0c0d2;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
-.show-info .extra-info {
+.cards__card-title {
+  text-align: center;
+}
+
+.cards__card-synopsis {
+  text-align: left;
+}
+
+.cards__card-tags {
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
-  align-items: center;
 }
 
-.info-text {
+.cards__swipe-direction {
+  color: #000000;
   position: absolute;
-  bottom: 0;
+  bottom: 15vh;
 }

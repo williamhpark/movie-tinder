@@ -1,17 +1,15 @@
-#genre-select {
+.genre-select {
+  margin-top: 1rem;
+}
+
+.genre-select__search-selected {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
-#genre-select h1 {
-  text-align: center;
-}
-
-#genre-select #container {
-  display: flex;
-  flex-direction: row;
-}
-
-#genre-select #search-list {
-  margin-right: 5rem;
+.genre-select__search-input {
+  width: 20rem;
+  max-width: 35vw;
+  margin-bottom: 0.1rem;
 }

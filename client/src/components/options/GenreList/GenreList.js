@@ -6,7 +6,7 @@ import GenreItem from "../GenreItem/GenreItem";
 const GenreList = (props) => {
   if (props.keyword && props.keyword.length > 0) {
     return (
-      <div id="genre-list-container">
+      <div className="genre-list">
         {props.genreList.map((genre) => {
           return (
             <GenreItem

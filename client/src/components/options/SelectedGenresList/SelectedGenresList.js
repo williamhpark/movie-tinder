@@ -8,8 +8,10 @@ const SelectedGenresList = (props) => {
   const { showData } = useContext(ShowContext);
 
   return (
-    <div id="selected-genres-container">
-      <h2>Selected Genres</h2>
+    <div className="selected-genres-list">
+      <p>
+        <b>Selected</b>
+      </p>
       {showData.selectedGenres.map((genre) => {
         return <SelectedGenreItem genre={genre} />;
       })}

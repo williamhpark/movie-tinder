@@ -48,7 +48,7 @@ const RegisterPage = () => {
   return (
     <div className="page">
       <h2>Register</h2>
-      <form className="form" onSubmit={submit}>
+      <form className="register-page__form form" onSubmit={submit}>
         <label htmlFor="register-name">Full name</label>
         <input
           id="register-name"

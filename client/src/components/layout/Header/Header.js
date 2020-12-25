@@ -6,9 +6,9 @@ import AuthOptions from "../../auth/AuthOptions/AuthOptions";
 
 const Header = (props) => {
   return (
-    <header id="header">
+    <header className="header">
       <Link to="/">
-        <h1 className="title">MATCHI</h1>
+        <h1 className="header__title">MATCHI</h1>
       </Link>
       <AuthOptions />
     </header>

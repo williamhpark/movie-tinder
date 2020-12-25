@@ -6,36 +6,44 @@ import { ShowContext } from "../../../context/ShowContext";
 const TypeSelect = (props) => {
   const { showData, setShowData } = useContext(ShowContext);
 
-  const toggleIsMovie = () => {
+  const isMovieHandler = (e) => {
     setShowData((prevData) => ({
       ...prevData,
-      isMovie: !prevData.isMovie,
+      isMovie: e.target.checked,
     }));
   };
-
-  const toggleIsSeries = () => {
+  const isSeriesHandler = (e) => {
     setShowData((prevData) => ({
       ...prevData,
-      isSeries: !prevData.isSeries,
+      isSeries: e.target.checked,
     }));
   };
 
   return (
-    <div className="center">
-      <h1>Movies</h1>
-      <input
-        onClick={() => toggleIsMovie()}
-        type="checkbox"
-        name="movie"
-        checked={showData.isMovie}
-      />
-      <h1>Series</h1>
-      <input
-        onClick={() => toggleIsSeries()}
-        type="checkbox"
-        name="series"
-        checked={showData.isSeries}
-      />
+    <div className="type-select">
+      <h2>Media type</h2>
+      <div className="type-select__container">
+        <div className="type-select__checkbox">
+          <label for="movie">Movie</label>
+          <input
+            type="checkbox"
+            id="movie"
+            name="movie"
+            checked={showData.isMovie}
+            onChange={(e) => isMovieHandler(e)}
+          />
+        </div>
+        <div className="type-select__checkbox">
+          <label for="series">Shows</label>
+          <input
+            type="checkbox"
+            id="series"
+            name="series"
+            checked={showData.isSeries}
+            onChange={(e) => isSeriesHandler(e)}
+          />
+        </div>
+      </div>
     </div>
   );
 };

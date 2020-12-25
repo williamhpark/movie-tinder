@@ -1,0 +1,13 @@
+.session-page__room-info-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.session-page__room-info {
+  text-align: left;
+  display: inline-block;
+}
+
+.session-page h2 {
+  margin-bottom: 1rem;
+}

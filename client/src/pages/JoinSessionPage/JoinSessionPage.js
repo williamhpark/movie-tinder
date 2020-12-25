@@ -37,8 +37,8 @@ const JoinSessionPage = (props) => {
     }
   };
   return (
-    <div className="join-session page">
-      <form className="form" onSubmit={submit}>
+    <div className="page">
+      <form className="join-session-page__form form" onSubmit={submit}>
         <label htmlFor="room-code">Room code</label>
         <input
           id="room-code"
