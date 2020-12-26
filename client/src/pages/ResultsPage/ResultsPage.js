@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
-import ShowCards from "../../components/results/ShowCards/ShowCards";
+import ShowCards from "../../components/ShowCards/ShowCards";
 
 const ResultsPage = (props) => {
   const { showData, setShowData } = useContext(ShowContext);

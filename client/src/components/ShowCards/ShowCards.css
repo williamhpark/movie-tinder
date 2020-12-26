@@ -10,7 +10,7 @@
 
 .cards__card {
   position: relative;
-  width: 25rem;
+  width: 20rem;
   max-width: 70vw;
   height: 60rem;
   max-height: 60vh;
@@ -50,4 +50,5 @@
   color: #000000;
   position: absolute;
   bottom: 15vh;
+  font-size: 1.3rem;
 }

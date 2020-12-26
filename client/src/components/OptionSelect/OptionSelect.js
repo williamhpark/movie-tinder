@@ -66,7 +66,7 @@ const OptionSelect = (props) => {
 
   return (
     <div className="option-select">
-      <h1>Choose your preferences</h1>
+      <h1>Choose your group's preferences</h1>
       <TypeSelect />
       <GenreSelect
         genreListDefault={genreListDefault}

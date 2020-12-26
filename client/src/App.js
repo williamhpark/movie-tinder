@@ -5,7 +5,7 @@ import "./App.css";
 import { UserProvider } from "./context/UserContext";
 import { ShowProvider } from "./context/ShowContext";
 import Routes from "./App.routes";
-import Header from "./components/layout/Header/Header";
+import Header from "./components/Header/Header";
 
 const App = () => {
   return (

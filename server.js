@@ -59,9 +59,9 @@ io.on("connection", (socket) => {
       console.log(session);
     }
     const session = getSession(room);
-    socket.join(session.roomcode);
+    socket.join(session.roomCode);
 
-    io.to(session.roomcode).emit("roomUsers", getRoomUsers(session.roomcode));
+    io.to(session.roomCode).emit("roomUsers", getRoomUsers(session.roomCode));
   });
 
   socket.on("userJoin", (roomCode, currentUser, callback) => {
@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
 
     if (session) {
       session.users.push(currentUser.user);
-      socket.join(session.roomcode);
+      socket.join(session.roomCode);
 
       socket.emit("roomNotFound", "Room Found", roomCode);
     } else {

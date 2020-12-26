@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import "./RegisterPage.css";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
+import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");

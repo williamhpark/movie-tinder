@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import "./AuthOptions.css";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 const AuthOptions = (props) => {
   const { userData, setUserData } = useContext(UserContext);

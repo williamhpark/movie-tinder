@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 
 import "./JoinSessionPage.css";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
+import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
 let socket;
 
 const JoinSessionPage = (props) => {
   const { userData } = useContext(UserContext);
-  const [roomCode, setRoomcode] = useState("");
+  const [roomCode, setRoomCode] = useState("");
   const [found, setFound] = useState("");
   const ENDPOINT = "localhost:5000";
   const history = useHistory();
@@ -25,7 +25,7 @@ const JoinSessionPage = (props) => {
 
     if (roomCode) {
       socket.emit("userJoin", roomCode, { user: userData.user }, () =>
-        setRoomcode("")
+        setRoomCode("")
       );
 
       socket.on("roomNotFound", (roomFound, roomID) => {
@@ -44,7 +44,7 @@ const JoinSessionPage = (props) => {
           id="room-code"
           type="text"
           value={roomCode}
-          onChange={(e) => setRoomcode(e.target.value)}
+          onChange={(e) => setRoomCode(e.target.value)}
         />
         <input type="submit" value="Enter" />
       </form>

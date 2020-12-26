@@ -3,9 +3,9 @@ import TinderCard from "react-tinder-card";
 import axios from "axios";
 
 import "./ShowCards.css";
-import { ShowContext } from "../../../context/ShowContext";
-import { UserContext } from "../../../context/UserContext";
-import ErrorNotice from "../../auth/ErrorNotice/ErrorNotice";
+import { ShowContext } from "../../context/ShowContext";
+import { UserContext } from "../../context/UserContext";
+import ErrorNotice from "../ErrorNotice/ErrorNotice";
 
 const ShowCards = (props) => {
   const { showData } = useContext(ShowContext);
@@ -90,9 +90,9 @@ const ShowCards = (props) => {
                   }}
                 />
                 <div className="cards__card-tags">
-                  <h3>{show.type}</h3>
-                  <h3>{show.released}</h3>
-                  <h3>{show.runtime}</h3>
+                  {show.type ? <h3>{show.type}</h3> : null}
+                  {show.released ? <h3>{show.released}</h3> : null}
+                  {show.runtime ? <h3>{show.runtime}</h3> : null}
                 </div>
               </div>
             </div>

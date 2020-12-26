@@ -4,7 +4,7 @@ import queryString from "query-string";
 import io from "socket.io-client";
 
 import "./SessionPage.css";
-import OptionSelect from "../../components/options/OptionSelect/OptionSelect";
+import OptionSelect from "../../components/OptionSelect/OptionSelect";
 
 let socket;
 
@@ -60,7 +60,7 @@ const SessionPage = ({ location }) => {
             <b>Room Code:</b> {room}
           </p>
           <p>
-            <b>Room members:</b>
+            <b>Room Members:</b>
           </p>
           <ul id="users"></ul>
         </div>

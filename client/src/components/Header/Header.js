@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Header.css";
-import AuthOptions from "../../auth/AuthOptions/AuthOptions";
+import AuthOptions from "../AuthOptions/AuthOptions";
 
 const Header = (props) => {
   return (
