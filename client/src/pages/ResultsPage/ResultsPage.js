@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import ShowCards from "../../components/ShowCards/ShowCards";
 
 const ResultsPage = (props) => {
   const { showData, setShowData } = useContext(ShowContext);
+  const [isLoader, setIsLoader] = useState(true);
   const history = useHistory();
 
   let genreIds = [];
@@ -26,14 +28,15 @@ const ResultsPage = (props) => {
     mediaType = "Series";
   }
 
-  const fetchInformation = useCallback(() => {
+  const fetchData = async () => {
+    const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
     // Country ID for Canada
     const countryId = "33";
 
     genreIds.forEach((id) => {
+      setIsLoader(true);
+
       let options = {
-        method: "GET",
-        url: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi",
         params: {
           q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
           t: "ns",
@@ -52,20 +55,19 @@ const ResultsPage = (props) => {
       let resultsArr = [];
 
       axios
-        .request(options)
+        .get(apiUrl, options)
         .then((response) => {
+          let page = 1;
           // Number of total pages for the API call, since API results come in pages of 100 results each
           let numberPages = Math.ceil(response.data.COUNT / 100);
-          let page = 1;
           while (page <= numberPages) {
             // The page number is incremented until all results are extracted
             let resultsOptions = {
               ...options,
               params: { ...options.params, p: `${page}` },
             };
-
             axios
-              .request(resultsOptions)
+              .get(apiUrl, resultsOptions)
               .then((response) => {
                 for (let item of response.data.ITEMS) {
                   resultsArr.push({
@@ -78,6 +80,7 @@ const ResultsPage = (props) => {
                     runtime: item.runtime,
                   });
                 }
+                console.log(resultsArr);
                 // Removes any duplicate items in the results state variable
                 setShowData((prevData) => ({
                   ...prevData,
@@ -94,22 +97,23 @@ const ResultsPage = (props) => {
               .catch((error) => {
                 console.error(error);
               });
-
             page += 1;
           }
         })
+        .then(() => setIsLoader(false))
         .catch((error) => {
           console.error(error);
         });
     });
-  }, []);
+  };
 
   useEffect(() => {
-    fetchInformation();
+    fetchData();
   }, []);
 
   return (
     <div className="page results-page">
+      {isLoader && <FullPageLoader />}
       <ShowCards />
       <form className="results-page__done-button form">
         <input

@@ -1,0 +1,11 @@
+.full-page-loader {
+  position: fixed;
+  top: 25%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.full-page-loader__img {
+  z-index: 1000;
+}
