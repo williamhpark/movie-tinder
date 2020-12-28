@@ -1,16 +1,16 @@
 import React, { useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
-
 import io from "socket.io-client";
+
+import "./SessionPage.css";
+import OptionSelect from "../../components/OptionSelect/OptionSelect";
 
 let socket;
 
 const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
   const ENDPOINT = "localhost:5000";
-  const history = useHistory();
 
   const outputUsers = (roomUsers) => {
     document.getElementById("users").innerHTML = `
@@ -43,11 +43,29 @@ const SessionPage = ({ location }) => {
   }, [ENDPOINT]);
 
   return (
-    <div>
-      <h1>{room}</h1>
-      <h1>Session</h1>
-      <ul id="users"></ul>
-      <button onClick={() => history.push("/options")}>Start</button>
+    <div className="session-page page">
+      <div className="session-page__room-info-container">
+        <div className="session-page__room-info">
+          <h2>Room Info</h2>
+          {creator === "true" ? (
+            <p>
+              <b>Role:</b> Admin
+            </p>
+          ) : (
+            <p>
+              <b>Role:</b> User
+            </p>
+          )}
+          <p>
+            <b>Room Code:</b> {room}
+          </p>
+          <p>
+            <b>Room Members:</b>
+          </p>
+          <ul id="users"></ul>
+        </div>
+      </div>
+      {creator === "true" && <OptionSelect />}
     </div>
   );
 };

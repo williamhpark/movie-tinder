@@ -1,11 +1,11 @@
 const sessions = [];
 
 // creating an array of sessions
-const sessionCreate = (roomcode, userid) => {
-  console.log(roomcode);
+const sessionCreate = (roomCode, userid) => {
+  console.log(roomCode);
   console.log(userid);
   const session = {
-    roomcode,
+    roomCode,
     creatorid: userid,
     users: [],
   };
@@ -14,12 +14,12 @@ const sessionCreate = (roomcode, userid) => {
   return session;
 };
 
-const getSession = (roomcode) => {
-  return sessions.find((session) => session.roomcode === roomcode);
+const getSession = (roomCode) => {
+  return sessions.find((session) => session.roomCode === roomCode);
 };
 
-const getRoomUsers = (roomcode) => {
-  const session = sessions.find((session) => session.roomcode === roomcode);
+const getRoomUsers = (roomCode) => {
+  const session = sessions.find((session) => session.roomCode === roomCode);
   console.log(sessions);
   return session.users;
 };

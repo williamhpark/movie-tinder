@@ -1,0 +1,15 @@
+.genre-select {
+  margin-top: 1rem;
+}
+
+.genre-select__search-selected {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.genre-select__search-input {
+  width: 20rem;
+  max-width: 35vw;
+  margin-bottom: 0.1rem;
+}

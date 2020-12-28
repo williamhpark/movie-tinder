@@ -2,8 +2,9 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
+import "./LoginPage.css";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../../components/auth/ErrorNotice/ErrorNotice";
+import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(undefined);
@@ -41,7 +42,7 @@ const LoginPage = () => {
   return (
     <div className="page">
       <h2>Login</h2>
-      <form className="form" onSubmit={submit}>
+      <form className="login-page__form form" onSubmit={submit}>
         <label htmlFor="login-email">Email</label>
         <input
           id="login-email"

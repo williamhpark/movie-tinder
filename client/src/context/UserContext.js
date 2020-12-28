@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-const UserContext = createContext(null);
+const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({

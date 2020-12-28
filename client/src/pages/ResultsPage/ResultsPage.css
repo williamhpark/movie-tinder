@@ -1,3 +1,10 @@
-.container {
-  height: auto;
+.results-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.results-page__done-button {
+  position: absolute;
+  bottom: 5vh;
 }

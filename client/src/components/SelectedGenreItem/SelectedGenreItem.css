@@ -1,0 +1,21 @@
+.selected-genre {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  width: 20rem;
+  max-width: 35vw;
+}
+
+.selected-genre:hover {
+  background-color: #ebe3e3c7;
+}
+
+.selected-genre .remove-icon {
+  margin-right: 1rem;
+}
+
+.selected-genre .remove-icon:hover {
+  cursor: pointer;
+}

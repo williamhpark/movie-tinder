@@ -4,19 +4,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: none;
 }
 
 a {
   color: #000000;
   text-decoration: unset;
-}
-
-button,
-input[type="submit"] {
-  border: none;
-  background: none;
-  color: unset;
-  cursor: pointer;
 }
 
 h1,
@@ -29,23 +22,54 @@ p,
 ul,
 ol,
 li {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* GENERAL */
 
-body {
-  font-family: sans-serif;
+body,
+button,
+input {
+  font-family: "Titillium Web", sans-serif;
 }
 
-.page {
-  padding: 1rem;
+button,
+input[type="submit"] {
+  border: none;
+  background: none;
+  color: unset;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="search"] {
+  background: #f2f1f9;
+  border: none;
+  padding: 0.5rem;
+}
+input[type="search"]::-webkit-search-decoration:hover,
+input[type="search"]::-webkit-search-cancel-button:hover {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+ul {
+  list-style-position: inside;
 }
 
 .container {
-  max-width: 50rem;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.page {
+  padding: 5rem 1.5rem;
 }
 
 /* FORM */
@@ -64,7 +88,7 @@ body {
 .form input[type="email"],
 .form input[type="password"] {
   width: 100%;
-  padding: 0.3rem;
+  padding: 0.5rem;
   font-size: 1.1rem;
   border: 1px solid #c2c2c2;
   background-color: #f0f0f0;

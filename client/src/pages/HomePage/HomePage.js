@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
+import "./HomePage.css";
 import { UserContext } from "../../context/UserContext";
 
 const HomePage = (props) => {
@@ -14,12 +15,17 @@ const HomePage = (props) => {
   });
 
   return (
-    <div>
-      <h2>Home</h2>
-      <button onClick={() => history.push("/session?creator=true")}>
-        Start Session
-      </button>
-      <button onClick={() => history.push("/join")}>Join session</button>
+    <div className="page home-page">
+      <h1 className="home-page__title">Welcome to matchmi!</h1>
+      <h3 className="home-page__description">
+        Start your own session, or join someone else's session
+      </h3>
+      <div className="home-page__button-row">
+        <button onClick={() => history.push("/session?creator=true")}>
+          Start Session
+        </button>
+        <button onClick={() => history.push("/join")}>Join Session</button>
+      </div>
     </div>
   );
 };

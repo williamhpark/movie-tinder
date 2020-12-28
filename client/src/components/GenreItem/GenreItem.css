@@ -1,0 +1,11 @@
+.genre-item button {
+  width: 20rem;
+  max-width: 35vw;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.genre-item button:hover {
+  background-color: #ebe3e3c7;
+}
