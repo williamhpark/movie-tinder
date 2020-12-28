@@ -13,10 +13,10 @@ let socket;
 
 const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
+  // const [data, setData] = useState([]);
   const history = useHistory();
   const ENDPOINT = "localhost:5000";
-  const { room } = queryString.parse(location.search);
-  console.log(room);
+  const { room, creator } = queryString.parse(location.search);
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -37,6 +37,10 @@ const ResultsPage = ({ location }) => {
   const fetchInformation = useCallback(() => {
     // Country ID for Canada
     const countryId = "33";
+    setShowData((prevData) => ({
+      ...prevData,
+      results: [],
+    }));
 
     genreIds.forEach((id) => {
       let options = {
@@ -114,12 +118,23 @@ const ResultsPage = ({ location }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
+    if (creator === "false") {
+      socket.emit("getResults", room);
+      socket.on("returnResults", (res) => {
+        console.log(`lol xd ${res}`);
+        setShowData((prevData) => ({
+          ...prevData,
+          results: res,
+        }));
+      });
+      console.log(`wrgeok${showData.results}`);
+    }
     fetchInformation();
   }, []);
 
   return (
     <div className="page">
-      <ShowCards />
+      <ShowCards room={room} creator={creator} />
       <SwipeButtons />
       <button onClick={() => history.push("/final")}>done</button>
     </div>

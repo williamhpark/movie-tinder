@@ -61,7 +61,11 @@ const OptionSelect = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <button onClick={() => history.push(`/results?room=${props.room}`)}>
+      <button
+        onClick={() =>
+          history.push(`/results?room=${props.room}&&creator=${props.creator}`)
+        }
+      >
         done
       </button>
     </div>

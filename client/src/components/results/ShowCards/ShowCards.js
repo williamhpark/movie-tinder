@@ -1,25 +1,45 @@
 import React, { useState, useContext, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import axios from "axios";
+import io from "socket.io-client";
 
 import "./ShowCards.css";
 import { ShowContext } from "../../../context/ShowContext";
 import { UserContext } from "../../../context/UserContext";
 import ErrorNotice from "../../auth/ErrorNotice/ErrorNotice";
 
+let socket;
+
 const ShowCards = (props) => {
-  const { showData } = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
   const { userData } = useContext(UserContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
+  const ENDPOINT = "localhost:5000";
+  let socket;
+  const room = props.room;
+  const creator = props.creator;
 
   const initializeDisplayedShowData = async () => {
     setDisplayedResults(showData.results);
-    console.log(showData.results);
+    console.log(creator);
+    if (creator === "true") {
+      let data = showData.results;
+      socket.emit("addResults", { data, room, creator });
+    }
+
+    socket.on("getResults", (res) => {
+      setShowData((prevData) => ({
+        ...prevData,
+        results: res,
+      }));
+      setDisplayedResults(res);
+    });
   };
 
   useEffect(() => {
+    socket = io(ENDPOINT);
     initializeDisplayedShowData();
   }, [showData]);
 

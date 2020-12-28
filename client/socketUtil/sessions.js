@@ -8,7 +8,7 @@ const sessionCreate = (roomcode, userid) => {
     roomcode,
     creatorid: userid,
     users: [],
-    movies: [],
+    results: [],
   };
   sessions.push(session);
   return session;
@@ -20,7 +20,6 @@ const getSession = (roomcode) => {
 
 const getRoomUsers = (roomcode) => {
   const session = sessions.find((session) => session.roomcode === roomcode);
-  console.log(sessions);
   return session.users;
 };
 

@@ -5,16 +5,15 @@ import queryString from "query-string";
 import io from "socket.io-client";
 
 import OptionSelect from "../../components/options/OptionSelect/OptionSelect";
-import { ShowContext } from "../../context/ShowContext";
 
 let socket;
 
 const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
-  const { showData, setShowData } = useContext(ShowContext);
-
+  const { creator, roomCode } = queryString.parse(location.search);
   const ENDPOINT = "localhost:5000";
   const history = useHistory();
+  let room;
 
   const outputUsers = (roomUsers) => {
     document.getElementById("users").innerHTML = `
@@ -22,9 +21,6 @@ const SessionPage = ({ location }) => {
   `;
   };
 
-  let room;
-
-  const { creator, roomCode } = queryString.parse(location.search);
   if (creator === "true") {
     room =
       Math.random().toString(36).substring(2, 15) +
@@ -37,7 +33,6 @@ const SessionPage = ({ location }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    console.log(showData);
 
     socket.emit("sessioncreate", room, creator, { user: userData.user });
 
@@ -51,7 +46,16 @@ const SessionPage = ({ location }) => {
       <h1>{room}</h1>
       <h1>Session</h1>
       <ul id="users"></ul>
-      {creator === "true" && <OptionSelect room={room} />}
+      <button
+        style={{ position: "absolute", bottom: "0" }}
+        onClick={() =>
+          history.push(`/results?room=${room}&&creator=${creator}`)
+        }
+      >
+        this is button{" "}
+      </button>
+
+      {creator === "true" && <OptionSelect room={room} creator={creator} />}
     </div>
   );
 };
