@@ -9,13 +9,28 @@ const auth = require("../middleware/auth");
 // @access  Public
 router.post("/accepted", async (req, res) => {
   try {
-    const { userid, netflixid, title } = req.body;
+    const {
+      roomid,
+      userid,
+      netflixid,
+      title,
+      synopsis,
+      image,
+      type,
+      released,
+      runtime,
+    } = req.body;
     const newShow = new Show({
-      sessionid: "test",
+      roomid,
       userid,
       accepted: true,
       netflixid,
       title,
+      synopsis,
+      image,
+      type,
+      released,
+      runtime,
     });
     const acceptedShow = await newShow.save();
     res.json(acceptedShow);
@@ -29,13 +44,28 @@ router.post("/accepted", async (req, res) => {
 // @access  Public
 router.post("/rejected", async (req, res) => {
   try {
-    const { userid, netflixid, title } = req.body;
+    const {
+      roomid,
+      userid,
+      netflixid,
+      title,
+      synopsis,
+      image,
+      type,
+      released,
+      runtime,
+    } = req.body;
     const newShow = new Show({
-      sessionid: "test",
+      roomid,
       userid,
       accepted: false,
       netflixid,
       title,
+      synopsis,
+      image,
+      type,
+      released,
+      runtime,
     });
     const rejectedShow = await newShow.save();
     res.json(rejectedShow);
@@ -47,13 +77,13 @@ router.post("/rejected", async (req, res) => {
 // @route   GET /accepted
 // @desc    Retreive all shows that were accepted by a user
 // @access  Public
-router.get("/accepted", auth, async (req, res) => {
+router.get("/accepted/:roomid", async (req, res) => {
   try {
     const acceptedShows = await Show.find({
-      sessionid: "test",
-      userid: req.user,
+      roomid: req.params.roomid,
       accepted: true,
     });
+
     res.json(acceptedShows);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -63,11 +93,10 @@ router.get("/accepted", auth, async (req, res) => {
 // @route   GET /rejected
 // @desc    Retreive all shows that were rejected by a user
 // @access  Public
-router.get("/rejected", auth, async (req, res) => {
+router.get("/rejected/:roomid", async (req, res) => {
   try {
     const rejectedShows = await Show.find({
-      sessionid: "test",
-      userid: req.user,
+      roomid: req.params.roomid,
       accepted: false,
     });
     res.json(rejectedShows);
@@ -75,40 +104,5 @@ router.get("/rejected", auth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-// // @route   POST /owner
-// // @desc    Add all the shows the users will be selecting from
-// // @access  Public
-// router.post("/owner", auth, async (req, res) => {
-//   try {
-//     const { netflixId, title, type, released, runtime } = req.body;
-//     const newShow = new Show({
-//       ownerId: req.user,
-//       netflixId,
-//       title,
-//       image,
-//       synopsis,
-//       type,
-//       released,
-//       runtime,
-//     });
-//     const acceptedShow = await newShow.save();
-//     res.json(acceptedShow);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// // @route   GET /owner
-// // @desc    Get all the shows the users will be selecting from
-// // @access  Public
-// router.get("/owner", auth, async (req, res) => {
-//   try {
-//     const shows = await Show.find({ ownerId: req.user });
-//     res.json(shows);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 
 module.exports = router;
