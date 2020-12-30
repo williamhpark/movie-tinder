@@ -14,28 +14,22 @@ const ShowCards = (props) => {
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
   const ENDPOINT = "localhost:5000";
-  const { room, creator } = props;
+  const { roomCode, creator } = props;
 
   let socket;
 
   const initializeDisplayedShowData = async () => {
     setDisplayedResults(showData.results);
+    console.log(`bottomsasd${displayedResults}`);
 
     if (creator === "true") {
+      console.log("did this run");
       let data = showData.results;
-      socket.emit("addResults", { data, room, creator });
+      socket.emit("addResults", { data, roomCode, creator });
     }
-
-    socket.on("getResults", (res) => {
-      setShowData((prevData) => ({
-        ...prevData,
-        results: res,
-      }));
-      setDisplayedResults(res);
-    });
   };
-
   useEffect(() => {
+    socket = io(ENDPOINT);
     initializeDisplayedShowData();
   }, [showData]);
 
@@ -51,7 +45,7 @@ const ShowCards = (props) => {
       let swipedShowData = showData.results.find(
         (show) => show.netflixid === id
       );
-      swipedShowData.roomid = props.roomCode;
+      swipedShowData.roomid = roomCode;
       swipedShowData.userid = userData.user.id;
       console.log(swipedShowData);
       if (direction === "right") {

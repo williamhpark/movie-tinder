@@ -21,7 +21,6 @@ const getSession = (roomCode) => {
 
 const getRoomUsers = (roomCode) => {
   const session = sessions.find((session) => session.roomCode === roomCode);
-  console.log(sessions);
   return session.users;
 };
 

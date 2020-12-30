@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
 import io from "socket.io-client";
+import { useHistory } from "react-router-dom";
 
 import "./SessionPage.css";
 import OptionSelect from "../../components/OptionSelect/OptionSelect";
@@ -10,7 +11,10 @@ let socket;
 
 const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
+  const { creator, roomCode } = queryString.parse(location.search);
   const ENDPOINT = "localhost:5000";
+  const history = useHistory();
+  let room;
 
   const outputUsers = (roomUsers) => {
     document.getElementById("users").innerHTML = `
@@ -18,9 +22,6 @@ const SessionPage = ({ location }) => {
   `;
   };
 
-  let room;
-
-  const { creator, roomCode } = queryString.parse(location.search);
   if (creator === "true") {
     room =
       Math.random().toString(36).substring(2, 15) +
@@ -33,12 +34,8 @@ const SessionPage = ({ location }) => {
 
   useEffect(() => {
     localStorage.setItem("room-id", room);
-
     socket = io(ENDPOINT);
-    console.log(creator);
-    console.log(room);
     socket.emit("sessioncreate", room, creator, { user: userData.user });
-
     socket.on("roomUsers", (users) => {
       outputUsers(users);
     });
@@ -67,7 +64,15 @@ const SessionPage = ({ location }) => {
           <ul id="users"></ul>
         </div>
       </div>
-      {creator === "true" && <OptionSelect room={room} />}
+      <button
+        style={{ position: "absolute", bottom: "0" }}
+        onClick={() =>
+          history.push(`/results?roomCode=${room}&&creator=${creator}`)
+        }
+      >
+        this is button
+      </button>
+      {creator === "true" && <OptionSelect room={room} creator={creator} />}
     </div>
   );
 };

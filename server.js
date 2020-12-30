@@ -53,10 +53,9 @@ io.on("connection", (socket) => {
   console.log("New WS connection.");
 
   socket.on("sessioncreate", (room, creator, currentUser) => {
-    if (creator == "true") {
+    if (creator === "true") {
       const session = sessionCreate(room, currentUser.user);
       session.users.push(currentUser.user);
-      console.log(session);
     }
     const session = getSession(room);
     socket.join(session.roomCode);
@@ -70,12 +69,23 @@ io.on("connection", (socket) => {
     if (session) {
       session.users.push(currentUser.user);
       socket.join(session.roomCode);
-
       socket.emit("roomNotFound", "Room Found", roomCode);
     } else {
       socket.emit("roomNotFound", "Room does not exist", roomCode);
     }
     callback();
+  });
+
+  socket.on("addResults", (info) => {
+    const session = getSession(info.roomCode);
+    session.results = info.data;
+    console.log(session);
+  });
+
+  socket.on("getResults", (roomCode) => {
+    const session = getSession(roomCode);
+    console.log(`${session.results}asdokpdsf`);
+    socket.emit("returnResults", session.results);
   });
 
   socket.on("disconnect", () => {

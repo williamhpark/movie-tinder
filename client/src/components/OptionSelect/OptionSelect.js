@@ -11,6 +11,7 @@ const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  console.log(props.creator);
 
   const history = useHistory();
 

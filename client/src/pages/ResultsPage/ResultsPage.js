@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
+import io from "socket.io-client";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
@@ -12,8 +13,10 @@ const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(true);
   const history = useHistory();
-
   const { creator, roomCode } = queryString.parse(location.search);
+  const ENDPOINT = "localhost:5000";
+
+  let socket;
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -35,6 +38,11 @@ const ResultsPage = ({ location }) => {
     const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
     // Country ID for Canada
     const countryId = "33";
+
+    setShowData((prevData) => ({
+      ...prevData,
+      results: [],
+    }));
 
     genreIds.forEach((id) => {
       setIsLoader(true);
@@ -111,6 +119,20 @@ const ResultsPage = ({ location }) => {
   };
 
   useEffect(() => {
+    socket = io(ENDPOINT);
+
+    if (creator === "false") {
+      console.log(`123${roomCode}`);
+      socket.emit("getResults", roomCode);
+      socket.on("returnResults", (res) => {
+        console.log(`${res}marrigaed masd`);
+        setShowData((prevData) => ({
+          ...prevData,
+          results: res,
+        }));
+      });
+    }
+    console.log(`${showData.results}asdoksaoj`);
     fetchData();
   }, []);
 
