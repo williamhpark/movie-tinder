@@ -8,6 +8,7 @@ const sessionCreate = (roomCode, userid) => {
     roomCode,
     creatorid: userid,
     users: [],
+    result: [],
   };
 
   sessions.push(session);

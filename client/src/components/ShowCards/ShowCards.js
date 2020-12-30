@@ -5,17 +5,34 @@ import axios from "axios";
 import "./ShowCards.css";
 import { ShowContext } from "../../context/ShowContext";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../ErrorNotice/ErrorNotice";
+import io from "socket.io-client";
 
 const ShowCards = (props) => {
-  const { showData } = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
   const { userData } = useContext(UserContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
+  const ENDPOINT = "localhost:5000";
+  const { room, creator } = props;
+
+  let socket;
 
   const initializeDisplayedShowData = async () => {
     setDisplayedResults(showData.results);
+
+    if (creator === "true") {
+      let data = showData.results;
+      socket.emit("addResults", { data, room, creator });
+    }
+
+    socket.on("getResults", (res) => {
+      setShowData((prevData) => ({
+        ...prevData,
+        results: res,
+      }));
+      setDisplayedResults(res);
+    });
   };
 
   useEffect(() => {
