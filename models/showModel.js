@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 const showSchema = new mongoose.Schema({
-  // sessionid: { type: String, required: true, unique: true },
-  sessionid: { type: String, required: true },
+  roomid: { type: String, required: true },
   userid: { type: String, required: true },
   accepted: { type: Boolean, default: undefined },
   netflixid: { type: String, required: true },

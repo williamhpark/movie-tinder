@@ -1,0 +1,74 @@
+.final-results-page {
+  text-align: center;
+}
+
+.final-results-page__header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.final-results-page__recommended {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.final-results-page__card {
+  position: relative;
+  width: 25rem;
+  max-width: 65vw;
+  height: 40rem;
+  max-height: 50vh;
+  border-radius: 2rem;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.final-results-page__card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.2rem 1.5rem;
+  background-color: #ccc0c0d2;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.final-results-page__card-title {
+  text-align: center;
+}
+
+.final-results-page__card-synopsis {
+  text-align: left;
+}
+
+.final-results-page__card-tags {
+  display: flex;
+  justify-content: space-around;
+}
+
+.final-results-page__next-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.final-results-page__end-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.final-results-page__end-message {
+  margin-bottom: 5rem;
+}
+
+.final-results-page__reset-btn {
+  display: flex;
+  justify-content: center;
+}

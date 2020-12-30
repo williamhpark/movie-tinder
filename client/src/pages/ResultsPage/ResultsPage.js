@@ -1,16 +1,19 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 import "./ResultsPage.css";
 import { ShowContext } from "../../context/ShowContext";
 import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import ShowCards from "../../components/ShowCards/ShowCards";
 
-const ResultsPage = (props) => {
+const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(true);
   const history = useHistory();
+
+  const { creator, roomCode } = queryString.parse(location.search);
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -114,7 +117,7 @@ const ResultsPage = (props) => {
   return (
     <div className="page results-page">
       {isLoader && <FullPageLoader />}
-      <ShowCards />
+      <ShowCards roomCode={roomCode} creator={creator} />
       <form className="results-page__done-button form">
         <input
           type="submit"

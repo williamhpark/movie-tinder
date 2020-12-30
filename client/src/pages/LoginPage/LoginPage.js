@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -38,6 +38,11 @@ const LoginPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // Reset the room ID
+    localStorage.setItem("room-id", "");
+  }, []);
 
   return (
     <div className="page">

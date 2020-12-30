@@ -26,13 +26,15 @@ const ShowCards = (props) => {
   let resultsArr = displayedResults;
 
   const swiped = async (direction, id) => {
-    console.log("You swiped: " + direction);
-    setLastDirection(direction);
     try {
+      console.log("You swiped: " + direction);
+      setLastDirection(direction);
+
       swipedShowIds.push(id);
       let swipedShowData = showData.results.find(
         (show) => show.netflixid === id
       );
+      swipedShowData.roomid = props.roomCode;
       swipedShowData.userid = userData.user.id;
       console.log(swipedShowData);
       if (direction === "right") {
@@ -80,19 +82,19 @@ const ShowCards = (props) => {
                 <div
                   className="cards__card-title"
                   dangerouslySetInnerHTML={{
-                    __html: `<h2>${show.title}</h2>`,
+                    __html: `<h3>${show.title}</h3>`,
                   }}
                 />
                 <div
                   className="cards__card-synopsis"
                   dangerouslySetInnerHTML={{
-                    __html: `<h3>${show.synopsis}</h3>`,
+                    __html: `<p>${show.synopsis}</p>`,
                   }}
                 />
                 <div className="cards__card-tags">
-                  {show.type ? <h3>{show.type}</h3> : null}
-                  {show.released ? <h3>{show.released}</h3> : null}
-                  {show.runtime ? <h3>{show.runtime}</h3> : null}
+                  {show.type ? <p>{show.type}</p> : null}
+                  {show.released ? <p>{show.released}</p> : null}
+                  {show.runtime ? <p>{show.runtime}</p> : null}
                 </div>
               </div>
             </div>

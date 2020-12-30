@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -35,6 +35,8 @@ const RegisterPage = () => {
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
       // Set the auth-token in the browser
       localStorage.setItem("auth-token", loginRes.data.token);
+      // Reset the room ID
+      localStorage.setItem("room-id", "");
 
       // Redirect user to the Home page
       history.push("/");
@@ -44,6 +46,11 @@ const RegisterPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // Reset the room ID
+    localStorage.setItem("room-id", "");
+  }, []);
 
   return (
     <div className="page">

@@ -32,6 +32,8 @@ const SessionPage = ({ location }) => {
   }
 
   useEffect(() => {
+    localStorage.setItem("room-id", room);
+
     socket = io(ENDPOINT);
     console.log(creator);
     console.log(room);
@@ -65,7 +67,7 @@ const SessionPage = ({ location }) => {
           <ul id="users"></ul>
         </div>
       </div>
-      {creator === "true" && <OptionSelect />}
+      {creator === "true" && <OptionSelect room={room} />}
     </div>
   );
 };

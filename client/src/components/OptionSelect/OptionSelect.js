@@ -81,7 +81,9 @@ const OptionSelect = (props) => {
           <input
             type="submit"
             value="Start"
-            onClick={() => history.push("/results")}
+            onClick={() =>
+              history.push(`/results?creator=true&&roomCode=${props.room}`)
+            }
           />
         </form>
       </div>

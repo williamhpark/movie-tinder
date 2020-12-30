@@ -8,12 +8,11 @@ const {
   sessionCreate,
   getSession,
   getRoomUsers,
-} = require("./client/socketUtil/sessions");
+} = require("./socketUtil/sessions");
 dotenv.config();
 
 // App Config
 const app = express();
-const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
@@ -47,10 +46,11 @@ mongoose.connect(
 );
 
 // Listener
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
 
 io.on("connection", (socket) => {
-  console.log("ws connection");
+  console.log("New WS connection.");
 
   socket.on("sessioncreate", (room, creator, currentUser) => {
     if (creator == "true") {
@@ -79,6 +79,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("user left");
+    console.log("User left.");
   });
 });
