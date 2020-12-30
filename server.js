@@ -80,7 +80,6 @@ io.on("connection", (socket) => {
 
   socket.on("addResults", (info) => {
     const session = getSession(info.room);
-    socket.join(session.roomcode);
     session.results = info.data;
     console.log(session);
   });

@@ -28,14 +28,6 @@ const ShowCards = (props) => {
       let data = showData.results;
       socket.emit("addResults", { data, room, creator });
     }
-
-    socket.on("getResults", (res) => {
-      setShowData((prevData) => ({
-        ...prevData,
-        results: res,
-      }));
-      setDisplayedResults(res);
-    });
   };
 
   useEffect(() => {
