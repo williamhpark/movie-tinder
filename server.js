@@ -79,12 +79,10 @@ io.on("connection", (socket) => {
   socket.on("addResults", (info) => {
     const session = getSession(info.roomCode);
     session.results = info.data;
-    console.log(session);
   });
 
   socket.on("getResults", (roomCode) => {
     const session = getSession(roomCode);
-    console.log(`${session.results}asdokpdsf`);
     socket.emit("returnResults", session.results);
   });
 

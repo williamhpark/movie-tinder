@@ -23,7 +23,6 @@ const ShowCards = (props) => {
     console.log(`bottomsasd${displayedResults}`);
 
     if (creator === "true") {
-      console.log("did this run");
       let data = showData.results;
       socket.emit("addResults", { data, roomCode, creator });
     }

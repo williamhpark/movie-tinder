@@ -122,17 +122,14 @@ const ResultsPage = ({ location }) => {
     socket = io(ENDPOINT);
 
     if (creator === "false") {
-      console.log(`123${roomCode}`);
       socket.emit("getResults", roomCode);
       socket.on("returnResults", (res) => {
-        console.log(`${res}marrigaed masd`);
         setShowData((prevData) => ({
           ...prevData,
           results: res,
         }));
       });
     }
-    console.log(`${showData.results}asdoksaoj`);
     fetchData();
   }, []);
 
