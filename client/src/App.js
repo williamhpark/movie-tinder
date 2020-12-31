@@ -12,14 +12,12 @@ const App = () => {
     <>
       <UserProvider>
         <ShowProvider>
-          <div>
-            <Router>
-              <Header />
-              <div className="container">
-                <Routes />
-              </div>
-            </Router>
-          </div>
+          <Router>
+            <Header />
+            <div className="container">
+              <Routes />
+            </div>
+          </Router>
         </ShowProvider>
       </UserProvider>
     </>

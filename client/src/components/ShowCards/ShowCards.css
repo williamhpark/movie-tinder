@@ -4,6 +4,9 @@
   text-align: center;
 }
 
+.cards__end-message {
+}
+
 .cards--swipe {
   position: absolute;
 }

@@ -11,7 +11,7 @@ import ShowCards from "../../components/ShowCards/ShowCards";
 
 const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
-  // const [isLoader, setIsLoader] = useState(true);
+  const [isLoader, setIsLoader] = useState(undefined);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
   const ENDPOINT = "localhost:5000";
@@ -35,14 +35,18 @@ const ResultsPage = ({ location }) => {
   }
 
   const fetchData = async () => {
-    const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
-    // Country ID for Canada
-    const countryId = "33";
+    // Show the page loader
+    setIsLoader(true);
 
+    // Removes any results that may be leftover from previous page renders
     setShowData((prevData) => ({
       ...prevData,
       results: [],
     }));
+
+    const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
+    // Country ID for Canada
+    const countryId = "33";
 
     genreIds.forEach((id) => {
       let options = {
@@ -90,10 +94,11 @@ const ResultsPage = ({ location }) => {
                   });
                 }
                 console.log(resultsArr);
-                // Removes any duplicate items in the results state variable
+
                 setShowData((prevData) => ({
                   ...prevData,
                   results: [
+                    // Removes any duplicate items in the results state variable
                     ...new Map(
                       [...prevData.results, ...resultsArr].map((item) => [
                         item["netflixid"],
@@ -113,6 +118,9 @@ const ResultsPage = ({ location }) => {
           console.error(error);
         });
     });
+    // Remove the page loader after 3 seconds
+    const loaderTimer = setTimeout(() => setIsLoader(false), 3000);
+    return () => clearTimeout(loaderTimer);
   };
 
   useEffect(() => {
@@ -126,21 +134,30 @@ const ResultsPage = ({ location }) => {
           results: res,
         }));
       });
+    } else {
+      fetchData();
     }
-    fetchData();
   }, []);
 
   return (
     <div className="page results-page">
-      {/* {isLoader && <FullPageLoader />} */}
-      <ShowCards roomCode={roomCode} creator={creator} />
-      <form className="results-page__done-button form">
-        <input
-          type="submit"
-          value="I'm done swiping!"
-          onClick={() => history.push("/final")}
-        />
-      </form>
+      {isLoader ? (
+        <FullPageLoader />
+      ) : (
+        <>
+          <h3 className="results-page__swipe-instructions">
+            Swipe right to accept and left to reject
+          </h3>
+          <ShowCards roomCode={roomCode} creator={creator} />
+          <form className="results-page__done-button form">
+            <input
+              type="submit"
+              value="I'm done swiping!"
+              onClick={() => history.push("/final")}
+            />
+          </form>
+        </>
+      )}
     </div>
   );
 };
