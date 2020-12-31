@@ -9,10 +9,20 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "",
-  "license": "ISC",
+  "contributors": [
+    {
+      "name": "William Park",
+      "email": "william.h.park@gmail.com"
+    },
+    {
+      "name": "Paul Chang",
+      "email": "changpaul333@gmail.com"
+    }
+  ],
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "concurrently": "^5.3.0",
@@ -22,5 +32,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.7",
     "socket.io": "^3.0.4"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
