@@ -91,6 +91,7 @@ const ResultsPage = ({ location }) => {
                     type: item.type,
                     released: item.released,
                     runtime: item.runtime,
+                    rating: item.rating === "" ? 0 : parseFloat(item.rating), // Set to 0 if empty string, else convert rating from string to float
                   });
                 }
                 console.log(resultsArr);
@@ -105,7 +106,9 @@ const ResultsPage = ({ location }) => {
                         item,
                       ])
                     ).values(),
-                  ],
+                  ].sort((a, b) => {
+                    return a.rating - b.rating;
+                  }),
                 }));
               })
               .catch((error) => {

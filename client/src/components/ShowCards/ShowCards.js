@@ -8,13 +8,13 @@ import { UserContext } from "../../context/UserContext";
 import io from "socket.io-client";
 
 const ShowCards = (props) => {
-  const { showData, setShowData } = useContext(ShowContext);
+  const { showData } = useContext(ShowContext);
   const { userData } = useContext(UserContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
   const ENDPOINT = "localhost:5000";
-  const { roomCode, creator } = props;
+  const { creator, roomCode } = props;
 
   let socket;
 
@@ -23,8 +23,9 @@ const ShowCards = (props) => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
     displayedResultsInit();
+
+    socket = io(ENDPOINT);
     if (creator === "true") {
       let data = showData.results;
       socket.emit("addResults", { data, roomCode, creator });
@@ -111,9 +112,6 @@ const ShowCards = (props) => {
       ) : (
         <h3 className="cards__swipe-direction">Swipe a card to get started!</h3>
       )}
-      {/* {error && (
-        <ErrorNotice message={error} clearError={() => setError(undefined)} />
-      )} */}
     </div>
   );
 };

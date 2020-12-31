@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 import "./OptionSelect.css";
 import { ShowContext } from "../../context/ShowContext";
@@ -12,8 +11,6 @@ const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
-
-  const history = useHistory();
 
   const fetchGenres = async () => {
     const options = {
