@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
+import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
 // import { IconButton } from "@material-ui/core";
 
@@ -7,10 +8,13 @@ import "./OptionSelect.css";
 import TypeSelect from "../TypeSelect/TypeSelect";
 import GenreSelect from "../GenreSelect/GenreSelect";
 
+let socket;
+
 const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const ENDPOINT = "localhost:5000";
 
   const history = useHistory();
 
@@ -47,8 +51,15 @@ const OptionSelect = (props) => {
   }, []);
 
   useEffect(() => {
+    socket = io(ENDPOINT);
     fetchGenres();
   }, []);
+
+  const helo = async (e) => {
+    e.preventDefault();
+    socket.emit("readyNow", props.room);
+    history.push(`/results?creator=true&&roomCode=${props.room}`);
+  };
 
   return (
     <div className="option-select">
@@ -63,14 +74,8 @@ const OptionSelect = (props) => {
         setKeyword={setKeyword}
       />
       <div className="option-select__start">
-        <form className="form">
-          <input
-            type="submit"
-            value="Start"
-            onClick={() =>
-              history.push(`/results?creator=true&&roomCode=${props.room}`)
-            }
-          />
+        <form className="form" onSubmit={helo}>
+          <input type="submit" value="Start" />
         </form>
       </div>
     </div>

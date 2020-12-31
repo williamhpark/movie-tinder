@@ -86,6 +86,13 @@ io.on("connection", (socket) => {
     socket.emit("returnResults", session.results);
   });
 
+  socket.on("readyNow", (roomCode) => {
+    const session = getSession(roomCode);
+    session.ready = true;
+    io.to(session.roomCode).emit("usersReady", session.ready);
+    console.log(session);
+  });
+
   socket.on("disconnect", () => {
     console.log("User left.");
   });

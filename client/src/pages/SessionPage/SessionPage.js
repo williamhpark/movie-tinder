@@ -39,6 +39,13 @@ const SessionPage = ({ location }) => {
     socket.on("roomUsers", (users) => {
       outputUsers(users);
     });
+    socket.on("usersReady", (ready) => {
+      if (creator === "false") {
+        if (ready === true) {
+          document.getElementById("man").style.display = "block";
+        }
+      }
+    });
   }, [ENDPOINT]);
 
   return (
@@ -65,7 +72,13 @@ const SessionPage = ({ location }) => {
         </div>
       </div>
       <button
-        style={{ position: "absolute", bottom: "0" }}
+        id="man"
+        style={{
+          position: "absolute",
+          bottom: "0",
+          display: "none",
+          fontSize: "40px",
+        }}
         onClick={() =>
           history.push(`/results?roomCode=${room}&&creator=${creator}`)
         }
