@@ -20,7 +20,6 @@ const ShowCards = (props) => {
 
   const initializeDisplayedShowData = async () => {
     setDisplayedResults(showData.results);
-    console.log(`bottomsasd${displayedResults}`);
 
     if (creator === "true") {
       let data = showData.results;

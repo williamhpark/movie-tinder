@@ -68,9 +68,7 @@ const OptionSelect = (props) => {
             type="submit"
             value="Start"
             onClick={() =>
-              history.push(
-                `/results?creator=${props.creator}&&roomCode=${props.room}`
-              )
+              history.push(`/results?creator=true&&roomCode=${props.room}`)
             }
           />
         </form>
