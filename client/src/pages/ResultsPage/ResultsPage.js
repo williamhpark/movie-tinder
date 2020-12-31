@@ -11,7 +11,7 @@ import ShowCards from "../../components/ShowCards/ShowCards";
 
 const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
-  const [isLoader, setIsLoader] = useState(true);
+  // const [isLoader, setIsLoader] = useState(true);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
   const ENDPOINT = "localhost:5000";
@@ -45,8 +45,6 @@ const ResultsPage = ({ location }) => {
     }));
 
     genreIds.forEach((id) => {
-      setIsLoader(true);
-
       let options = {
         params: {
           q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
@@ -111,7 +109,6 @@ const ResultsPage = ({ location }) => {
             page += 1;
           }
         })
-        .then(() => setIsLoader(false))
         .catch((error) => {
           console.error(error);
         });
@@ -135,7 +132,7 @@ const ResultsPage = ({ location }) => {
 
   return (
     <div className="page results-page">
-      {isLoader && <FullPageLoader />}
+      {/* {isLoader && <FullPageLoader />} */}
       <ShowCards roomCode={roomCode} creator={creator} />
       <form className="results-page__done-button form">
         <input

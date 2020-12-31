@@ -19,17 +19,14 @@ const UserProvider = ({ children }) => {
     }
 
     // Check if the token is valid
-    const tokenRes = await axios.post(
-      "http://localhost:5000/api/users/isTokenValid",
-      null,
-      { headers: { "x-auth-token": token } }
-    );
+    const tokenRes = await axios.post("/api/users/isTokenValid", null, {
+      headers: { "x-auth-token": token },
+    });
     // If the token exists, retreive the user's data
     if (tokenRes.data) {
-      const userRes = await axios.get(
-        "http://localhost:5000/api/users/loggedInUser",
-        { headers: { "x-auth-token": token } }
-      );
+      const userRes = await axios.get("/api/users/loggedInUser", {
+        headers: { "x-auth-token": token },
+      });
       setUserData({ token, user: userRes.data });
     }
   };

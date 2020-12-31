@@ -16,7 +16,7 @@ const HomePage = (props) => {
 
   return (
     <div className="page home-page">
-      <h1 className="home-page__title">Welcome to matchmi!</h1>
+      <h1 className="home-page__title">Welcome to flicker!</h1>
       <h3 className="home-page__description">
         Start your own session, or join someone else's session
       </h3>

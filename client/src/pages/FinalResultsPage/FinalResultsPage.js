@@ -10,9 +10,7 @@ const FinalResultsPage = (props) => {
 
   const fetchAccepted = async () => {
     let roomid = localStorage.getItem("room-id");
-    const res = await axios.get(
-      `http://localhost:5000/api/shows/accepted/${roomid}`
-    );
+    const res = await axios.get(`/api/shows/accepted/${roomid}`);
     // All of the accepted results for the room, including duplicates
     const rawAcceptedShows = res.data;
     console.log("rawAcceptedShows: ", rawAcceptedShows);

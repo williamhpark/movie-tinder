@@ -20,10 +20,7 @@ const LoginPage = () => {
 
     try {
       const loginUser = { email, password };
-      const loginRes = await axios.post(
-        "http://localhost:5000/api/users/login",
-        loginUser
-      );
+      const loginRes = await axios.post("/api/users/login", loginUser);
       // Update the UserContext state
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
       console.log(userData);

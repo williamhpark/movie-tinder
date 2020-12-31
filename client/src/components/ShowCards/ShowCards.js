@@ -47,15 +47,9 @@ const ShowCards = (props) => {
       swipedShowData.userid = userData.user.id;
       console.log(swipedShowData);
       if (direction === "right") {
-        await axios.post(
-          "http://localhost:5000/api/shows/accepted",
-          swipedShowData
-        );
+        await axios.post("/api/shows/accepted", swipedShowData);
       } else if (direction === "left") {
-        await axios.post(
-          "http://localhost:5000/api/shows/rejected",
-          swipedShowData
-        );
+        await axios.post("/api/shows/rejected", swipedShowData);
       }
     } catch (err) {
       if (err.response.data.msg) {
