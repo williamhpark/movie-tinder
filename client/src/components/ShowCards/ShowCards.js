@@ -30,7 +30,7 @@ const ShowCards = (props) => {
       let data = showData.results;
       socket.emit("addResults", { data, roomCode, creator });
     }
-  }, [showData.results]);
+  }, [showData]);
 
   const swiped = async (direction, id) => {
     try {
