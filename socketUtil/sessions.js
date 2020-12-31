@@ -8,6 +8,7 @@ const sessionCreate = (roomCode, userid) => {
     roomCode,
     creatorid: userid,
     users: [],
+    result: [],
   };
 
   sessions.push(session);
@@ -20,7 +21,6 @@ const getSession = (roomCode) => {
 
 const getRoomUsers = (roomCode) => {
   const session = sessions.find((session) => session.roomCode === roomCode);
-  console.log(sessions);
   return session.users;
 };
 

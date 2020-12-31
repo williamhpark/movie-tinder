@@ -14,7 +14,6 @@ const JoinSessionPage = (props) => {
   const [found, setFound] = useState("");
   const ENDPOINT = "localhost:5000";
   const history = useHistory();
-  console.log(userData.user);
 
   useEffect(() => {
     socket = io(ENDPOINT);

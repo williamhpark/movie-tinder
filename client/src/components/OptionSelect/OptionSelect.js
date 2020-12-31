@@ -50,20 +50,6 @@ const OptionSelect = (props) => {
     fetchGenres();
   }, []);
 
-  // useEffect(() => {
-  //   let testGenresArr = [
-  //     { id: 0, name: "All Genres" },
-  //     { id: 1, name: "All Action" },
-  //     { id: 2, name: "All Comedy" },
-  //     { id: 3, name: "Genre 1" },
-  //     { id: 4, name: "Genre 2" },
-  //     { id: 5, name: "Genre 3" },
-  //     { id: 6, name: "Genre 4" },
-  //     { id: 7, name: "Genre 5" },
-  //   ];
-  //   setGenreListDefault(testGenresArr);
-  // }, []);
-
   return (
     <div className="option-select">
       <h1>Choose your group's preferences</h1>

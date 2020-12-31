@@ -5,20 +5,29 @@ import axios from "axios";
 import "./ShowCards.css";
 import { ShowContext } from "../../context/ShowContext";
 import { UserContext } from "../../context/UserContext";
-import ErrorNotice from "../ErrorNotice/ErrorNotice";
+import io from "socket.io-client";
 
 const ShowCards = (props) => {
-  const { showData } = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
   const { userData } = useContext(UserContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
+  const ENDPOINT = "localhost:5000";
+  const { roomCode, creator } = props;
+
+  let socket;
 
   const initializeDisplayedShowData = async () => {
     setDisplayedResults(showData.results);
-  };
 
+    if (creator === "true") {
+      let data = showData.results;
+      socket.emit("addResults", { data, roomCode, creator });
+    }
+  };
   useEffect(() => {
+    socket = io(ENDPOINT);
     initializeDisplayedShowData();
   }, [showData]);
 
@@ -34,7 +43,7 @@ const ShowCards = (props) => {
       let swipedShowData = showData.results.find(
         (show) => show.netflixid === id
       );
-      swipedShowData.roomid = props.roomCode;
+      swipedShowData.roomid = roomCode;
       swipedShowData.userid = userData.user.id;
       console.log(swipedShowData);
       if (direction === "right") {
