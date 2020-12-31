@@ -49,6 +49,5 @@
 .cards__swipe-direction {
   color: #000000;
   position: absolute;
-  bottom: 15vh;
-  font-size: 1.3rem;
+  bottom: 12vh;
 }

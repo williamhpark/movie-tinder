@@ -105,11 +105,11 @@ const ShowCards = (props) => {
         );
       })}
       {lastDirection ? (
-        <h2 key={lastDirection} className="cards__swipe-direction">
+        <h3 key={lastDirection} className="cards__swipe-direction">
           You swiped {lastDirection}
-        </h2>
+        </h3>
       ) : (
-        <h2 className="cards__swipe-direction">Swipe a card to get started!</h2>
+        <h3 className="cards__swipe-direction">Swipe a card to get started!</h3>
       )}
       {/* {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
