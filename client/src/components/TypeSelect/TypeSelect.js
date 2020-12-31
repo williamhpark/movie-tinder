@@ -24,7 +24,7 @@ const TypeSelect = (props) => {
       <h2>Media type</h2>
       <div className="type-select__container">
         <div className="type-select__checkbox">
-          <label for="movie">Movie</label>
+          <label htmlFor="movie">Movie</label>
           <input
             type="checkbox"
             id="movie"
@@ -34,7 +34,7 @@ const TypeSelect = (props) => {
           />
         </div>
         <div className="type-select__checkbox">
-          <label for="series">Shows</label>
+          <label htmlFor="series">Shows</label>
           <input
             type="checkbox"
             id="series"

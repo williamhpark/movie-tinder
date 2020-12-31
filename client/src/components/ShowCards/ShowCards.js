@@ -30,7 +30,7 @@ const ShowCards = (props) => {
       let data = showData.results;
       socket.emit("addResults", { data, roomCode, creator });
     }
-  }, [showData]);
+  }, [showData.results]);
 
   const swiped = async (direction, id) => {
     try {
@@ -66,7 +66,7 @@ const ShowCards = (props) => {
       {displayedResults.length === 0 ? (
         <p className="cards__end-message">End of results</p>
       ) : (
-        displayedResults.map((show) => {
+        showData.results.map((show) => {
           return (
             <TinderCard
               className="cards--swipe"

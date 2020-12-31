@@ -13,7 +13,6 @@ const FinalResultsPage = (props) => {
     const res = await axios.get(`/api/shows/accepted/${roomid}`);
     // All of the accepted results for the room, including duplicates
     const rawAcceptedShows = res.data;
-    console.log("rawAcceptedShows: ", rawAcceptedShows);
 
     // All accepted results with duplicates removed
     const acceptedShowData = rawAcceptedShows.filter(
@@ -28,7 +27,6 @@ const FinalResultsPage = (props) => {
         ? acceptedShowCount[show.netflixid] + 1
         : 1;
     });
-    console.log("acceptedShowCount: ", acceptedShowCount);
 
     // Array with Netflix IDs sorted according to number of occurences (most to least popular)
     let acceptedShowCountArr = [];
@@ -41,7 +39,6 @@ const FinalResultsPage = (props) => {
     acceptedShowCountArr = acceptedShowCountArr.map((a) => {
       return a.id;
     });
-    console.log("acceptedShowCountArr: ", acceptedShowCountArr);
 
     // All of the data of the most popular results (most to least popular)
     let finalAcceptedShows = [];
@@ -49,7 +46,6 @@ const FinalResultsPage = (props) => {
       let obj = acceptedShowData.find((o) => o.netflixid === id);
       finalAcceptedShows.push(obj);
     });
-    console.log(finalAcceptedShows);
 
     setNumberAcceptedShows(finalAcceptedShows.length);
 

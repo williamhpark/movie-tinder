@@ -142,6 +142,8 @@ const ResultsPage = ({ location }) => {
     }
   }, []);
 
+  useEffect(() => console.log(showData.results));
+
   return (
     <div className="page results-page">
       {isLoader ? (
