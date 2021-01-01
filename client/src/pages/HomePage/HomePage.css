@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.home-page__container {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  right: 5%;
+}
+
 .home-page__title {
   margin-bottom: 2rem;
 }

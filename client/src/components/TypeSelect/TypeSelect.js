@@ -21,7 +21,7 @@ const TypeSelect = (props) => {
 
   return (
     <div className="type-select">
-      <h2>Media type</h2>
+      <h2>Media Type</h2>
       <div className="type-select__container">
         <div className="type-select__checkbox">
           <label htmlFor="movie">Movie</label>

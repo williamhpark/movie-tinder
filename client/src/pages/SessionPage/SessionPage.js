@@ -33,6 +33,7 @@ const SessionPage = ({ location }) => {
 
   useEffect(() => {
     localStorage.setItem("room-id", room);
+
     socket = io(ENDPOINT);
     socket.emit("sessioncreate", room, creator, { user: userData.user });
     socket.on("roomUsers", (users) => {

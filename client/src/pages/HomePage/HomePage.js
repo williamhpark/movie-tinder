@@ -16,15 +16,17 @@ const HomePage = (props) => {
 
   return (
     <div className="page home-page">
-      <h1 className="home-page__title">Welcome to flicker!</h1>
-      <h3 className="home-page__description">
-        Start your own session, or join someone else's session
-      </h3>
-      <div className="home-page__button-row">
-        <button onClick={() => history.push("/session?creator=true")}>
-          Start Session
-        </button>
-        <button onClick={() => history.push("/join")}>Join Session</button>
+      <div className="home-page__container">
+        <h1 className="home-page__title">Welcome to flicker!</h1>
+        <h3 className="home-page__description">
+          Start your own session, or join someone else's session
+        </h3>
+        <div className="home-page__button-row">
+          <button onClick={() => history.push("/session?creator=true")}>
+            Start Session
+          </button>
+          <button onClick={() => history.push("/join")}>Join Session</button>
+        </div>
       </div>
     </div>
   );
