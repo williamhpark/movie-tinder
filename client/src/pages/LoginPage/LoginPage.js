@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState(undefined);
   const [error, setError] = useState(undefined);
 
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const history = useHistory();
 
@@ -23,7 +23,7 @@ const LoginPage = () => {
       const loginRes = await axios.post("/api/users/login", loginUser);
       // Update the UserContext state
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
-      console.log(userData);
+
       // Set the auth-token in the browser
       localStorage.setItem("auth-token", loginRes.data.token);
 

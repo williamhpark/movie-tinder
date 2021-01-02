@@ -94,7 +94,6 @@ const ResultsPage = ({ location }) => {
                     rating: item.rating === "" ? 0 : parseFloat(item.rating), // Set to 0 if empty string, else convert rating from string to float
                   });
                 }
-                console.log(resultsArr);
 
                 setShowData((prevData) => ({
                   ...prevData,

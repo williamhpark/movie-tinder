@@ -18,7 +18,6 @@ const FinalResultsPage = (props) => {
     const acceptedShowData = rawAcceptedShows.filter(
       (v, i, a) => a.findIndex((t) => t.netflixid === v.netflixid) === i
     );
-    console.log("acceptedShowData: ", acceptedShowData);
 
     // Object with Netflix IDs as keys and number of occurences as values (e.g. 948002: 3)
     let acceptedShowCount = {};
