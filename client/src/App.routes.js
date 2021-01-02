@@ -8,6 +8,7 @@ import ResultsPage from "./pages/ResultsPage/ResultsPage";
 import FinalResultsPage from "./pages/FinalResultsPage/FinalResultsPage";
 import JoinSessionPage from "./pages/JoinSessionPage/JoinSessionPage";
 import SessionPage from "./pages/SessionPage/SessionPage";
+import WaitingPage from "./pages/WaitingPage/WaitingPage";
 
 const Routes = () => {
   const routes = [
@@ -18,6 +19,7 @@ const Routes = () => {
     { name: "FinalResults", path: "/final", Component: FinalResultsPage },
     { name: "JoinSession", path: "/join", Component: JoinSessionPage },
     { name: "Session", path: "/session", Component: SessionPage },
+    { name: "Waiting", path: "/waiting", Component: WaitingPage },
   ];
 
   const renderRoutes = () => {

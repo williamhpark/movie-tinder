@@ -42,7 +42,7 @@ const SessionPage = ({ location }) => {
     socket.on("usersReady", (ready) => {
       if (creator === "false") {
         if (ready === true) {
-          document.getElementById("man").style.display = "block";
+          document.getElementById("ready").style.display = "block";
         }
       }
     });
@@ -72,7 +72,7 @@ const SessionPage = ({ location }) => {
         </div>
       </div>
       <button
-        id="man"
+        id="ready"
         style={{
           position: "absolute",
           bottom: "0",

@@ -90,7 +90,15 @@ io.on("connection", (socket) => {
     const session = getSession(roomCode);
     session.ready = true;
     io.to(session.roomCode).emit("usersReady", session.ready);
-    console.log(session);
+  });
+
+  socket.on("waiting", (roomCode, currentUser) => {
+    const session = getSession(roomCode);
+    socket.join(session.roomCode);
+    session.waitingUsers.push(currentUser.user);
+    if (session.users.length == session.waitingUsers.length) {
+      io.in(session.roomCode).emit("done", "ok");
+    }
   });
 
   socket.on("disconnect", () => {
