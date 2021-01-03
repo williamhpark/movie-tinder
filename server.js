@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
     const session = getSession(roomCode);
     socket.join(session.roomCode);
     session.waitingUsers.push(currentUser.user);
-    if (session.users.length == session.waitingUsers.length) {
+    if (session.users.length === session.waitingUsers.length) {
       io.in(session.roomCode).emit("done", "ok");
     }
   });

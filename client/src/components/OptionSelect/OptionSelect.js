@@ -55,7 +55,7 @@ const OptionSelect = (props) => {
     fetchGenres();
   }, []);
 
-  const Join = async (e) => {
+  const join = async (e) => {
     e.preventDefault();
     socket.emit("readyNow", props.room);
     history.push(`/results?creator=true&&roomCode=${props.room}`);
@@ -74,7 +74,7 @@ const OptionSelect = (props) => {
         setKeyword={setKeyword}
       />
       <div className="option-select__start">
-        <form className="form" onSubmit={Join}>
+        <form className="form" onSubmit={join}>
           <input type="submit" value="Start" />
         </form>
       </div>
