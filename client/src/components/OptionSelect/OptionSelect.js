@@ -45,8 +45,8 @@ const OptionSelect = (props) => {
   };
 
   useEffect(() => {
-    // Clear movie/show checkboxes and selected genres list
-    setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
+    // // Clear movie/show checkboxes and selected genres list
+    // setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
 
     fetchGenres();
   }, []);
