@@ -14,7 +14,10 @@ const WaitingPage = ({ location }) => {
   const { userData } = useContext(UserContext);
   const [ready, setReady] = useState(false);
   // const ENDPOINT = "localhost:5000";
-  const ENDPOINT = "https://flicker-paul-will.herokuapp.com:38207";
+  const ENDPOINT =
+    process.env.NODE_ENV === "production"
+      ? window.location.hostname
+      : "https://localhost:5000";
 
   useEffect(() => {
     socket = io(ENDPOINT);

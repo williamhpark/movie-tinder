@@ -2,8 +2,6 @@ const sessions = [];
 
 // creating an array of sessions
 const sessionCreate = (roomCode, userid) => {
-  console.log(roomCode);
-  console.log(userid);
   const session = {
     roomCode,
     creatorid: userid,
