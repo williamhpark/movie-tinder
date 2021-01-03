@@ -11,6 +11,7 @@ const showSchema = new mongoose.Schema({
   type: { type: String },
   released: { type: String },
   runtime: { type: String },
+  rating: { type: Number },
 });
 
 const Show = mongoose.model("shows", showSchema);

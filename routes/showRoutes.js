@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const Show = require("../models/showModel");
-const auth = require("../middleware/auth");
 
 // @route   POST /accepted
 // @desc    Add a show to the accepted collection
@@ -75,7 +74,7 @@ router.post("/rejected", async (req, res) => {
 });
 
 // @route   GET /accepted
-// @desc    Retreive all shows that were accepted by a user
+// @desc    Retreive all shows that were accepted in a room
 // @access  Public
 router.get("/accepted/:roomid", async (req, res) => {
   try {
@@ -91,7 +90,7 @@ router.get("/accepted/:roomid", async (req, res) => {
 });
 
 // @route   GET /rejected
-// @desc    Retreive all shows that were rejected by a user
+// @desc    Retreive all shows that were rejected in a room
 // @access  Public
 router.get("/rejected/:roomid", async (req, res) => {
   try {

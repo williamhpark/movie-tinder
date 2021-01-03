@@ -12,9 +12,13 @@ const SelectedGenresList = (props) => {
       <p>
         <b>Selected</b>
       </p>
-      {showData.selectedGenres.map((genre) => {
-        return <SelectedGenreItem genre={genre} />;
-      })}
+      {showData.selectedGenres.length === 0 ? (
+        <p>No genres selected</p>
+      ) : (
+        showData.selectedGenres.map((genre) => {
+          return <SelectedGenreItem genre={genre} />;
+        })
+      )}
     </div>
   );
 };

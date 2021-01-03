@@ -26,7 +26,6 @@ const SessionPage = ({ location }) => {
     room =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
-
     room = room.slice(0, 6);
   } else {
     room = roomCode;
@@ -34,6 +33,7 @@ const SessionPage = ({ location }) => {
 
   useEffect(() => {
     localStorage.setItem("room-id", room);
+
     socket = io(ENDPOINT);
     socket.emit("sessioncreate", room, creator, { user: userData.user });
     socket.on("roomUsers", (users) => {
@@ -53,15 +53,9 @@ const SessionPage = ({ location }) => {
       <div className="session-page__room-info-container">
         <div className="session-page__room-info">
           <h2>Room Info</h2>
-          {creator === "true" ? (
-            <p>
-              <b>Role:</b> Admin
-            </p>
-          ) : (
-            <p>
-              <b>Role:</b> User
-            </p>
-          )}
+          <p>
+            <b>Role:</b> {creator === "true" ? "Admin" : "User"}
+          </p>
           <p>
             <b>Room Code:</b> {room}
           </p>
@@ -71,6 +65,7 @@ const SessionPage = ({ location }) => {
           <ul id="users"></ul>
         </div>
       </div>
+      {creator === "true" && <OptionSelect room={room} creator={creator} />}
       <button
         id="ready"
         style={{
@@ -85,7 +80,6 @@ const SessionPage = ({ location }) => {
       >
         this is button
       </button>
-      {creator === "true" && <OptionSelect room={room} creator={creator} />}
     </div>
   );
 };

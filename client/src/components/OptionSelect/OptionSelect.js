@@ -1,24 +1,23 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
-// import { IconButton } from "@material-ui/core";
 
 import "./OptionSelect.css";
+import { ShowContext } from "../../context/ShowContext";
 import TypeSelect from "../TypeSelect/TypeSelect";
 import GenreSelect from "../GenreSelect/GenreSelect";
 
 let socket;
 
 const OptionSelect = (props) => {
+  const { setShowData } = useContext(ShowContext);
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const ENDPOINT = "localhost:5000";
 
-  const history = useHistory();
-
-  const fetchGenres = useCallback(() => {
+  const fetchGenres = async () => {
     const options = {
       method: "GET",
       url: "https://unogs-unogs-v1.p.rapidapi.com/api.cgi",
@@ -48,10 +47,14 @@ const OptionSelect = (props) => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   useEffect(() => {
     socket = io(ENDPOINT);
+
+    // // Clear movie/show checkboxes and selected genres list
+    // setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
+
     fetchGenres();
   }, []);
 
