@@ -1,16 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import io from "socket.io-client";
+import { useHistory } from "react-router-dom";
 
 import "./OptionSelect.css";
 import { ShowContext } from "../../context/ShowContext";
 import TypeSelect from "../TypeSelect/TypeSelect";
 import GenreSelect from "../GenreSelect/GenreSelect";
 
+let socket;
+
 const OptionSelect = (props) => {
   const { setShowData } = useContext(ShowContext);
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const ENDPOINT = "localhost:5000";
 
   const fetchGenres = async () => {
     const options = {
@@ -45,11 +50,19 @@ const OptionSelect = (props) => {
   };
 
   useEffect(() => {
+    socket = io(ENDPOINT);
+
     // // Clear movie/show checkboxes and selected genres list
     // setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
 
     fetchGenres();
   }, []);
+
+  const join = async (e) => {
+    e.preventDefault();
+    socket.emit("readyNow", props.room);
+    history.push(`/results?creator=true&&roomCode=${props.room}`);
+  };
 
   return (
     <div className="option-select">
@@ -63,6 +76,11 @@ const OptionSelect = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
+      <div className="option-select__start">
+        <form className="form" onSubmit={join}>
+          <input type="submit" value="Start" />
+        </form>
+      </div>
     </div>
   );
 };

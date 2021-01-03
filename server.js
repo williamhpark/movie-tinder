@@ -84,6 +84,21 @@ io.on("connection", (socket) => {
     socket.emit("returnResults", session.results);
   });
 
+  socket.on("readyNow", (roomCode) => {
+    const session = getSession(roomCode);
+    session.ready = true;
+    io.to(session.roomCode).emit("usersReady", session.ready);
+  });
+
+  socket.on("waiting", (roomCode, currentUser) => {
+    const session = getSession(roomCode);
+    socket.join(session.roomCode);
+    session.waitingUsers.push(currentUser.user);
+    if (session.users.length === session.waitingUsers.length) {
+      io.in(session.roomCode).emit("done", "ok");
+    }
+  });
+
   socket.on("disconnect", () => {
     console.log("User left.");
   });

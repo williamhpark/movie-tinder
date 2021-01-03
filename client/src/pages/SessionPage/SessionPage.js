@@ -39,6 +39,13 @@ const SessionPage = ({ location }) => {
     socket.on("roomUsers", (users) => {
       outputUsers(users);
     });
+    socket.on("usersReady", (ready) => {
+      if (creator === "false") {
+        if (ready === true) {
+          document.getElementById("ready").style.display = "block";
+        }
+      }
+    });
   }, [ENDPOINT]);
 
   return (
@@ -59,17 +66,20 @@ const SessionPage = ({ location }) => {
         </div>
       </div>
       {creator === "true" && <OptionSelect room={room} creator={creator} />}
-      <div className="session-page__start-btn">
-        <form className="form">
-          <input
-            type="submit"
-            value="Start"
-            onClick={() =>
-              history.push(`/results?creator=${creator}&&roomCode=${room}`)
-            }
-          />
-        </form>
-      </div>
+      <button
+        id="ready"
+        style={{
+          position: "absolute",
+          bottom: "0",
+          display: "none",
+          fontSize: "40px",
+        }}
+        onClick={() =>
+          history.push(`/results?roomCode=${room}&&creator=${creator}`)
+        }
+      >
+        this is button
+      </button>
     </div>
   );
 };

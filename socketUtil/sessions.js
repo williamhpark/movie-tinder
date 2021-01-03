@@ -8,9 +8,10 @@ const sessionCreate = (roomCode, userid) => {
     roomCode,
     creatorid: userid,
     users: [],
-    result: [],
+    results: [],
+    ready: false,
+    waitingUsers: [],
   };
-
   sessions.push(session);
   return session;
 };

@@ -9,14 +9,14 @@ import { ShowContext } from "../../context/ShowContext";
 import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import ShowCards from "../../components/ShowCards/ShowCards";
 
+let socket;
+
 const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(undefined);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
   const ENDPOINT = "localhost:5000";
-
-  let socket;
 
   let genreIds = [];
   for (let i in showData.selectedGenres) {
@@ -155,7 +155,7 @@ const ResultsPage = ({ location }) => {
             <input
               type="submit"
               value="I'm done swiping!"
-              onClick={() => history.push("/final")}
+              onClick={() => history.push(`/waiting?roomCode=${roomCode}`)}
             />
           </form>
         </>
