@@ -19,7 +19,7 @@ const OptionSelect = (props) => {
   const ENDPOINT =
     process.env.NODE_ENV === "production"
       ? window.location.hostname
-      : "https://localhost:5000";
+      : "localhost:5000";
 
   const fetchGenres = async () => {
     const options = {

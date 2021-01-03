@@ -16,7 +16,7 @@ const ShowCards = (props) => {
   const ENDPOINT =
     process.env.NODE_ENV === "production"
       ? window.location.hostname
-      : "https://localhost:5000";
+      : "localhost:5000";
 
   const { creator, roomCode } = props;
 
@@ -110,9 +110,7 @@ const ShowCards = (props) => {
         })
       )}
       {lastDirection ? (
-        <h3 key={lastDirection} className="cards__swipe-direction">
-          You swiped {lastDirection}
-        </h3>
+        <h3 className="cards__swipe-direction">You swiped {lastDirection}</h3>
       ) : (
         <h3 className="cards__swipe-direction">Swipe a card to get started!</h3>
       )}

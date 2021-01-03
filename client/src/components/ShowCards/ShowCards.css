@@ -52,7 +52,14 @@
 }
 
 .cards__swipe-direction {
-  color: #000000;
-  position: absolute;
-  bottom: 12vh;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cards__swipe-direction {
+    display: block;
+    color: #000000;
+    position: absolute;
+    bottom: 12vh;
+  }
 }
