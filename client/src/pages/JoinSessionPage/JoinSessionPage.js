@@ -13,7 +13,6 @@ const JoinSessionPage = (props) => {
   const [roomCode, setRoomCode] = useState("");
   const [found, setFound] = useState("");
   const history = useHistory();
-  // const ENDPOINT = "localhost:5000";
   const ENDPOINT =
     process.env.NODE_ENV === "production"
       ? window.location.hostname

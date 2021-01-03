@@ -16,7 +16,6 @@ const OptionSelect = (props) => {
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const history = useHistory();
-  // const ENDPOINT = "localhost:5000";
   const ENDPOINT =
     process.env.NODE_ENV === "production"
       ? window.location.hostname

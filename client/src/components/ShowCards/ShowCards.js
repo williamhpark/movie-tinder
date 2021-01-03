@@ -13,7 +13,6 @@ const ShowCards = (props) => {
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
-  // const ENDPOINT = "localhost:5000";
   const ENDPOINT =
     process.env.NODE_ENV === "production"
       ? window.location.hostname

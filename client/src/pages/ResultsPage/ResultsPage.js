@@ -16,7 +16,6 @@ const ResultsPage = ({ location }) => {
   const [isLoader, setIsLoader] = useState(undefined);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
-  // const ENDPOINT = "localhost:5000";
   const ENDPOINT =
     process.env.NODE_ENV === "production"
       ? window.location.hostname
