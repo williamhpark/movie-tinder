@@ -23,14 +23,11 @@ const RegisterPage = () => {
     try {
       const newUser = { name, email, password, passwordCheck };
       // Send the new user data to the /register API endpoint
-      await axios.post("http://localhost:5000/api/users/register", newUser);
-      const loginRes = await axios.post(
-        "http://localhost:5000/api/users/login",
-        {
-          email,
-          password,
-        }
-      );
+      await axios.post("/api/users/register", newUser);
+      const loginRes = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
       // Update the UserContext state
       setUserData({ token: loginRes.data.token, user: loginRes.data.user });
       // Set the auth-token in the browser

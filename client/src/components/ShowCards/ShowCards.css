@@ -4,6 +4,11 @@
   text-align: center;
 }
 
+.cards__end-message {
+  position: absolute;
+  top: 45%;
+}
+
 .cards--swipe {
   position: absolute;
 }
@@ -13,7 +18,7 @@
   width: 20rem;
   max-width: 70vw;
   height: 60rem;
-  max-height: 60vh;
+  max-height: 55vh;
   border-radius: 2rem;
   background-size: cover;
   background-position: center;
@@ -49,6 +54,5 @@
 .cards__swipe-direction {
   color: #000000;
   position: absolute;
-  bottom: 15vh;
-  font-size: 1.3rem;
+  bottom: 12vh;
 }

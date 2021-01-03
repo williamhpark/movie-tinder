@@ -1,20 +1,18 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-// import { IconButton } from "@material-ui/core";
 
 import "./OptionSelect.css";
+import { ShowContext } from "../../context/ShowContext";
 import TypeSelect from "../TypeSelect/TypeSelect";
 import GenreSelect from "../GenreSelect/GenreSelect";
 
 const OptionSelect = (props) => {
+  const { setShowData } = useContext(ShowContext);
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
 
-  const history = useHistory();
-
-  const fetchGenres = useCallback(() => {
+  const fetchGenres = async () => {
     const options = {
       method: "GET",
       url: "https://unogs-unogs-v1.p.rapidapi.com/api.cgi",
@@ -44,9 +42,12 @@ const OptionSelect = (props) => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   useEffect(() => {
+    // // Clear movie/show checkboxes and selected genres list
+    // setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
+
     fetchGenres();
   }, []);
 
@@ -62,17 +63,6 @@ const OptionSelect = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <div className="option-select__start">
-        <form className="form">
-          <input
-            type="submit"
-            value="Start"
-            onClick={() =>
-              history.push(`/results?creator=true&&roomCode=${props.room}`)
-            }
-          />
-        </form>
-      </div>
     </div>
   );
 };

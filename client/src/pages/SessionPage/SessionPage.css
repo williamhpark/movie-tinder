@@ -1,3 +1,9 @@
+.session-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .session-page__room-info-container {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -10,4 +16,8 @@
 
 .session-page h2 {
   margin-bottom: 1rem;
+}
+
+.session-page__start-btn {
+  margin-top: 2rem;
 }
