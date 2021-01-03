@@ -110,7 +110,7 @@ const FinalResultsPage = (props) => {
             Based on your group's selections, your recommended movie/show is:
           </h2>
           {renderRecommended()}
-          <form className="final-results-page__next-btn form">
+          <form className="final-results-page__next-button form">
             <input
               type="submit"
               value="Next recommendation"
@@ -123,7 +123,7 @@ const FinalResultsPage = (props) => {
           <h3 className="final-results-page__end-message">
             End of recommendations
           </h3>
-          <form className="final-results-page__reset-btn form">
+          <form className="final-results-page__reset-button form">
             <input
               type="submit"
               value="Click to see again"

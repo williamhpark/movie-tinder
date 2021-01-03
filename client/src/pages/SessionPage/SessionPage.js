@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import queryString from "query-string";
 import io from "socket.io-client";
@@ -11,9 +11,12 @@ let socket;
 
 const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
+  const [ready, setReady] = useState(false);
   const { creator, roomCode } = queryString.parse(location.search);
-  const ENDPOINT = "localhost:5000";
   const history = useHistory();
+  const ENDPOINT = "localhost:5000";
+  // const ENDPOINT = "https://flicker-paul-will.herokuapp.com/";
+
   let room;
 
   const outputUsers = (roomUsers) => {
@@ -41,9 +44,7 @@ const SessionPage = ({ location }) => {
     });
     socket.on("usersReady", (ready) => {
       if (creator === "false") {
-        if (ready === true) {
-          document.getElementById("ready").style.display = "block";
-        }
+        setReady(true);
       }
     });
   }, [ENDPOINT]);
@@ -65,21 +66,27 @@ const SessionPage = ({ location }) => {
           <ul id="users"></ul>
         </div>
       </div>
-      {creator === "true" && <OptionSelect room={room} creator={creator} />}
-      <button
-        id="ready"
-        style={{
-          position: "absolute",
-          bottom: "0",
-          display: "none",
-          fontSize: "40px",
-        }}
-        onClick={() =>
-          history.push(`/results?roomCode=${room}&&creator=${creator}`)
-        }
-      >
-        this is button
-      </button>
+      {creator === "true" ? (
+        <OptionSelect room={room} creator={creator} />
+      ) : (
+        <div className="session-page__start-message">
+          <p>
+            The Start button will appear once the admin is finished selecting
+            your group's filters
+          </p>
+        </div>
+      )}
+      {ready && (
+        <form className="session-page__start-button form">
+          <input
+            type="submit"
+            value="Start"
+            onClick={() =>
+              history.push(`/results?roomCode=${room}&&creator=${creator}`)
+            }
+          />
+        </form>
+      )}
     </div>
   );
 };

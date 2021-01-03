@@ -51,7 +51,7 @@
   justify-content: space-around;
 }
 
-.final-results-page__next-btn {
+.final-results-page__next-button {
   display: flex;
   justify-content: center;
 }
@@ -68,7 +68,7 @@
   margin-bottom: 5rem;
 }
 
-.final-results-page__reset-btn {
+.final-results-page__reset-button {
   display: flex;
   justify-content: center;
 }

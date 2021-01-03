@@ -1,3 +1,9 @@
 .option-select {
   text-align: center;
 }
+
+.option-select__start-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
