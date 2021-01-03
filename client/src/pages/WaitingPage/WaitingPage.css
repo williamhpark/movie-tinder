@@ -1,0 +1,20 @@
+.waiting-page {
+  text-align: center;
+}
+
+.waiting-page__message {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.waiting-page__button-container {
+  margin-top: 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.waiting-page__next-button {
+  margin-top: 1rem;
+}

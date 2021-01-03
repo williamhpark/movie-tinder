@@ -14,6 +14,8 @@ const ShowCards = (props) => {
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
   const ENDPOINT = "localhost:5000";
+  // const ENDPOINT = "https://flicker-paul-will.herokuapp.com/";
+
   const { creator, roomCode } = props;
 
   let socket;
@@ -64,7 +66,7 @@ const ShowCards = (props) => {
   return (
     <div className="cards">
       {displayedResults.length === 0 ? (
-        <p className="cards__end-message">End of results</p>
+        <h3 className="cards__end-message">End of results</h3>
       ) : (
         showData.results.map((show) => {
           return (

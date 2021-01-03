@@ -15,8 +15,9 @@ const OptionSelect = (props) => {
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const ENDPOINT = "localhost:5000";
   const history = useHistory();
+  const ENDPOINT = "localhost:5000";
+  // const ENDPOINT = "https://flicker-paul-will.herokuapp.com/";
 
   const fetchGenres = async () => {
     const options = {
@@ -53,8 +54,8 @@ const OptionSelect = (props) => {
   useEffect(() => {
     socket = io(ENDPOINT);
 
-    // // Clear movie/show checkboxes and selected genres list
-    // setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
+    // Clear movie/show checkboxes and selected genres list
+    setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
 
     fetchGenres();
   }, []);
@@ -67,7 +68,7 @@ const OptionSelect = (props) => {
 
   return (
     <div className="option-select">
-      <h1>Choose your group's preferences</h1>
+      <h1>Choose your group's filters</h1>
       <TypeSelect />
       <GenreSelect
         genreListDefault={genreListDefault}
@@ -77,7 +78,7 @@ const OptionSelect = (props) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
-      <div className="option-select__start">
+      <div className="option-select__start-button">
         <form className="form" onSubmit={join}>
           <input type="submit" value="Start" />
         </form>

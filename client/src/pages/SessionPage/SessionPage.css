@@ -18,6 +18,11 @@
   margin-bottom: 1rem;
 }
 
-.session-page__start-btn {
+.session-page__start-message {
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.session-page__start-button {
   margin-top: 2rem;
 }
