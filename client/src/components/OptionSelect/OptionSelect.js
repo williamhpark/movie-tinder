@@ -16,6 +16,7 @@ const OptionSelect = (props) => {
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const ENDPOINT = "localhost:5000";
+  const history = useHistory();
 
   const fetchGenres = async () => {
     const options = {
