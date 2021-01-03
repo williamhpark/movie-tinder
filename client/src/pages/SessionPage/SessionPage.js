@@ -14,8 +14,8 @@ const SessionPage = ({ location }) => {
   const [ready, setReady] = useState(false);
   const { creator, roomCode } = queryString.parse(location.search);
   const history = useHistory();
-  const ENDPOINT = "localhost:5000";
-  // const ENDPOINT = "https://flicker-paul-will.herokuapp.com/";
+  // const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://flicker-paul-will.herokuapp.com:38207";
 
   let room;
 

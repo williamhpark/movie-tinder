@@ -13,8 +13,8 @@ const WaitingPage = ({ location }) => {
   const { roomCode } = queryString.parse(location.search);
   const { userData } = useContext(UserContext);
   const [ready, setReady] = useState(false);
-  const ENDPOINT = "localhost:5000";
-  // const ENDPOINT = "https://flicker-paul-will.herokuapp.com/";
+  // const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://flicker-paul-will.herokuapp.com:38207";
 
   useEffect(() => {
     socket = io(ENDPOINT);

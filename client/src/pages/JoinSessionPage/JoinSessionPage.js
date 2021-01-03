@@ -13,8 +13,8 @@ const JoinSessionPage = (props) => {
   const [roomCode, setRoomCode] = useState("");
   const [found, setFound] = useState("");
   const history = useHistory();
-  const ENDPOINT = "localhost:5000";
-  // const ENDPOINT = "https://flicker-paul-will.herokuapp.com/";
+  // const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://flicker-paul-will.herokuapp.com:38207";
 
   useEffect(() => {
     socket = io(ENDPOINT);
