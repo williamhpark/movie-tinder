@@ -9,3 +9,5 @@ A Tinder-esque web app designed to make the process of choosing a movie or show 
 **Front-end**: React
 **Back-end (server)**: Node.js, Express
 **Database**: MongoDB
+
+Site was deployed using Heroku.
