@@ -117,15 +117,7 @@ const ResultsPage = ({ location }) => {
   useEffect(() => {
     socket = io(ENDPOINT);
 
-    if (creator === "false") {
-      socket.emit("getResults", roomCode);
-      socket.on("returnResults", (res) => {
-        setShowData((prevData) => ({
-          ...prevData,
-          results: res,
-        }));
-      });
-    } else {
+    if (creator === "true") {
       let genreIds = [];
       for (let i in showData.selectedGenres) {
         genreIds.push(showData.selectedGenres[i].id);
@@ -141,6 +133,20 @@ const ResultsPage = ({ location }) => {
       fetchData(genreIds, mediaType);
     }
   }, []);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+
+    if (creator === "false") {
+      socket.emit("getResults", roomCode);
+      socket.on("returnResults", (res) => {
+        setShowData((prevData) => ({
+          ...prevData,
+          results: res,
+        }));
+      });
+    }
+  }, [showData]);
 
   return (
     <div className="page results-page">
