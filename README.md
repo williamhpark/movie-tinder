@@ -1,6 +1,8 @@
 # Flicker
 
-A Tinder-esque web app designed to make the process of choosing a movie or show to watch on Netflix more efficient.
+A Tinder-esque web app designed to make the process of choosing a movie or show to watch on Netflix with a group more efficient. Swipe right on the card to accept, left to reject, and your recommendations will be displayed.
+
+Data from Netflix was collected using the unofficial Netflix API, uNoGS.
 
 **URL:** http://flickerapp.herokuapp.com/
 
