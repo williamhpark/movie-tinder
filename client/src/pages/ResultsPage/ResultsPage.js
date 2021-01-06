@@ -84,7 +84,7 @@ const ResultsPage = ({ location }) => {
                 setShowData((prevData) => ({
                   ...prevData,
                   results: [
-                    // Removes any duplicate items in the results state variable
+                    // Add the new results while removing any duplicates
                     ...new Map(
                       [...prevData.results, ...resultsArr].map((item) => [
                         item["netflixid"],
