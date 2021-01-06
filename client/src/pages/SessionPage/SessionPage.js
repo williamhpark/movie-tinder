@@ -72,10 +72,7 @@ const SessionPage = ({ location }) => {
         <OptionSelect room={room} creator={creator} />
       ) : (
         <div className="session-page__start-message">
-          <p>
-            The Start button will appear once the admin is finished selecting
-            your group's filters
-          </p>
+          <p>The Start button will appear once the admin starts the session</p>
         </div>
       )}
       {ready && (

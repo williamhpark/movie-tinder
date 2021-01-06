@@ -30,10 +30,20 @@ const FinalResultsPage = (props) => {
     // Array with Netflix IDs sorted according to number of occurences (most to least popular)
     let acceptedShowCountArr = [];
     for (let key in acceptedShowCount) {
-      acceptedShowCountArr.push({ id: key, count: acceptedShowCount[key] });
+      let rating = acceptedShowData.find((o) => o.netflixid === key).rating;
+      acceptedShowCountArr.push({
+        id: key,
+        rating: parseFloat(rating),
+        count: acceptedShowCount[key],
+      });
     }
+    // Order the results by number of votes (high to low). If votes are tied, higher IMDB rating takes precedence
     acceptedShowCountArr.sort((a, b) => {
-      return b.count - a.count;
+      if (a.count == b.count) {
+        return b.rating - a.rating;
+      } else {
+        return b.count - a.count;
+      }
     });
     acceptedShowCountArr = acceptedShowCountArr.map((a) => {
       return a.id;

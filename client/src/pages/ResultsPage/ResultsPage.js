@@ -77,7 +77,7 @@ const ResultsPage = ({ location }) => {
           // Number of total pages for the API call, since API results come in pages of 100 results each
           let numberPages = Math.ceil(response.data.COUNT / 100);
           while (page <= numberPages) {
-            // The page number is incremented until all results are extracted
+            // Use the same options used for the numberPages API call except the page number is changed dynamically
             let resultsOptions = {
               ...options,
               params: { ...options.params, p: `${page}` },
@@ -109,7 +109,7 @@ const ResultsPage = ({ location }) => {
                       ])
                     ).values(),
                   ].sort((a, b) => {
-                    return a.rating - b.rating;
+                    return a.rating - b.rating; // Sort the results in order of IMDB rating (highest to lowest)
                   }),
                 }));
               })
