@@ -26,8 +26,6 @@ const ResultsPage = ({ location }) => {
     genreIds.push(showData.selectedGenres[i].id);
   }
 
-  // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
-
   let mediaType = "";
   if (showData.isMovie && showData.isSeries) {
     mediaType = "Any";
