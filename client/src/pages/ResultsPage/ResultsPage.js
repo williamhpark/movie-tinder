@@ -57,14 +57,14 @@ const ResultsPage = ({ location }) => {
       axios
         .get(apiUrl, options)
         .then((response) => {
-          let page = 1;
+          let currentPage = 1;
           // Number of total pages for the API call, since API results come in pages of 100 results each
-          let numberPages = Math.ceil(response.data.COUNT / 100);
-          while (page <= numberPages) {
-            // Use the same options used for the numberPages API call except the page number is changed dynamically
+          let totalPages = Math.ceil(response.data.COUNT / 100);
+          while (currentPage <= totalPages) {
+            // Use the same options used for the totalPages API call except the page number is incremented until all results are extracted
             let resultsOptions = {
               ...options,
-              params: { ...options.params, p: `${page}` },
+              params: { ...options.params, p: `${currentPage}` },
             };
             axios
               .get(apiUrl, resultsOptions)
@@ -99,7 +99,7 @@ const ResultsPage = ({ location }) => {
               .catch((error) => {
                 console.error(error);
               });
-            page += 1;
+            currentPage += 1;
           }
         })
         .then(() => {
