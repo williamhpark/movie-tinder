@@ -72,3 +72,9 @@
   display: flex;
   justify-content: center;
 }
+
+@media (min-width: 768px) {
+  .final-results-page__card {
+    width: 20vw;
+  }
+}
