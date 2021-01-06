@@ -115,8 +115,6 @@ const ResultsPage = ({ location }) => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-
     if (creator === "true") {
       let genreIds = [];
       for (let i in showData.selectedGenres) {
