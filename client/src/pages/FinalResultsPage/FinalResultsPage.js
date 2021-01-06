@@ -39,7 +39,7 @@ const FinalResultsPage = (props) => {
     }
     // Order the results by number of votes (high to low). If votes are tied, higher IMDB rating takes precedence
     acceptedShowCountArr.sort((a, b) => {
-      if (a.count == b.count) {
+      if (a.count === b.count) {
         return b.rating - a.rating;
       } else {
         return b.count - a.count;

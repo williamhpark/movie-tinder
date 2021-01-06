@@ -35,7 +35,7 @@ const ResultsPage = ({ location }) => {
     // Country ID for Canada
     const countryId = "33";
 
-    genreIds.forEach((id) => {
+    genreIds.forEach((id, index, array) => {
       let options = {
         params: {
           q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
@@ -81,7 +81,6 @@ const ResultsPage = ({ location }) => {
                     rating: item.rating === "" ? 0 : parseFloat(item.rating), // Set to 0 if empty string, else convert rating from string to float
                   });
                 }
-
                 setShowData((prevData) => ({
                   ...prevData,
                   results: [
@@ -103,13 +102,16 @@ const ResultsPage = ({ location }) => {
             page += 1;
           }
         })
+        .then(() => {
+          // If this is the last API call, remove the loader
+          if (index === array.length - 1) {
+            setIsLoader(false);
+          }
+        })
         .catch((error) => {
           console.error(error);
         });
     });
-    // Remove the page loader after 3 seconds
-    const loaderTimer = setTimeout(() => setIsLoader(false), 3000);
-    return () => clearTimeout(loaderTimer);
   };
 
   useEffect(() => {

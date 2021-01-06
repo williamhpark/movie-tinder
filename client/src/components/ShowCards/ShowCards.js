@@ -6,6 +6,8 @@ import "./ShowCards.css";
 import { ShowContext } from "../../context/ShowContext";
 import io from "socket.io-client";
 
+let socket;
+
 const ShowCards = (props) => {
   const { showData } = useContext(ShowContext);
   const [displayedResults, setDisplayedResults] = useState([]);
@@ -17,8 +19,6 @@ const ShowCards = (props) => {
       : "localhost:5000";
 
   const { creator, roomCode } = props;
-
-  let socket;
 
   const displayedResultsInit = async () => {
     setDisplayedResults(showData.results);
@@ -32,7 +32,7 @@ const ShowCards = (props) => {
       let data = showData.results;
       socket.emit("addResults", { data, roomCode, creator });
     }
-  }, [showData]);
+  }, [showData.results]);
 
   const swiped = async (direction, id) => {
     try {
@@ -64,10 +64,10 @@ const ShowCards = (props) => {
 
   return (
     <div className="cards">
-      {displayedResults.length === 0 ? (
+      {!displayedResults || displayedResults.length === 0 ? (
         <h3 className="cards__end-message">End of results</h3>
       ) : (
-        showData.results.map((show) => {
+        displayedResults.map((show) => {
           return (
             <TinderCard
               className="cards--swipe"

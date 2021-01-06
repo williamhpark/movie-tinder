@@ -56,13 +56,9 @@
 }
 
 @media (min-width: 768px) {
-  .cards__card {
-    width: 20vw;
-  }
-
   .cards__swipe-direction {
     display: block;
-    color: black;
+    color: #000000;
     position: absolute;
     bottom: 12vh;
   }
