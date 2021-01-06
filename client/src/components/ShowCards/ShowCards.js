@@ -67,7 +67,7 @@ const ShowCards = (props) => {
       {!displayedResults || displayedResults.length === 0 ? (
         <h3 className="cards__end-message">End of results</h3>
       ) : (
-        displayedResults.map((show) => {
+        showData.results.map((show) => {
           return (
             <TinderCard
               className="cards--swipe"

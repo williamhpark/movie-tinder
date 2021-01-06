@@ -144,7 +144,7 @@ const ResultsPage = ({ location }) => {
 
   return (
     <div className="page results-page">
-      {isLoader ? (
+      {isLoader || !showData.results || showData.results.length === 0 ? (
         <FullPageLoader />
       ) : (
         <>
