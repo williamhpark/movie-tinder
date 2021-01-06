@@ -21,21 +21,7 @@ const ResultsPage = ({ location }) => {
       ? window.location.hostname
       : "localhost:5000";
 
-  let genreIds = [];
-  for (let i in showData.selectedGenres) {
-    genreIds.push(showData.selectedGenres[i].id);
-  }
-
-  let mediaType = "";
-  if (showData.isMovie && showData.isSeries) {
-    mediaType = "Any";
-  } else if (showData.isMovie) {
-    mediaType = "Movie";
-  } else if (showData.isSeries) {
-    mediaType = "Series";
-  }
-
-  const fetchData = async () => {
+  const fetchData = async (genreIds, mediaType) => {
     // Show the page loader
     setIsLoader(true);
 
@@ -138,7 +124,19 @@ const ResultsPage = ({ location }) => {
         }));
       });
     } else {
-      fetchData();
+      let genreIds = [];
+      for (let i in showData.selectedGenres) {
+        genreIds.push(showData.selectedGenres[i].id);
+      }
+      let mediaType = "";
+      if (showData.isMovie && showData.isSeries) {
+        mediaType = "Any";
+      } else if (showData.isMovie) {
+        mediaType = "Movie";
+      } else if (showData.isSeries) {
+        mediaType = "Series";
+      }
+      fetchData(genreIds, mediaType);
     }
   }, []);
 
