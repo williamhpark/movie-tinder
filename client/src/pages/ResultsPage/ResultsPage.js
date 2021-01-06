@@ -109,7 +109,7 @@ const ResultsPage = ({ location }) => {
                       ])
                     ).values(),
                   ].sort((a, b) => {
-                    return a.rating - b.rating; // Sort the results in order of IMDB rating (highest to lowest)
+                    return a.rating - b.rating; // Sort the results in order of IMDB rating
                   }),
                 }));
               })
