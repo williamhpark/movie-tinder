@@ -6,8 +6,6 @@ import "./ShowCards.css";
 import { ShowContext } from "../../context/ShowContext";
 import io from "socket.io-client";
 
-let socket;
-
 const ShowCards = (props) => {
   const { showData } = useContext(ShowContext);
   const [displayedResults, setDisplayedResults] = useState([]);
@@ -19,6 +17,8 @@ const ShowCards = (props) => {
       : "localhost:5000";
 
   const { creator, roomCode } = props;
+
+  let socket;
 
   const displayedResultsInit = async () => {
     setDisplayedResults(showData.results);
@@ -32,7 +32,7 @@ const ShowCards = (props) => {
       let data = showData.results;
       socket.emit("addResults", { data, roomCode, creator });
     }
-  }, [showData.results]);
+  }, [showData]);
 
   const swiped = async (direction, id) => {
     try {
