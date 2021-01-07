@@ -73,7 +73,7 @@ const OptionSelect = (props) => {
     } else {
       setStartDisabled(true);
     }
-  }, [showData]);
+  }, [showData.isMovie, showData.isSeries, showData.selectedGenres]);
 
   const join = async (e) => {
     e.preventDefault();

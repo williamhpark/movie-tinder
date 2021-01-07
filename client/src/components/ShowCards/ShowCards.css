@@ -24,7 +24,7 @@
   background-position: center;
   background-color: #ffffff;
   overflow: hidden;
-  z-index: -1;
+  cursor: pointer;
 }
 
 .cards__card-content {

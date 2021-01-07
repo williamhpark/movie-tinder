@@ -134,8 +134,10 @@ const ResultsPage = ({ location }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
-
-    if (creator === "false") {
+    if (creator === "true") {
+      let data = showData.results;
+      socket.emit("addResults", { data, roomCode });
+    } else {
       socket.emit("getResults", roomCode);
       socket.on("returnResults", (res) => {
         setShowData((prevData) => ({
@@ -144,7 +146,18 @@ const ResultsPage = ({ location }) => {
         }));
       });
     }
-  }, [showData]);
+  }, [ENDPOINT, showData.results]);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setShowData({
+      isMovie: false,
+      isSeries: false,
+      selectedGenres: [],
+      results: [],
+    });
+    history.push(`/waiting?roomCode=${roomCode}`);
+  };
 
   return (
     <div className="page results-page">
@@ -156,12 +169,8 @@ const ResultsPage = ({ location }) => {
             Swipe right to accept and left to reject
           </h3>
           <ShowCards roomCode={roomCode} creator={creator} />
-          <form className="results-page__done-button form">
-            <input
-              type="submit"
-              value="I'm done swiping!"
-              onClick={() => history.push(`/waiting?roomCode=${roomCode}`)}
-            />
+          <form className="results-page__done-button form" onSubmit={submit}>
+            <input type="submit" value="I'm done swiping!" />
           </form>
         </>
       )}

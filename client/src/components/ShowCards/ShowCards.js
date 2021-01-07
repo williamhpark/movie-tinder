@@ -4,35 +4,18 @@ import axios from "axios";
 
 import "./ShowCards.css";
 import { ShowContext } from "../../context/ShowContext";
-import io from "socket.io-client";
 
 const ShowCards = (props) => {
   const { showData } = useContext(ShowContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
-  const { creator, roomCode } = props;
-
-  let socket;
-
-  const displayedResultsInit = async () => {
-    setDisplayedResults(showData.results);
-  };
+  const { roomCode } = props;
 
   useEffect(() => {
-    displayedResultsInit();
-
-    socket = io(ENDPOINT);
-    if (creator === "true") {
-      let data = showData.results;
-      socket.emit("addResults", { data, roomCode, creator });
-    }
-  }, [showData]);
+    setDisplayedResults(showData.results);
+  }, [showData.results]);
 
   const swiped = async (direction, id) => {
     try {
