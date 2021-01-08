@@ -39,6 +39,7 @@ const GenreSelect = (props) => {
           <input
             className="genre-select__search-input"
             type="search"
+            aria-label="Search"
             value={props.keyword}
             placeholder="Search Genre"
             onChange={(e) => updateGenreList(e.target.value)}

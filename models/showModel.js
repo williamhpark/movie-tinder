@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const showSchema = new mongoose.Schema({
   roomid: { type: String, required: true },
-  userid: { type: String, required: true },
   accepted: { type: Boolean, default: undefined },
   netflixid: { type: String, required: true },
   title: { type: String, required: true },

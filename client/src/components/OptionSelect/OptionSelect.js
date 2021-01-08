@@ -9,17 +9,18 @@ import TypeSelect from "../TypeSelect/TypeSelect";
 import GenreSelect from "../GenreSelect/GenreSelect";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const OptionSelect = (props) => {
-  const { setShowData } = useContext(ShowContext);
+  const { showData, setShowData } = useContext(ShowContext);
   const [genreListDefault, setGenreListDefault] = useState([]);
   const [genreList, setGenreList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [startDisabled, setStartDisabled] = useState(true);
   const history = useHistory();
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   const fetchGenres = async () => {
     const options = {
@@ -62,6 +63,18 @@ const OptionSelect = (props) => {
     fetchGenres();
   }, []);
 
+  useEffect(() => {
+    // The room creator can only click start if they have selected a media type and at least one genre
+    if (
+      (showData.isMovie || showData.isSeries) &&
+      showData.selectedGenres.length > 0
+    ) {
+      setStartDisabled(false);
+    } else {
+      setStartDisabled(true);
+    }
+  }, [showData.isMovie, showData.isSeries, showData.selectedGenres]);
+
   const join = async (e) => {
     e.preventDefault();
     socket.emit("readyNow", props.room);
@@ -82,7 +95,7 @@ const OptionSelect = (props) => {
       />
       <div className="option-select__start-button">
         <form className="form" onSubmit={join}>
-          <input type="submit" value="Start" />
+          <input type="submit" value="Start" disabled={startDisabled} />
         </form>
       </div>
     </div>

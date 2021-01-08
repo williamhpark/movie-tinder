@@ -16,10 +16,10 @@
 
 .final-results-page__card {
   position: relative;
-  width: 25rem;
-  max-width: 65vw;
-  height: 40rem;
-  max-height: 50vh;
+  width: 20rem;
+  max-width: 70vw;
+  height: 60rem;
+  max-height: 55vh;
   border-radius: 2rem;
   background-size: cover;
   background-position: center;

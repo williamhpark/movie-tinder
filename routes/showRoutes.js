@@ -10,7 +10,6 @@ router.post("/accepted", async (req, res) => {
   try {
     const {
       roomid,
-      userid,
       netflixid,
       title,
       synopsis,
@@ -18,10 +17,10 @@ router.post("/accepted", async (req, res) => {
       type,
       released,
       runtime,
+      rating,
     } = req.body;
     const newShow = new Show({
       roomid,
-      userid,
       accepted: true,
       netflixid,
       title,
@@ -30,6 +29,7 @@ router.post("/accepted", async (req, res) => {
       type,
       released,
       runtime,
+      rating,
     });
     const acceptedShow = await newShow.save();
     res.json(acceptedShow);
@@ -45,7 +45,6 @@ router.post("/rejected", async (req, res) => {
   try {
     const {
       roomid,
-      userid,
       netflixid,
       title,
       synopsis,
@@ -53,10 +52,10 @@ router.post("/rejected", async (req, res) => {
       type,
       released,
       runtime,
+      rating,
     } = req.body;
     const newShow = new Show({
       roomid,
-      userid,
       accepted: false,
       netflixid,
       title,
@@ -65,6 +64,7 @@ router.post("/rejected", async (req, res) => {
       type,
       released,
       runtime,
+      rating,
     });
     const rejectedShow = await newShow.save();
     res.json(rejectedShow);

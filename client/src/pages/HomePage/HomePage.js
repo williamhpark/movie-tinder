@@ -6,13 +6,15 @@ import { UserContext } from "../../context/UserContext";
 
 const HomePage = (props) => {
   const { userData } = useContext(UserContext);
+
   const history = useHistory();
+
   useEffect(() => {
     // If a user is not logged in, redirect them to the Login Page
     if (!userData.user) {
       history.push("/login");
     }
-  });
+  }, [userData.user]);
 
   return (
     <div className="page home-page">

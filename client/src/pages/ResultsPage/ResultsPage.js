@@ -10,48 +10,28 @@ import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import ShowCards from "../../components/ShowCards/ShowCards";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const ResultsPage = ({ location }) => {
-  const { showData, setShowData } = useContext(ShowContext);
+  const { showData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(undefined);
+  const [creatorResults, setCreatorResults] = useState([]);
+  const [userResults, setUserResults] = useState([]);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
-  let genreIds = [];
-  for (let i in showData.selectedGenres) {
-    genreIds.push(showData.selectedGenres[i].id);
-  }
-
-  // MAKE SURE THAT THEY HAVE TO CLICK A BUTTON IN ORDER FOR IT TO WORK
-
-  let mediaType = "";
-  if (showData.isMovie && showData.isSeries) {
-    mediaType = "Any";
-  } else if (showData.isMovie) {
-    mediaType = "Movie";
-  } else if (showData.isSeries) {
-    mediaType = "Series";
-  }
-
-  const fetchData = async () => {
+  const fetchData = async (genreIds, mediaType) => {
     // Show the page loader
     setIsLoader(true);
-
-    // Removes any results that may be leftover from previous page renders
-    setShowData((prevData) => ({
-      ...prevData,
-      results: [],
-    }));
 
     const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
     // Country ID for Canada
     const countryId = "33";
 
-    genreIds.forEach((id) => {
+    genreIds.forEach((id, index, array) => {
       let options = {
         params: {
           q: `-!1900,2020-!0,5-!0,10-!${id}-!${mediaType}-!Any-!Any-!-!{downloadable}`,
@@ -68,25 +48,25 @@ const ResultsPage = ({ location }) => {
         },
       };
 
-      let resultsArr = [];
+      let tempResults = [];
 
       axios
         .get(apiUrl, options)
         .then((response) => {
-          let page = 1;
+          let currentPage = 1;
           // Number of total pages for the API call, since API results come in pages of 100 results each
-          let numberPages = Math.ceil(response.data.COUNT / 100);
-          while (page <= numberPages) {
-            // The page number is incremented until all results are extracted
+          let totalPages = Math.ceil(response.data.COUNT / 100);
+          while (currentPage <= totalPages) {
+            // Use the same options used for the totalPages API call except the page number is incremented until all results are extracted
             let resultsOptions = {
               ...options,
-              params: { ...options.params, p: `${page}` },
+              params: { ...options.params, p: `${currentPage}` },
             };
             axios
               .get(apiUrl, resultsOptions)
               .then((response) => {
                 for (let item of response.data.ITEMS) {
-                  resultsArr.push({
+                  tempResults.push({
                     netflixid: item.netflixid,
                     title: item.title,
                     image: item.image,
@@ -97,69 +77,94 @@ const ResultsPage = ({ location }) => {
                     rating: item.rating === "" ? 0 : parseFloat(item.rating), // Set to 0 if empty string, else convert rating from string to float
                   });
                 }
-
-                setShowData((prevData) => ({
-                  ...prevData,
-                  results: [
-                    // Removes any duplicate items in the results state variable
+                setCreatorResults((prevData) =>
+                  // Add the new results while removing any duplicates
+                  [
                     ...new Map(
-                      [...prevData.results, ...resultsArr].map((item) => [
+                      [...prevData, ...tempResults].map((item) => [
                         item["netflixid"],
                         item,
                       ])
                     ).values(),
                   ].sort((a, b) => {
-                    return a.rating - b.rating;
-                  }),
-                }));
+                    return a.rating - b.rating; // Sort the results in order of IMDB rating
+                  })
+                );
               })
               .catch((error) => {
                 console.error(error);
               });
-            page += 1;
+            currentPage += 1;
+          }
+        })
+        .then(() => {
+          // If this is the last API call, remove the loader
+          if (index === array.length - 1) {
+            setIsLoader(false);
           }
         })
         .catch((error) => {
           console.error(error);
         });
     });
-    // Remove the page loader after 3 seconds
-    const loaderTimer = setTimeout(() => setIsLoader(false), 3000);
-    return () => clearTimeout(loaderTimer);
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    // Removes any results that may be leftover from previous page renders
+    setCreatorResults([]);
+    setUserResults([]);
 
-    if (creator === "false") {
-      socket.emit("getResults", roomCode);
-      socket.on("returnResults", (res) => {
-        setShowData((prevData) => ({
-          ...prevData,
-          results: res,
-        }));
-      });
-    } else {
-      fetchData();
+    if (creator === "true") {
+      let genreIds = [];
+      for (let i in showData.selectedGenres) {
+        genreIds.push(showData.selectedGenres[i].id);
+      }
+      let mediaType = "";
+      if (showData.isMovie && showData.isSeries) {
+        mediaType = "Any";
+      } else if (showData.isMovie) {
+        mediaType = "Movie";
+      } else if (showData.isSeries) {
+        mediaType = "Series";
+      }
+      fetchData(genreIds, mediaType);
     }
   }, []);
 
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("join", roomCode);
+    if (creator === "true") {
+      let data = creatorResults;
+      socket.emit("addResults", { data, roomCode });
+    } else {
+      socket.on("userResults", (res) => {
+        setUserResults(res);
+      });
+    }
+  }, [creatorResults]);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    history.push(`/waiting?roomCode=${roomCode}`);
+  };
+
   return (
     <div className="page results-page">
-      {isLoader ? (
+      {isLoader || (creatorResults.length === 0 && userResults.length === 0) ? (
         <FullPageLoader />
       ) : (
         <>
           <h3 className="results-page__swipe-instructions">
             Swipe right to accept and left to reject
           </h3>
-          <ShowCards roomCode={roomCode} creator={creator} />
-          <form className="results-page__done-button form">
-            <input
-              type="submit"
-              value="I'm done swiping!"
-              onClick={() => history.push(`/waiting?roomCode=${roomCode}`)}
-            />
+          {creator === "true" ? (
+            <ShowCards roomCode={roomCode} result={creatorResults} />
+          ) : (
+            <ShowCards roomCode={roomCode} result={userResults} />
+          )}
+          <form className="results-page__done-button form" onSubmit={submit}>
+            <input type="submit" value="I'm done swiping!" />
           </form>
         </>
       )}

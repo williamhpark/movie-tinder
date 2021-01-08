@@ -7,16 +7,16 @@ import queryString from "query-string";
 import "./WaitingPage.css";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const WaitingPage = ({ location }) => {
   const history = useHistory();
   const { roomCode } = queryString.parse(location.search);
   const { userData } = useContext(UserContext);
   const [ready, setReady] = useState(false);
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   useEffect(() => {
     socket = io(ENDPOINT);

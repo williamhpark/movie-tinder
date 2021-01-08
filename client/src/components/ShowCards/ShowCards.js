@@ -3,49 +3,25 @@ import TinderCard from "react-tinder-card";
 import axios from "axios";
 
 import "./ShowCards.css";
-import { ShowContext } from "../../context/ShowContext";
-import { UserContext } from "../../context/UserContext";
-import io from "socket.io-client";
 
 const ShowCards = (props) => {
-  const { showData } = useContext(ShowContext);
-  const { userData } = useContext(UserContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
-  const { creator, roomCode } = props;
-
-  let socket;
-
-  const displayedResultsInit = async () => {
-    setDisplayedResults(showData.results);
-  };
+  const { result, roomCode } = props;
 
   useEffect(() => {
-    displayedResultsInit();
-
-    socket = io(ENDPOINT);
-    if (creator === "true") {
-      let data = showData.results;
-      socket.emit("addResults", { data, roomCode, creator });
-    }
-  }, [showData]);
+    setDisplayedResults(result);
+  }, [result]);
 
   const swiped = async (direction, id) => {
     try {
       setLastDirection(direction);
 
       // Get data of result with matching Netflix ID
-      let swipedShowData = showData.results.find(
-        (show) => show.netflixid === id
-      );
+      let swipedShowData = result.find((show) => show.netflixid === id);
       swipedShowData.roomid = roomCode;
-      swipedShowData.userid = userData.user.id;
 
       if (direction === "right") {
         await axios.post("/api/shows/accepted", swipedShowData);
@@ -67,10 +43,10 @@ const ShowCards = (props) => {
 
   return (
     <div className="cards">
-      {displayedResults.length === 0 ? (
+      {!displayedResults || displayedResults.length === 0 ? (
         <h3 className="cards__end-message">End of results</h3>
       ) : (
-        showData.results.map((show) => {
+        result.map((show) => {
           return (
             <TinderCard
               className="cards--swipe"
