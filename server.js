@@ -77,7 +77,7 @@ io.on("connection", (socket) => {
   socket.on("addResults", (info) => {
     const session = getSession(info.roomCode);
     session.results = info.data;
-    io.in(session.roomCode).emit("ret", session.results);
+    socket.to(session.roomCode).emit("ret", session.results);
   });
 
   socket.on("join", (room) => {

@@ -136,10 +136,13 @@ const ResultsPage = ({ location }) => {
     socket.emit("join", roomCode);
     if (creator === "true") {
       let data = arr;
+      console.log(data);
       socket.emit("addResults", { data, roomCode });
     }
     socket.on("ret", (res) => {
       setUserArr(res);
+      console.log(userArr);
+      console.log("hi");
     });
   }, [arr]);
 
