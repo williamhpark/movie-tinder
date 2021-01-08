@@ -134,10 +134,15 @@ const ResultsPage = ({ location }) => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("join", roomCode);
+
     if (creator === "true") {
       let data = creatorResults;
       socket.emit("addResults", { data, roomCode });
     } else {
+      socket.emit("getResults", roomCode);
+      socket.on("returnResults", (result) => {
+        setUserResults(result);
+      });
       socket.on("userResults", (res) => {
         setUserResults(res);
       });
