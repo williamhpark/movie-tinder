@@ -10,26 +10,22 @@ import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import ShowCards from "../../components/ShowCards/ShowCards";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const ResultsPage = ({ location }) => {
-  const { showData, setShowData } = useContext(ShowContext);
+  const { showData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(undefined);
-  const [arr, setArr] = useState([]);
-  const [userArr, setUserArr] = useState([]);
+  const [creatorResults, setCreatorResults] = useState([]);
+  const [userResults, setUserResults] = useState([]);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   const fetchData = async (genreIds, mediaType) => {
     // Show the page loader
     setIsLoader(true);
-
-    // Removes any results that may be leftover from previous page renders
-    setArr([]);
-    setUserArr([]);
 
     const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
     // Country ID for Canada
@@ -52,7 +48,7 @@ const ResultsPage = ({ location }) => {
         },
       };
 
-      let resultsArr = [];
+      let tempResults = [];
 
       axios
         .get(apiUrl, options)
@@ -70,7 +66,7 @@ const ResultsPage = ({ location }) => {
               .get(apiUrl, resultsOptions)
               .then((response) => {
                 for (let item of response.data.ITEMS) {
-                  resultsArr.push({
+                  tempResults.push({
                     netflixid: item.netflixid,
                     title: item.title,
                     image: item.image,
@@ -81,11 +77,11 @@ const ResultsPage = ({ location }) => {
                     rating: item.rating === "" ? 0 : parseFloat(item.rating), // Set to 0 if empty string, else convert rating from string to float
                   });
                 }
-                setArr((prevData) =>
+                setCreatorResults((prevData) =>
                   // Add the new results while removing any duplicates
                   [
                     ...new Map(
-                      [...prevData, ...resultsArr].map((item) => [
+                      [...prevData, ...tempResults].map((item) => [
                         item["netflixid"],
                         item,
                       ])
@@ -114,6 +110,10 @@ const ResultsPage = ({ location }) => {
   };
 
   useEffect(() => {
+    // Removes any results that may be leftover from previous page renders
+    setCreatorResults([]);
+    setUserResults([]);
+
     if (creator === "true") {
       let genreIds = [];
       for (let i in showData.selectedGenres) {
@@ -135,31 +135,23 @@ const ResultsPage = ({ location }) => {
     socket = io(ENDPOINT);
     socket.emit("join", roomCode);
     if (creator === "true") {
-      let data = arr;
-      console.log(data);
+      let data = creatorResults;
       socket.emit("addResults", { data, roomCode });
+    } else {
+      socket.on("userResults", (res) => {
+        setUserResults(res);
+      });
     }
-    socket.on("ret", (res) => {
-      setUserArr(res);
-      console.log(userArr);
-      console.log("hi");
-    });
-  }, [arr]);
+  }, [creatorResults]);
 
   const submit = async (e) => {
     e.preventDefault();
-    setShowData({
-      isMovie: false,
-      isSeries: false,
-      selectedGenres: [],
-      results: [],
-    });
     history.push(`/waiting?roomCode=${roomCode}`);
   };
 
   return (
     <div className="page results-page">
-      {isLoader || (!arr && !userArr) ? (
+      {isLoader || (creatorResults.length === 0 && userResults.length === 0) ? (
         <FullPageLoader />
       ) : (
         <>
@@ -167,9 +159,9 @@ const ResultsPage = ({ location }) => {
             Swipe right to accept and left to reject
           </h3>
           {creator === "true" ? (
-            <ShowCards roomCode={roomCode} creator={creator} result={arr} />
+            <ShowCards roomCode={roomCode} result={creatorResults} />
           ) : (
-            <ShowCards roomCode={roomCode} creator={creator} result={userArr} />
+            <ShowCards roomCode={roomCode} result={userResults} />
           )}
           <form className="results-page__done-button form" onSubmit={submit}>
             <input type="submit" value="I'm done swiping!" />

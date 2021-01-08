@@ -7,16 +7,16 @@ import { UserContext } from "../../context/UserContext";
 import ErrorNotice from "../../components/ErrorNotice/ErrorNotice";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const JoinSessionPage = (props) => {
   const { userData } = useContext(UserContext);
   const [roomCode, setRoomCode] = useState("");
   const [found, setFound] = useState("");
   const history = useHistory();
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   useEffect(() => {
     socket = io(ENDPOINT);

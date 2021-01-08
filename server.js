@@ -57,7 +57,6 @@ io.on("connection", (socket) => {
     }
     const session = getSession(room);
     socket.join(session.roomCode);
-    console.log(socket.rooms);
     io.to(session.roomCode).emit("roomUsers", getRoomUsers(session.roomCode));
   });
 
@@ -77,7 +76,7 @@ io.on("connection", (socket) => {
   socket.on("addResults", (info) => {
     const session = getSession(info.roomCode);
     session.results = info.data;
-    socket.to(session.roomCode).emit("ret", session.results);
+    socket.to(session.roomCode).emit("userResults", session.results);
   });
 
   socket.on("join", (room) => {

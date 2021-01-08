@@ -3,14 +3,13 @@ import TinderCard from "react-tinder-card";
 import axios from "axios";
 
 import "./ShowCards.css";
-import { ShowContext } from "../../context/ShowContext";
 
 const ShowCards = (props) => {
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
 
-  const { roomCode, result } = props;
+  const { result, roomCode } = props;
 
   useEffect(() => {
     setDisplayedResults(result);

@@ -1,12 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import io from "socket.io-client";
-
-let socket;
-const ENDPOINT =
-  process.env.NODE_ENV === "production"
-    ? window.location.hostname
-    : "localhost:5000";
 
 const UserContext = createContext({});
 
