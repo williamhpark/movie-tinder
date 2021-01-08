@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import axios from "axios";
 
@@ -9,18 +9,18 @@ const ShowCards = (props) => {
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
 
-  const { result, roomCode } = props;
+  const { results, roomCode } = props;
 
   useEffect(() => {
-    setDisplayedResults(result);
-  }, [result]);
+    setDisplayedResults(results);
+  }, [results]);
 
   const swiped = async (direction, id) => {
     try {
       setLastDirection(direction);
 
       // Get data of result with matching Netflix ID
-      let swipedShowData = result.find((show) => show.netflixid === id);
+      let swipedShowData = results.find((show) => show.netflixid === id);
       swipedShowData.roomid = roomCode;
 
       if (direction === "right") {
@@ -35,10 +35,10 @@ const ShowCards = (props) => {
     }
   };
 
-  let resultsArr = displayedResults;
+  let tempResults = displayedResults;
   const outOfFrame = (id) => {
-    resultsArr = resultsArr.filter((show) => show.netflixid !== id);
-    setDisplayedResults(resultsArr);
+    tempResults = tempResults.filter((show) => show.netflixid !== id);
+    setDisplayedResults(tempResults);
   };
 
   return (
@@ -46,7 +46,7 @@ const ShowCards = (props) => {
       {!displayedResults || displayedResults.length === 0 ? (
         <h3 className="cards__end-message">End of results</h3>
       ) : (
-        result.map((show) => {
+        results.map((show) => {
           return (
             <TinderCard
               className="cards--swipe"
