@@ -6,6 +6,7 @@ import { UserContext } from "../../context/UserContext";
 
 const HomePage = (props) => {
   const { userData } = useContext(UserContext);
+
   const history = useHistory();
 
   useEffect(() => {

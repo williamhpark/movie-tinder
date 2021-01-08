@@ -6,25 +6,22 @@ import "./ShowCards.css";
 import { ShowContext } from "../../context/ShowContext";
 
 const ShowCards = (props) => {
-  const { showData } = useContext(ShowContext);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [lastDirection, setLastDirection] = useState();
   const [error, setError] = useState();
 
-  const { roomCode } = props;
+  const { roomCode, result } = props;
 
   useEffect(() => {
-    setDisplayedResults(showData.results);
-  }, [showData.results]);
+    setDisplayedResults(result);
+  }, [result]);
 
   const swiped = async (direction, id) => {
     try {
       setLastDirection(direction);
 
       // Get data of result with matching Netflix ID
-      let swipedShowData = showData.results.find(
-        (show) => show.netflixid === id
-      );
+      let swipedShowData = result.find((show) => show.netflixid === id);
       swipedShowData.roomid = roomCode;
 
       if (direction === "right") {
@@ -50,7 +47,7 @@ const ShowCards = (props) => {
       {!displayedResults || displayedResults.length === 0 ? (
         <h3 className="cards__end-message">End of results</h3>
       ) : (
-        showData.results.map((show) => {
+        result.map((show) => {
           return (
             <TinderCard
               className="cards--swipe"

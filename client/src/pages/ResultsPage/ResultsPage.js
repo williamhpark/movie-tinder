@@ -14,6 +14,8 @@ let socket;
 const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(undefined);
+  const [arr, setArr] = useState([]);
+  const [userArr, setUserArr] = useState([]);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
   const ENDPOINT =
@@ -26,10 +28,8 @@ const ResultsPage = ({ location }) => {
     setIsLoader(true);
 
     // Removes any results that may be leftover from previous page renders
-    setShowData((prevData) => ({
-      ...prevData,
-      results: [],
-    }));
+    setArr([]);
+    setUserArr([]);
 
     const apiUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi";
     // Country ID for Canada
@@ -81,20 +81,19 @@ const ResultsPage = ({ location }) => {
                     rating: item.rating === "" ? 0 : parseFloat(item.rating), // Set to 0 if empty string, else convert rating from string to float
                   });
                 }
-                setShowData((prevData) => ({
-                  ...prevData,
-                  results: [
-                    // Add the new results while removing any duplicates
+                setArr((prevData) =>
+                  // Add the new results while removing any duplicates
+                  [
                     ...new Map(
-                      [...prevData.results, ...resultsArr].map((item) => [
+                      [...prevData, ...resultsArr].map((item) => [
                         item["netflixid"],
                         item,
                       ])
                     ).values(),
                   ].sort((a, b) => {
                     return a.rating - b.rating; // Sort the results in order of IMDB rating
-                  }),
-                }));
+                  })
+                );
               })
               .catch((error) => {
                 console.error(error);
@@ -134,19 +133,15 @@ const ResultsPage = ({ location }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT);
+    socket.emit("join", roomCode);
     if (creator === "true") {
-      let data = showData.results;
+      let data = arr;
       socket.emit("addResults", { data, roomCode });
-    } else {
-      socket.emit("getResults", roomCode);
-      socket.on("returnResults", (res) => {
-        setShowData((prevData) => ({
-          ...prevData,
-          results: res,
-        }));
-      });
     }
-  }, [ENDPOINT, showData.results]);
+    socket.on("ret", (res) => {
+      setUserArr(res);
+    });
+  }, [arr]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -161,14 +156,18 @@ const ResultsPage = ({ location }) => {
 
   return (
     <div className="page results-page">
-      {isLoader || !showData.results || showData.results.length === 0 ? (
+      {isLoader || (!arr && !userArr) ? (
         <FullPageLoader />
       ) : (
         <>
           <h3 className="results-page__swipe-instructions">
             Swipe right to accept and left to reject
           </h3>
-          <ShowCards roomCode={roomCode} creator={creator} />
+          {creator === "true" ? (
+            <ShowCards roomCode={roomCode} creator={creator} result={arr} />
+          ) : (
+            <ShowCards roomCode={roomCode} creator={creator} result={userArr} />
+          )}
           <form className="results-page__done-button form" onSubmit={submit}>
             <input type="submit" value="I'm done swiping!" />
           </form>
