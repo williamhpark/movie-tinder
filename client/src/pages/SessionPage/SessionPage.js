@@ -8,16 +8,16 @@ import "./SessionPage.css";
 import OptionSelect from "../../components/OptionSelect/OptionSelect";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const SessionPage = ({ location }) => {
   const { userData } = useContext(UserContext);
   const [ready, setReady] = useState(false);
   const { creator, roomCode } = queryString.parse(location.search);
   const history = useHistory();
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   let room;
 

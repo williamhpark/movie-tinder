@@ -10,16 +10,16 @@ import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import ShowCards from "../../components/ShowCards/ShowCards";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const ResultsPage = ({ location }) => {
   const { showData, setShowData } = useContext(ShowContext);
   const [isLoader, setIsLoader] = useState(undefined);
   const history = useHistory();
   const { creator, roomCode } = queryString.parse(location.search);
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   const fetchData = async (genreIds, mediaType) => {
     // Show the page loader
@@ -137,7 +137,12 @@ const ResultsPage = ({ location }) => {
     if (creator === "true") {
       let data = showData.results;
       socket.emit("addResults", { data, roomCode });
-    } else {
+    }
+  }, [ENDPOINT, showData.results]);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+    if (creator === "false") {
       socket.emit("getResults", roomCode);
       socket.on("returnResults", (res) => {
         setShowData((prevData) => ({
@@ -146,7 +151,7 @@ const ResultsPage = ({ location }) => {
         }));
       });
     }
-  }, [ENDPOINT, showData.results]);
+  }, [ENDPOINT]);
 
   const submit = async (e) => {
     e.preventDefault();

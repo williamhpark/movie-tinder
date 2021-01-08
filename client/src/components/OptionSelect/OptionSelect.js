@@ -9,6 +9,10 @@ import TypeSelect from "../TypeSelect/TypeSelect";
 import GenreSelect from "../GenreSelect/GenreSelect";
 
 let socket;
+const ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? window.location.hostname
+    : "localhost:5000";
 
 const OptionSelect = (props) => {
   const { showData, setShowData } = useContext(ShowContext);
@@ -17,10 +21,6 @@ const OptionSelect = (props) => {
   const [keyword, setKeyword] = useState("");
   const [startDisabled, setStartDisabled] = useState(true);
   const history = useHistory();
-  const ENDPOINT =
-    process.env.NODE_ENV === "production"
-      ? window.location.hostname
-      : "localhost:5000";
 
   const fetchGenres = async () => {
     const options = {
@@ -61,7 +61,7 @@ const OptionSelect = (props) => {
     setShowData({ isMovie: false, isSeries: false, selectedGenres: [] });
 
     fetchGenres();
-  }, []);
+  }, [ENDPOINT]);
 
   useEffect(() => {
     // The room creator can only click start if they have selected a media type and at least one genre
