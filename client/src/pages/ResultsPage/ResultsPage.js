@@ -164,9 +164,9 @@ const ResultsPage = ({ location }) => {
             Swipe right to accept and left to reject
           </h3>
           {creator === "true" ? (
-            <ShowCards roomCode={roomCode} result={creatorResults} />
+            <ShowCards roomCode={roomCode} results={creatorResults} />
           ) : (
-            <ShowCards roomCode={roomCode} result={userResults} />
+            <ShowCards roomCode={roomCode} results={userResults} />
           )}
           <form className="results-page__done-button form" onSubmit={submit}>
             <input type="submit" value="I'm done swiping!" />

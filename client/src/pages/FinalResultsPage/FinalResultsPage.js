@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./FinalResultsPage.css";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 
 const FinalResultsPage = (props) => {
   const [acceptedShows, setAcceptedShows] = useState([]);
@@ -114,7 +115,9 @@ const FinalResultsPage = (props) => {
 
   return (
     <div className="page final-results-page">
-      {recommendedIndex < numberAcceptedShows ? (
+      {acceptedShows.length === 0 ? (
+        <FullPageLoader />
+      ) : recommendedIndex < numberAcceptedShows ? (
         <div>
           <h2 className="final-results-page__header">
             Based on your group's selections, your recommended movie/show is:

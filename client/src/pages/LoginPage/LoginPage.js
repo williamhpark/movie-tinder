@@ -39,6 +39,8 @@ const LoginPage = () => {
   useEffect(() => {
     // Reset the room ID
     localStorage.setItem("room-id", "");
+
+    setUserData({ token: undefined, user: undefined });
   }, []);
 
   return (

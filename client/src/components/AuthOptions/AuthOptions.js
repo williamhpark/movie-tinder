@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import "./AuthOptions.css";
@@ -6,6 +6,7 @@ import { UserContext } from "../../context/UserContext";
 
 const AuthOptions = (props) => {
   const { userData, setUserData } = useContext(UserContext);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const history = useHistory();
 
@@ -22,9 +23,17 @@ const AuthOptions = (props) => {
     history.push("/");
   };
 
+  useEffect(() => {
+    if (userData.user) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [userData.user]);
+
   return (
     <nav className="auth-options">
-      {userData.user ? (
+      {loggedIn ? (
         <button onClick={logout}>Logout</button>
       ) : (
         <>
