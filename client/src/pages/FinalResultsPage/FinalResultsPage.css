@@ -1,4 +1,6 @@
 .final-results-page {
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
